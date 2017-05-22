@@ -1,0 +1,31 @@
+CAAO Internship Log: Summer 2017
+
+5/17/2017: 7 hours
+Today, I got introduced to what I will be doing and who I’ll be working with. I also got introduced to my work space and some of the
+equipment I will be working with. I also had timesheet difficulties, so I spent a fair amount of time today trying to figure out how I can
+put in my hours online (looking for future correspondence concerning online timesheet). I also picked up some equipment: monitor from Kim,
+keyboard and mouse from dude on 3rd floor. The first two tasks I was given was to download the software for the Basler acA640 -750 µm
+camera and figure out how to use it, and to read the book “Handbook of CCD Astronomy” cover to cover. I downloaded the software for the
+camera and took a few videos/pictures with it. I also went through the first 3 chapters of the handbook and took notes on it. Tomorrow, I
+want to take notes on the next two chapters of the handbook (4 and 5), and play around with the software for the camera more and start
+working on a write up for that. I also want to resolve my timesheet difficulties.
+
+5/18/2017: 8 hours
+Inputted hours today on UAccess. Also read/took notes through chapters 4 and 5 of the handbook. Started looking at the Basler camera
+features and cataloged the different features I could find. Made notes on what program I am supposed to make and started to program in C to
+reach my goals. Read the SDK guide for the Basler camera so I could program this correctly. Tomorrow, I want to finish taking notes on the
+handbook and continue programming in C.
+
+5/19/2017: 8 hours
+Finished working through the handbook and taking notes. Set up Visual Studio on my laptop, along with fixing environment variables and
+removing programs that could mess with my coding, and tried to import the sample projects with it. Had to download Windows SDK 8.1 to try
+and build the programs. My goals for next week include starting to actually code the program I want to use with the Basler program, read
+through the handbook one more time, and to start learning C++.
+
+5/22/2017: 8 hours
+Reinstalled/Modified the Visual Studio installation and got the building of the sample C++ files to work with the camera. Quickly learned
+basic concepts of C++ in order to apply those concepts to my code writing. Combed through the API in order to view what exactly I have to
+do in order to achieve my goals for programming. Focused exclusively on trying t find out how to edit the exposure time today; got a few
+leads but nothing spectacular yet. Tomorrow, I want to make more headway on the camera exposure problem and begin planning my code writing. 
+Also, I wan to change my hours log in the GitHub page to a markdown format.
+
