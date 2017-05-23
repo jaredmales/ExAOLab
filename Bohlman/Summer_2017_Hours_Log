@@ -29,3 +29,12 @@ do in order to achieve my goals for programming. Focused exclusively on trying t
 leads but nothing spectacular yet. Tomorrow, I want to make more headway on the camera exposure problem and begin planning my code writing. 
 Also, I want to change my hours log in the GitHub page to a markdown format.
 
+5/23/2017: 8 hours
+Mostly worked in the API for pylon today. Figured out that I want to make a USB Instant Camera object, and implemented that into the start 
+of my code. Right now, the code is only for grabbing a single image, and hasn’t been tested. It also was written quite choppily, so it has 
+not been doxygen-ized. I also got a tour of the lab today, specifically looking at Beast (GPU problems?) and Corona. Tomorrow, my goals are
+finish writing and testing my first C++ program written specifically for the USB camera, and then look through the API and see what I have 
+to do in order to start adapting some of my goals for the camera software. I also want to use doxygen to correctly comment the sample 
+program I have written once it’s done.
+
+
