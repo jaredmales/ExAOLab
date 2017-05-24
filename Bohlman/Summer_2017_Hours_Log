@@ -37,4 +37,11 @@ finish writing and testing my first C++ program written specifically for the USB
 to do in order to start adapting some of my goals for the camera software. I also want to use doxygen to correctly comment the sample 
 program I have written once it’s done.
 
+5/24/2017: 8 hours
+Coded exclusively today. Tested my initial sample program, and it worked for all two test cases (camera connected, camera unconnected). I
+tried to work on the three assignments set out for me. In terms of exposure, I tried to set the value of the parameter, but that is 
+throwing an error in the program. I also have exported the output of the camera in the tiff format, so I am going to want to learn how 
+to change that to fits and also keep the image and store it in the memory. I also did not get to format my code in the doxygen format, 
+so I must do that soon. 
+
 
