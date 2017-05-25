@@ -44,4 +44,16 @@ throwing an error in the program. I also have exported the output of the camera 
 to change that to fits and also keep the image and store it in the memory. I also did not get to format my code in the doxygen format, 
 so I must do that soon. 
 
+5/25/2017: 6 hours
+Finished writing the exposure setting part of the software I’m working on for the Basler camera. Tested it, and I believe it works, 
+therefore, I have achieved one of the goals for this software. I also started researching ways to use fits with C++, and looked at CCFits
+and FITS++. Finally, I started viewing at how I am going to store the data of the picture in memory. I shall work more on the last two 
+goals next week, when I can ask Jared questions about the exposure, any wrappers/packages I should use, and whatnot. I also started 
+reading up on the doxygen notation, and started formatting my code that way, so I will need to finish that next week.
+
+Questions to ask: What range of exposures can be used? Same as software?
+What packages can we use for fits?
+How exactly should I store the data in memory? Image? Data? Etc.
+
+
 
