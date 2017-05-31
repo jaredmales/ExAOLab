@@ -51,28 +51,17 @@ and FITS++. Finally, I started viewing at how I am going to store the data of th
 goals next week, when I can ask Jared questions about the exposure, any wrappers/packages I should use, and whatnot. I also started 
 reading up on the doxygen notation, and started formatting my code that way, so I will need to finish that next week.
 
-5/30/2017: 5 hours (Thus far) + 2 hours
+5/30/2017: 5 hours (Thus far) + 2 hours (Later)
 Worked more with Doxygen installation and my code. realized that I need to take my code out of the main function for my doxygen commenting 
 to work. Started to install cfitsio and cmake in order to work with fits files in my code. Might finish installation of those two tonight, 
 as I have to leave early.
 Edit: Worked on installations for cmake and cfitsio. WIll continue tomorrow.
 
 5/31/2017: 7 hours
-Worked more with Doxygen installation and my code. realized that I need to take my code out of the main function for my doxygen commenting 
-to work. Started to install cfitsio and cmake in order to work with fits files in my code. Might finish installation of those two tonight, 
-as I have to leave early.
+Today, I worked on the installation for cmake and cfitsio to get them to work, which was actually a major pain in the ass. I still couldn't 
+get an example program for cfitsio to work, which I'll have to continue with tomorrow. Getting compilation errors. Ugh.
 
 6/01/2017: 8 hours
-Worked more with Doxygen installation and my code. realized that I need to take my code out of the main function for my doxygen commenting 
-to work. Started to install cfitsio and cmake in order to work with fits files in my code. Might finish installation of those two tonight, 
-as I have to leave early.
+
 
 6/02/2017: 8 hours
-Worked more with Doxygen installation and my code. realized that I need to take my code out of the main function for my doxygen commenting 
-to work. Started to install cfitsio and cmake in order to work with fits files in my code. Might finish installation of those two tonight, 
-as I have to leave early.
-
-Questions to ask: What range of exposures can be used? Same as software?
-How exactly should I store the data in memory? Image? Data? Etc.
-
-
