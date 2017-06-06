@@ -72,5 +72,10 @@ trying to reformat the tiff image from the basler camera to a fits file and to s
 file.
 
 6/05/2017: 8 hours
-Honestly could not find a way to directly transfer from memory to a fits file from the basler image object. Therefore, what I started to 
-do was to try and convert the tiff image to a fits image.
+Honestly could not find a way to directly transfer from memory to a fits file from the basler image object. Asked for help, and discovered
+some shortcomings of my code in terms of how fits expects image data to be read in. Fixed the code and will start debugging tomorrow, as the
+program doesn't produce a readable output.
+
+6/6/2017: 6 hours
+Debugged the program today, noticed that there was a method that had a non zero exit code, so tried ti debug and solve that. Keep on getting 
+an exception somewhere, so tomorrow, I will look at this exception further and examine why it's affecting my code.
