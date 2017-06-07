@@ -82,7 +82,7 @@ Details.
 #include <GenApi/IFloat.h>
 #include "fitsio.h"
 #include <pylon/PixelData.h>
-
+#include <iostream>
 using namespace Pylon;
 using namespace std;
 static const uint32_t c_countOfImagesToGrab = 1;
@@ -90,7 +90,8 @@ static const uint32_t c_countOfImagesToGrab = 1;
 int main(int argc, char* argv[])
 {
 	int exitCode = 0;
-
+	//seperate std from io
+	std::ios_base::sync_with_stdio(false);
 	// Before using any pylon methods, the pylon runtime must be initialized. 
 	PylonInitialize();
 	try
@@ -102,6 +103,7 @@ int main(int argc, char* argv[])
 		cout << "Using device " << camera.GetDeviceInfo().GetModelName() << endl;
 		int exposure;
 		cin >> exposure;
+		std::cin.ignore(std::cin.rdbuf()->in_avail());
 
 		// Start the grabbing of c_countOfImagesToGrab images.
 		// The camera device is parameterized with a default configuration which
@@ -124,7 +126,7 @@ int main(int argc, char* argv[])
 			{
 #ifdef PYLON_WIN_BUILD
 				// Display the grabbed image.
-				Pylon::DisplayImage(1, ptrGrabResult);
+				//Pylon::DisplayImage(1, ptrGrabResult);
 				CImagePersistence::Save(ImageFileFormat_Tiff, "GrabbedImage.tiff", ptrGrabResult);
 				CPylonImage image;
 				// Initializes the image object with the buffer from the grab result.
@@ -139,50 +141,38 @@ int main(int argc, char* argv[])
 				fitsfile *fptr;       /* pointer to the FITS file; defined in fitsio.h */
 				int width = (int) ptrGrabResult->GetWidth();
 				int height = (int) ptrGrabResult->GetHeight();
-				int status, ii, jj;
-				long  fpixel = 1, naxis = 2, nelements;
+				int ii, jj;
+				long  fpixel = 1, naxis = 2;
 				long naxes[2] = { width, height }; 
-
-				cout << width << endl;
-				cout << height << endl;
 
 				int* array = new int[width*height];
 
-				int fits1 = fits_create_file(&fptr,"!testfile.fits", &exitCode);   /* create new file */
-				cout << fits1 << endl;
-				Sleep(5000);
-
+				/* create new file */
+				fits_create_file(&fptr,"!testfile.fits", &exitCode);   
 				/* Create the primary array image (16-bit short integer pixels */
-				int fits2 = fits_create_img(fptr, LONG_IMG, naxis, naxes, &status);
-				cout << fits2 << endl;
-				Sleep(5000);
-
+				fits_create_img(fptr, LONG_IMG, naxis, naxes, &exitCode);
 				/* Write a keyword; must pass the ADDRESS of the value */
 				fits_update_key(fptr, TLONG, "EXPOSURE", &exposure,
-					"Total Exposure Time", &status);
-
+					"Total Exposure Time", &exitCode);
 				/* Initialize the values in the image with a linear ramp function */
+				/*
 				for (jj = 0; jj < naxes[1]; jj++)
 					for (ii = 0; ii < naxes[0]; ii++)
-						array[jj*width + ii] = (int)image.GetPixelData(jj, ii).PixelDataType_YUV;
-						//cout << "hey!" << endl;
+						array[jj*width + ii] = (int)image.GetPixelData(ii, jj).Data.Mono;
+				*/
+				const uint8_t *pImageBuffer = (uint8_t *)ptrGrabResult->GetBuffer();
+				for (jj = 0; jj < naxes[1]; jj++)
+					for (ii = 0; ii < naxes[0]; ii++)
+						array[jj*width + ii] = (int)pImageBuffer[jj*width + ii];
 
-				nelements = naxes[0] * naxes[1];          /* number of pixels to write */
-				Sleep(5000);
-														  /* Write the array of integers to the image */
-				int fits3 = fits_write_img(fptr, TSHORT, fpixel, nelements, array, &status);
-				Sleep(5000);
-				cout << fits3 << endl;
-				Sleep(5000);
-
-				fits_close_file(fptr, &status);            /* close the file */
-
-				fits_report_error(stderr, status);  /* print out any error messages */
+				/* Write the array of integers to the image */
+				fits_write_img(fptr, TSHORT, fpixel, width*height, array, &exitCode);
+				fits_close_file(fptr, &exitCode);            /* close the file */
+				fits_report_error(stderr, exitCode);  /* print out any error messages */
 			}
 			else
 			{
 				cout << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl;
-				Sleep(5000);
 			}
 		}
 	}
@@ -191,14 +181,12 @@ int main(int argc, char* argv[])
 		// Error handling.
 		cerr << "An exception occurred." << endl
 			<< e.GetDescription() << endl;
-		Sleep(5000);
 		exitCode = 1;
 	}
-	
 	// Comment the following two lines to disable waiting on exit.
 	cerr << endl << "Press Enter to exit." << endl;
 	while (cin.get() != '\n');
-
 	// Releases all pylon resources. 
 	PylonTerminate();
+	return exitCode;
 }
