@@ -55,27 +55,41 @@ reading up on the doxygen notation, and started formatting my code that way, so 
 Worked more with Doxygen installation and my code. realized that I need to take my code out of the main function for my doxygen commenting 
 to work. Started to install cfitsio and cmake in order to work with fits files in my code. Might finish installation of those two tonight, 
 as I have to leave early.
-Edit: Worked on installations for cmake and cfitsio. WIll continue tomorrow.
+Later Edit: Worked on installations for cmake and cfitsio. WIll continue tomorrow.
 
 5/31/2017: 7 hours
-Today, I worked on the installation for cmake and cfitsio to get them to work, which was actually a major pain in the ass. I still couldn't 
-get an example program for cfitsio to work, which I'll have to continue with tomorrow. Getting compilation errors. Ugh.
+Today, I worked on the installation for cmake and cfitsio to get them to work, which was certainly difficult. I believe cmake installed 
+correctly, but I might have to do a reinstall just to make sure. I still couldn't get an example program for cfitsio to work, so I'll 
+have to continue with that tomorrow. I am getting compilation errors, which I think is in part due to linking libraries/headers incorrectly.
 
 6/01/2017: 8 hours
-Today, I worked on repairing the cfitsio installation. Eventually discovered a workaround involving the dll for cfitsio being included in 
-every project library with VS. The program ended up working, so I wanted to start repurposing the example fits program from cfitsio to my 
-own program. 
+Today, I worked on repairing the cmake/cfitsio installation. I reinstalled cmake so hopefully that fixed any problems with that program. In 
+order to get the cfitsio example program to work, I eventually discovered a workaround involving the .dll for cfitsio being included in every
+project library with VS. Because the program ended up working after that and including cfitsio libraries, I wanted to start repurposing the 
+example fits program from cfitsio to my own program. Therefore I started reading the programmers guide to cfitsio to help with that.
 
 6/02/2017: 8 hours
-Added the cfitsio program to my own, including the painful process of adding libraries, dll files, and configuring the project. Started 
-trying to reformat the tiff image from the basler camera to a fits file and to see if I could directly turn the basler image into a fits 
-file.
+Worked on adding the cfitsio program to my own, including the painful process of adding libraries, dll files, and configuring the project. 
+However, the program only outputs a .tiff file thus far, but I want a fits file from the program. Therefore, I started trying to reformat the
+image file in memory to make a fits file instead. Investigated the Basler SDK API in order to find how to get data from each pixel.
 
 6/05/2017: 8 hours
-Honestly could not find a way to directly transfer from memory to a fits file from the basler image object. Asked for help, and discovered
-some shortcomings of my code in terms of how fits expects image data to be read in. Fixed the code and will start debugging tomorrow, as the
-program doesn't produce a readable output.
+Honestly could not find a way to directly transfer data from memory to a fits file from the basler image object. Asked for help, and 
+discovered some shortcomings of my code in terms of how fits expects image data to be read into a file. Fixed the code and will start 
+debugging tomorrow, as the program doesn't produce a readable output.
 
 6/6/2017: 6 hours
-Debugged the program today, noticed that there was a method that had a non zero exit code, so tried ti debug and solve that. Keep on getting 
-an exception somewhere, so tomorrow, I will look at this exception further and examine why it's affecting my code.
+Debugged the program today, noticed that there was a method that had a non zero exit code, so I tried to find the cause of this. Kept on 
+getting an error somewhere in the code due to null pointers/mistakes when making the fits file, so tomorrow, I will look at these errors
+further and examine why it's affecting my code.
+
+6/6/2017: 6 hours
+Worked on debugging the program today, noticed that there was a method that had a non zero exit code, so I tried to find the cause of this.
+Kept on 
+getting an error somewhere in the code due to null pointers/mistakes when making the fits file, so tomorrow, I will look at these errors
+further and examine why it's affecting my code.
+
+6/7/2017: 8 hours
+Finished debugging the program today, realized that the errors were wonky variables, cleaning up io stream of stdin, and an error with array 
+parameters and behaviors when reading in data. Program works and outputs a viewable file, however, the outputted fits file does not match
+outputted tiff file, so I needed to get help with that.
