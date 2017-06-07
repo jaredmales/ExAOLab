@@ -83,12 +83,6 @@ Debugged the program today, noticed that there was a method that had a non zero 
 getting an error somewhere in the code due to null pointers/mistakes when making the fits file, so tomorrow, I will look at these errors
 further and examine why it's affecting my code.
 
-6/6/2017: 6 hours
-Worked on debugging the program today, noticed that there was a method that had a non zero exit code, so I tried to find the cause of this.
-Kept on 
-getting an error somewhere in the code due to null pointers/mistakes when making the fits file, so tomorrow, I will look at these errors
-further and examine why it's affecting my code.
-
 6/7/2017: 8 hours
 Finished debugging the program today, realized that the errors were wonky variables, cleaning up io stream of stdin, and an error with array 
 parameters and behaviors when reading in data. Program works and outputs a viewable file, however, the outputted fits file does not match
