@@ -87,3 +87,8 @@ further and examine why it's affecting my code.
 Finished debugging the program today, realized that the errors were wonky variables, cleaning up io stream of stdin, and an error with array 
 parameters and behaviors when reading in data. Program works and outputs a viewable file, however, the outputted fits file does not match
 outputted tiff file, so I needed to get help with that.
+
+6/8/2017: 8 hours
+Worked with the SDK in finding the solution to my problem, which is the wrong kind of data is being transferred to the fits file created, so 
+the raw image does not match the fits file. Couldn't find much in the SDK, though. I cleaned up my code, updated GitHub, and updated my 
+computer (by accident). In the coming days, I will need help on what to do here. What data do I pull from the image to put on the fits file?
