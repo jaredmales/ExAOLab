@@ -83,6 +83,7 @@ Details.
 #include "fitsio.h"
 #include <pylon/PixelData.h>
 #include <iostream>
+#include <pylon/GrabResultData.h>
 using namespace Pylon;
 using namespace std;
 static const uint32_t c_countOfImagesToGrab = 1;
@@ -106,10 +107,11 @@ int main(int argc, char* argv[])
 		{
 			camera.Basler_UsbCameraParams::CUsbCameraParams_Params::ExposureTime.SetValue(exposure);   //Sets the exposure of the next camera shot.
 			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  // Wait for an image and then retrieve it. A timeout of 5000 ms is used.
-
 			if (ptrGrabResult->GrabSucceeded())  // Image grabbed successfully?
 			{
 #ifdef PYLON_WIN_BUILD
+				uint8_t *pImageBuffer = (uint8_t *)ptrGrabResult->GetBuffer();
+				cout << "Gray value of first pixel: " << (uint32_t)pImageBuffer[0] << endl << endl;
 				//Pylon::DisplayImage(1, ptrGrabResult);  // Display the grabbed image.
 				CImagePersistence::Save(ImageFileFormat_Tiff, "GrabbedImage.tiff", ptrGrabResult);
 				CPylonImage image;
@@ -132,12 +134,13 @@ int main(int argc, char* argv[])
 					for (ii = 0; ii < naxes[0]; ii++)
 						array[jj*width + ii] = (int)image.GetPixelData(ii, jj).Data.Mono;
 				*/
-				const uint8_t *pImageBuffer = (uint8_t *)ptrGrabResult->GetBuffer();
+				
+				
 				for (jj = 0; jj < naxes[1]; jj++)
 					for (ii = 0; ii < naxes[0]; ii++)
-						array[jj*width + ii] = (int)pImageBuffer[jj*width + ii];
-
-				fits_write_img(fptr, TSHORT, fpixel, width*height, array, &exitCode); // Write the array of integers to the image
+						array[jj*width + ii] = (uint32_t)pImageBuffer[jj*width + ii];
+				
+				fits_write_img(fptr, TLONG, fpixel, width*height, array, &exitCode); // Write the array of integers to the image
 				fits_close_file(fptr, &exitCode);            /* close the file */
 				fits_report_error(stderr, exitCode);  /* print out any error messages */
 			}
