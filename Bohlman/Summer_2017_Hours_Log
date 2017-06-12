@@ -92,3 +92,6 @@ outputted tiff file, so I needed to get help with that.
 Worked with the SDK in finding the solution to my problem, which is the wrong kind of data is being transferred to the fits file created, so 
 the raw image does not match the fits file. Couldn't find much in the SDK, though. I cleaned up my code, updated GitHub, and updated my 
 computer (by accident). In the coming days, I will need help on what to do here. What data do I pull from the image to put on the fits file?
+
+6/12/2017: 8 hours
+Over the weekend, I altered my code, so I tested that today.
