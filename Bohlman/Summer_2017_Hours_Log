@@ -96,11 +96,11 @@ computer (by accident). In the coming days, I will need help on what to do here.
 6/12/2017: 8 hours
 Over the weekend, I altered my code, so I tested that today. Images still were not matching up, so I tried to continue testing and reading the 
 SDK to see if there was anything that I was missing. Got suggestions from Jared to use the image buffer in copying data and relooking at the 
-nested for loops governing the transfer of data. Implemented that, but recieved broken programs. Will work more on that/test tomorrow.
+nested for loops governing the transfer of data. Implemented that, but received broken programs. Will work more on that/test tomorrow.
 
 6/13/2017: 8 hours
 Finished changing my code and getting the pixel data from the buffer instead of using the getpixeldata function. Tested program, and the gray 
-values for all of the pixels matched up, and was told that my code was actually working, because the fits image was altered due to strech and
+values for all of the pixels matched up, and was told that my code was actually working, because the fits image was altered due to stretch and
 ratio and whatnot. Therefore, the three main goals I had for this program (capture an image with an arbitrary exposure time, store image in 
 memory, and write image to a fits file) are completed, meaning I have finished this assignment's goals. I started cleaning up my code, as now, 
 I am going to have to put everything into different functions to get the functionality and ease of use of this code up to par with what Jared
