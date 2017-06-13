@@ -94,9 +94,9 @@ the raw image does not match the fits file. Couldn't find much in the SDK, thoug
 computer (by accident). In the coming days, I will need help on what to do here. What data do I pull from the image to put on the fits file?
 
 6/12/2017: 8 hours
-Over the weekend, I altered my code, so I tested that today. Images still were not matching up, so I tried to ontinue testing and reading the 
+Over the weekend, I altered my code, so I tested that today. Images still were not matching up, so I tried to continue testing and reading the 
 SDK to see if there was anything that I was missing. Got suggestions from Jared to use the image buffer in copying data and relooking at the 
-nested for loops governing the transer of data. Implemented that, but kept on getting broken programs. Will work more on that/test tomorrow.
+nested for loops governing the transfer of data. Implemented that, but recieved broken programs. Will work more on that/test tomorrow.
 
 6/13/2017: 8 hours
 Finished changing my code and getting the pixel data from the buffer instead of using the getpixeldata function. Tested program, and the gray 
