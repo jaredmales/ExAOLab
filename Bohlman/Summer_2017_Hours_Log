@@ -105,3 +105,14 @@ ratio and whatnot. Therefore, the three main goals I had for this program (captu
 memory, and write image to a fits file) are completed, meaning I have finished this assignment's goals. I started cleaning up my code, as now, 
 I am going to have to put everything into different functions to get the functionality and ease of use of this code up to par with what Jared
 wants.
+
+6/14/2017: 8 hours
+Finished separating the program into different functions while preserving the core functionalities of the program. Tested to make sure I 
+didn’t mess it up, and it worked fine. Will have to ask Jared to see if there is anything else I must do in terms of separating the program 
+out. Also finished the doxygen notation of the program. Again, I will have to see if Jared approves of the doxygen work I have done, and what
+I need to change.
+
+6/15/2017: 6 hours
+Header files with doxygen are being weird, so I tried to diagnose the problem. Couldn’t, so I’ll have to take a look at that later.
+Reconfigured my program so that I don’t need an array to read in the values, I just need the pointer to the image buffer. Program kept
+crashing (!!) until I fixed it by messing with the values of the byte size in the fits functions. Uploaded everything to github.
