@@ -1,67 +1,56 @@
 /*! \file usb_grab.cpp
 \brief A documented file that reads from a camera
-
 Reads from a usb camera and delivers info.
 Exposure can be adjusted.
 */
 
 /*! \headerfile stdafx.h
 \brief A header file that eases compilation with Visual Studio
-
 A precompiled header required in VisualStudio that really helps speed up compilation time of the program.
 */
 
 /*! \headerfile pylon/PylonIncludes.h
 \brief A header file that reads in Pylon API
-
 Details.
 */
 
 /*! \headerfile pylon/PylonGUI.h
 \brief A header file
-
 Details.
 */
 
 /*! \headerfile pylon/usb/BaslerUsbInstantCamera.h
 \brief A header file
-
 Details.
 */
 
 /*! \headerfile pylon/usb/_BaslerUsbCameraParams.h
 \brief A header file
-
 Details.
 */
 
 /*! \headerfile GenApi/IFloat.h
 \brief A header file
-
 Details.
 */
 
 /*! \namespace Pylon
 \brief Namespace for using pylon objects
-
 Details.
 */
 
 /*! \namespace std
 \brief Namespace for using cout.
-
 Details.
 */
 
 /*! \var c_countOfImagesToGrab
 \brief Number of images to grab
-
 Details.
 */
 
 /*! \var exitCode
 \brief what code to exit with, initialized at 0
-
 Details.
 */
 
@@ -113,21 +102,20 @@ int exitCode = 0;
 
 void write_fits(int exposure, int width, int height, uint8_t *pImageBuffer) {
 	fitsfile *fptr;       ///Creates pointer to the FITS file; defined in fitsio.h
-	
-	int ii, jj;
 	long  fpixel = 1, naxis = 2;
 	long naxes[2] = { width, height };
-	int* array = new int[width*height];
 
 	fits_create_file(&fptr, "!testfile.fits", &exitCode);   ///Creates new fits file
-	fits_create_img(fptr, LONG_IMG, naxis, naxes, &exitCode);  ///Creates the primary array image
+	fits_create_img(fptr, BYTE_IMG, naxis, naxes, &exitCode);  ///Creates the primary array image
 	fits_update_key(fptr, TLONG, "EXPOSURE", &exposure, "Total Exposure Time", &exitCode); ///Writes exprosure keyword; must pass the ADDRESS of the value
-
-	for (jj = 0; jj < naxes[1]; jj++)
-		for (ii = 0; ii < naxes[0]; ii++)
-			array[jj*width + ii] = (uint32_t)pImageBuffer[jj*width + ii];  ///Applies image buffer pixel values to an array representing the image.
-
-	fits_write_img(fptr, TLONG, fpixel, width*height, array, &exitCode); /// Writes the array of pixel values to the image
+	/*
+	int ii, jj;
+	for (jj = 0; jj < naxes[1]; jj++)										///Applies image buffer pixel values to an array representing 
+		for (ii = 0; ii < naxes[0]; ii++)									the image
+			array[jj*width + ii] = (uint32_t)pImageBuffer[jj*width + ii];  
+	fits_write_img(fptr, TBYTE, fpixel, width*height, array, &exitCode);   /// Writes the array of pixel values to the image
+	*/
+	fits_write_img(fptr, TBYTE, fpixel, width*height, pImageBuffer, &exitCode); /// Writes pointer values to the image
 	fits_close_file(fptr, &exitCode);            /// Closes the fits file
 	fits_report_error(stderr, exitCode);  /// Prints out any fits error messages
 }
@@ -144,7 +132,7 @@ void build_image(CGrabResultPtr ptrGrabResult, int exposure) {
 	uint8_t *pImageBuffer = (uint8_t *)ptrGrabResult->GetBuffer();  /// Gets image buffer from pointer to image data
 	Pylon::DisplayImage(1, ptrGrabResult);  /// Displays the grabbed image.
 	CImagePersistence::Save(ImageFileFormat_Tiff, "GrabbedImage.tiff", ptrGrabResult);  /// Saves image as a tiff file
-	CPylonImage image; 
+	CPylonImage image;
 	image.AttachGrabResultBuffer(ptrGrabResult);  /// Initializes a CPylonImage object with the buffer from the grab result.
 #endif			
 	int width = (int)ptrGrabResult->GetWidth();
@@ -153,7 +141,7 @@ void build_image(CGrabResultPtr ptrGrabResult, int exposure) {
 }
 
 int main(int argc, char* argv[])
-{	
+{
 	std::ios_base::sync_with_stdio(false);  	/// Seperates std from stdio
 	PylonInitialize();  	/// Initializes pylon runtime before using any pylon methods
 	try
