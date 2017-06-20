@@ -116,3 +116,15 @@ I need to change.
 Header files with doxygen are being weird, so I tried to diagnose the problem. Couldn’t, so I’ll have to take a look at that later.
 Reconfigured my program so that I don’t need an array to read in the values, I just need the pointer to the image buffer. Program kept
 crashing (!!) until I fixed it by messing with the values of the byte size in the fits functions. Uploaded everything to github.
+
+6/19/2017: 8 hours
+Jared emailed me over the weekend for some coding goals, so I proceeded to try and knock those out today. I fixed the documentation of my 
+code, as some was unnecessary, some was in the wrong place, and my formatting was really off for some. I changed the position of incrementing
+iterators, read the Basler SDK and tried output the model name of the camera as well as the serial number of the camera (even though I was 
+having problems with the serial number being unreadable), and added the time of picture taken to the fits image header.
+
+6/20/17: 8 hours
+Today, I got the serial number problem working, and I also looked up parameters of the pointer to image to see what data was there that I 
+could take. I ended up making a struct in my code, and passing that to the write_basler_fits function, and when I got that struct implemented
+into my code, I also tried to write as many properties as possible to the header of the outputted fits file. I also reformatted my code more
+to check for and recognize errors. 
