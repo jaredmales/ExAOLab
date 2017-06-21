@@ -128,3 +128,10 @@ Today, I got the serial number problem working, and I also looked up parameters 
 could take. I ended up making a struct in my code, and passing that to the write_basler_fits function, and when I got that struct implemented
 into my code, I also tried to write as many properties as possible to the header of the outputted fits file. I also reformatted my code more
 to check for and recognize errors. 
+
+6/21/17: 8 hours
+Today, I got the filename problem sorted out and the program working. I then sorted the program into a header file, a file with just the 
+write_basler_fits function, and then the main function in the last cpp file. I then adapted the program to read 10 different exposures from 
+an int array and take 10 different pictures and spit them all out. After cleaning up the code, I now have streamlined the program and cleaned
+it up so it’s less memory intensive.
+
