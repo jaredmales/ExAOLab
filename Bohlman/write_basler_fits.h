@@ -3,17 +3,18 @@
 Includes all libraries necessary to run the program, sets up namespaces, creates struct for image data, and 
 contains prototype so other cpp files can use write_basler_fits() function
 */
+
+#ifdef PYLON_WIN_BUILD
+#    include <pylon/PylonGUI.h>
+#endif
+#include <pylon/PixelData.h>
+#include <pylon/GrabResultData.h>
 #include <pylon/PylonIncludes.h>
 #include <pylon/usb/BaslerUsbInstantCamera.h>
 #include <pylon/usb/_BaslerUsbCameraParams.h>
 #include <GenApi/IFloat.h>
-#include "fitsio.h"
-#include <pylon/PixelData.h>
 #include <iostream>
-#include <pylon/GrabResultData.h>
-#ifdef PYLON_WIN_BUILD
-#    include <pylon/PylonGUI.h>
-#endif
+#include "fitsio.h"
 
 using namespace Pylon;
 using namespace std;

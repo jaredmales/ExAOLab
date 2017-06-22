@@ -11,7 +11,7 @@ Initializes the pylon resources, takes the photos, and passes a struct to write_
 * \return an integer: 0 upon exit success, 1 otherwise
 */
 int main(int argc, ///< [in] the integer value of the count of the command line arguments
-	char* argv[] ///< [ch] the integer value of the count of the command line arguments
+	char* argv[] ///< [ch.ar] the integer value of the count of the command line arguments
 )
 {
 	int exitCode = 0;
