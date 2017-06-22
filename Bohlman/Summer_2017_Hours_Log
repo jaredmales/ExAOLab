@@ -135,3 +135,10 @@ write_basler_fits function, and then the main function in the last cpp file. I t
 an int array and take 10 different pictures and spit them all out. After cleaning up the code, I now have streamlined the program and cleaned
 it up so it’s less memory intensive.
 
+6/22/2017: 6 hours
+Today, I worked on cleaning up the documentation for the code that I am using the doxygen wizard on. I uploaded the files and organized the 
+github repository, so they all should be current and organized. I also started theorizing about that I am going to need to run my program on 
+linux. I will need to install cfitsio (UNIX .tar file), pylon SDK, the 2 .cpp files, and the header file. I will also need to try and figure
+out how to use Linux effectively. Another project is to find flat field images for the camera and avoid saturation, meaning that I have to 
+find a way to put paper over the detector and shine a light on it at different exposures. I theorized different ways to do that as well with
+some post it notes and my phone flashlight for now.
