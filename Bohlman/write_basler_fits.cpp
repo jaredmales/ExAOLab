@@ -1,11 +1,16 @@
+/*! \file write_basler_fits.cpp
+\brief A documented file that writes a fits file from a passed image struct.
+Takes the struct and creates the fits file and updates the keys that provide image data.
+*/
+
 #include "stdafx.h"
 #include "write_basler_fits.h"
 
-//  Writes fits file of the image stored in memory   
-/** Returns a 0 if all processes worked, 1 otherwise
+//  Writes fits file of the image struct passed to function.   
+/** Gets the buffer of the image, parameters of image, generates a file name based off of exposure value, and creates image while error checking.
 *  \return an integer: 0 upon exit success, 1 otherwise
 */
-int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image with temperature, exposure time, image pointer, and camera model/serial number
+int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image
 )
 {
 #ifdef PYLON_WIN_BUILD

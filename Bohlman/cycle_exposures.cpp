@@ -1,9 +1,13 @@
+/*! \file cycle_exposures.cpp
+\brief A documented file that writes 10 fits files for 10 different exposures
+Initializes the pylon resources, takes the photos, and passes a struct to write_basler_fits() function with image data in it
+*/
+
 #include "stdafx.h"
 #include "write_basler_fits.h"
 
 //  Main function
-/** param  argc An integer argument count of the command line arguments
-* param  argv An argument vector of the command line arguments
+/** Initializes pylon resources, takes pictures, closes all pylon resources.
 * \return an integer: 0 upon exit success, 1 otherwise
 */
 int main(int argc, ///< [in] the integer value of the count of the command line arguments

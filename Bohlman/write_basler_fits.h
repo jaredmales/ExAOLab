@@ -1,3 +1,8 @@
+/*! \file write_basler_fits.h
+\brief A documented header file that contains resources necessary for Pylon functions and cfitsio functions
+Includes all libraries necessary to run the program, sets up namespaces, creates struct for image data, and 
+contains prototype so other cpp files can use write_basler_fits() function
+*/
 #include <pylon/PylonIncludes.h>
 #include <pylon/usb/BaslerUsbInstantCamera.h>
 #include <pylon/usb/_BaslerUsbCameraParams.h>
