@@ -14,11 +14,16 @@ contains prototype so other cpp files can use write_basler_fits() function
 #include <pylon/usb/_BaslerUsbCameraParams.h>
 #include <GenApi/IFloat.h>
 #include <iostream>
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
 #include "fitsio.h"
 
 using namespace Pylon;
 using namespace std;
-static const uint32_t c_countOfImagesToGrab = 1;
+static const uint32_t c_countOfImagesToGrab = 10;
 
 /*! \struct image
 //struct that is passed to write_basler_fits() that has data for the image
@@ -29,6 +34,7 @@ struct image {
 	int temp;
 	CGrabResultPtr imgGrab;
 	char* camname;
+	char* imgname;
 };
 
 extern int write_basler_fits(struct image *cam_image);

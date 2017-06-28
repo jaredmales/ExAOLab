@@ -22,15 +22,8 @@ int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image
 	int height = (int)cam_image->imgGrab->GetHeight();
 	long  fpixel = 1, naxis = 2;
 	long naxes[2] = { width, height };
-	char real_filename[25];
-	strncpy(real_filename, "!", sizeof(real_filename));
-	strcat(real_filename, "fitsimg_exp");
-	char exp_str[6];
-	sprintf(exp_str, "%d", cam_image->exposure);
-	strcat(real_filename, exp_str);
-	strcat(real_filename, ".fits");
 
-	if (fits_create_file(&fptr, real_filename, &exitCode) != 0) //Creates new fits file
+	if (fits_create_file(&fptr, cam_image->imgname, &exitCode) != 0) //Creates new fits file
 	{
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 		return 1;

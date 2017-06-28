@@ -39,6 +39,19 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 					cam_image->exposure = exposure;
 					cam_image->temp = tempcam;
 					cam_image->camname = _strdup(newstr);
+
+					char real_filename[25];
+					strncpy(real_filename, "!", sizeof(real_filename));
+					strcat(real_filename, "fitsimg_exp");
+					char exp_str[6];
+					sprintf(exp_str, "%d", cam_image->exposure);
+					strcat(real_filename, exp_str);
+					char num_str[6];
+					sprintf(num_str, "_%d", i);
+					strcat(real_filename, num_str);
+					strcat(real_filename, ".fits");
+					cam_image->imgname = _strdup(real_filename);
+
 					if (write_basler_fits(cam_image) != 0)  //if image building did not work
 					{
 						throw "Bad process in fits image writing!";
