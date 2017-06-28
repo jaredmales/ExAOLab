@@ -142,3 +142,20 @@ linux. I will need to install cfitsio (UNIX .tar file), pylon SDK, the 2 .cpp fi
 out how to use Linux effectively. Another project is to find flat field images for the camera and avoid saturation, meaning that I have to 
 find a way to put paper over the detector and shine a light on it at different exposures. I theorized different ways to do that as well with
 some post it notes and my phone flashlight for now.
+
+6/26/2017: 8 hours
+Today I worked on what Jared sent me in the email this morning. Specifically, I started work on the flat field images project. I started by 
+implementing code to take an image at the lowest exposure. I then programmed to open that image file and read in all of the data with 
+cfitsio. Currently, I am in process of getting the program to take 10 images in a loop, write them all, then open them again and read a 
+pixel of data from them.
+
+6/27/2017: 7 hours
+Today, I continued working on getting the program to take 10 images in a loop, write them all, then open them again and read a pixel of 
+data from them. I was having problems with opening the images back up again in a loop with cfitsio, and the names of the images have to be 
+structured in a certain way. I also forgot that the names had to have a .fits at the end, and that was causing me problems.
+
+6/28/2017: 7 hours
+Today I finished implementing cfitsio to read a pixel from a loop of 10 images. I then tried to expand the implementation to read the 
+entirety of 10 images and trying to find the median pixel value for every pixel in the 10 images. However, I have been running into runtime
+errors in my code. Therefore, I will now have to diagnose and treat accordingly.
+
