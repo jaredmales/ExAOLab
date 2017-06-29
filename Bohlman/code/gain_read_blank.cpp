@@ -81,66 +81,66 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		exitCode = 1;
 	}
 	
-	int image_arr[640 * 480];
+	const char *names[c_countOfImagesToGrab];
+	int kk = 0;
+	for (kk; kk < c_countOfImagesToGrab; ++kk) {
+		char base_filename[30];
+		strncpy(base_filename, "fitsimg_exp59_", sizeof(base_filename));
+		char num[3];
+		sprintf(num, "%d", kk);
+		strcat(base_filename, num);
+		strcat(base_filename, ".fits");
+		names[kk] = _strdup(base_filename);
+	}
+
+	int width = 640, height = 480;
+	double *image_arr = (double*) calloc(width * height,sizeof(double));
 	int j, k;
-	for (k = 1; k <= 480; k++) {
-		for (j = 1; j <= 640; ++j) {
-			int ii = 0;
-			double pixel_arr[10];
-			for (ii; ii < 10; ++ii) {
-				char base_filename[30];
-				strncpy(base_filename, "fitsimg_exp59_", sizeof(base_filename));
-				char num[3];
-				sprintf(num, "%d", ii);
-				strcat(base_filename, num);
-				strcat(base_filename, ".fits");
+	for (k = 1; k <= height; ++k) {
+		for (j = 1; j <= width; ++j) {
+			int ii;
+			double pixel_arr[c_countOfImagesToGrab];
+			for (ii = 0; ii < c_countOfImagesToGrab; ++ii) {
 				fitsfile *fptr;
-				long naxes[2] = { 1,1 }, fpixel[2] = { j,k };
+				long fpixel[2] = { j,k };
 				double pixels;
-				if (fits_open_file(&fptr, base_filename, READONLY, &exitCode))
+				if (fits_open_file(&fptr, names[ii], READONLY, &exitCode))
 				{
 					fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+					exit(1);
 				}
 				else
 				{
-					int naxis, bitpix;
-					fits_get_img_param(fptr, 2, &bitpix, &naxis, naxes, &exitCode);
-					fits_read_pix(fptr, TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode);  /* read row of pixels */
+					fits_read_pix(fptr, TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode);
 					pixel_arr[ii] = pixels;
 				}
 				fits_close_file(fptr, &exitCode);
 			}
-			std::vector<int> v(pixel_arr, pixel_arr + 10);
+			std::vector<double> v(pixel_arr, pixel_arr + c_countOfImagesToGrab);
 			std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
-			image_arr[j] = v[v.size() / 2];
+			image_arr[(k-1)*width + (j - 1)] = v[v.size() / 2];
 		}
+		if (k%40 == 0)
+			cout << "Processing images..." << endl;
 	}
 
 	fitsfile *fptr;
-	int width = 640, height = 480;
-	long naxes[2] = { 640, 480 };
+	long naxes[2] = { width, height };
 	long naxis = 2, fpixel = 1;
 
-	if (fits_create_file(&fptr, "!median_image", &exitCode) != 0) //Creates new fits file
-	{
+	if (fits_create_file(&fptr, "!median_lowexp_image.fits", &exitCode) != 0) //Creates new fits file
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-		return 1;
-	}
-	if (fits_create_img(fptr, SHORT_IMG, naxis, naxes, &exitCode) != 0)  //Creates the primary array image
-	{
+
+	if (fits_create_img(fptr, LONGLONG_IMG, naxis, naxes, &exitCode) != 0)  //Creates the primary array image
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-		return 1;
-	}
-	if (fits_write_img(fptr, TINT, fpixel, width*height, image_arr, &exitCode) != 0)  // Writes pointer values to the image
-	{
+
+	if (fits_write_img(fptr, TDOUBLE, fpixel, width*height, image_arr, &exitCode) != 0)  // Writes pointer values to the image
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-		return 1;
-	}
+
 	if (fits_close_file(fptr, &exitCode) != 0) // Closes the fits file
-	{
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-		return 1;
-	}
+	
+	std::cout << "Median image at minimum exposure produced!" << endl;
 	std::cerr << endl << "Press Enter to exit." << endl;
 	while (cin.get() != '\n');
 	Pylon::PylonTerminate();   // Releases all pylon resources. 
