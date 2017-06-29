@@ -159,3 +159,9 @@ Today I finished implementing cfitsio to read a pixel from a loop of 10 images. 
 entirety of 10 images and trying to find the median pixel value for every pixel in the 10 images. However, I have been running into runtime
 errors in my code. Therefore, I will now have to diagnose and treat accordingly.
 
+6/29/2017: 8 hours
+Today I debugged the program and made it work for 10 images. It spits out the correct median image, and I tried to optimize it for speed. 
+What I have to try next is that by changing the constant amount of images variable, this program works for 100 images as well. I will start 
+testing next week.
+
+
