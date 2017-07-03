@@ -169,5 +169,6 @@ Today, I made sure the program worked with 100 image grab, which it did. However
 Fixes to the problem of the program taking forever:
 Don't open every file 640*480 times, have an array of fits pointers
 Put values directly into vector
+I tried making the program faster with arrays of fits pointers, but I encountered problems.
 I also cleaned up and documented the program, and uploaded everything to GitHub.
 
