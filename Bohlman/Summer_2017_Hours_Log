@@ -164,4 +164,10 @@ Today I debugged the program and made it work for 10 images. It spits out the co
 What I have to try next is that by changing the constant amount of images variable, this program works for 100 images as well. I will start 
 testing next week.
 
+7/3/2017: 8 hours
+Today, I made sure the program worked with 100 image grab, which it did. However, it was really slow, so I came up with these suggestions:
+Fixes to the problem of the program taking forever:
+Don't open every file 640*480 times, have an array of fits pointers
+Put values directly into vector
+I also cleaned up and documented the program, and uploaded everything to GitHub.
 
