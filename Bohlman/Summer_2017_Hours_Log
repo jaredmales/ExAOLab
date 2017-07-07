@@ -165,10 +165,26 @@ What I have to try next is that by changing the constant amount of images variab
 testing next week.
 
 7/3/2017: 8 hours
-Today, I made sure the program worked with 100 image grab, which it did. However, it was really slow, so I came up with these suggestions:
-Fixes to the problem of the program taking forever:
-Don't open every file 640*480 times, have an array of fits pointers
-Put values directly into vector
-I tried making the program faster with arrays of fits pointers, but I encountered problems.
-I also cleaned up and documented the program, and uploaded everything to GitHub.
+Today, I made sure the program worked with 100 image grab, which it did. However, it was really slow, so I came up with these suggestions 
+for fixes to the problem of the program taking forever: Don't open every file 640*480 time, have an array of fits pointers, and put the 
+pixel values directly into vectors instead of into arrays and then vectors. I tried making the program faster with arrays of fits pointers,
+but I encountered problems. I also cleaned up and documented the program, and uploaded everything to GitHub.
+
+7/5/2017: 6 hours
+Today, I moved some heavy-ass boxes into the lab. I also debugged my code in order to make the program faster by cleaning up data transfer
+in each f the functions. I also finally developed vectors of fits pointers to be used in the program to open all of the images initially. 
+When I finished correctly writing the program, the program speed was very fast, even with 100 images. Therefore, I solved the speed problem
+of the program.
+
+7/6/2017: 6 hours
+Today, I worked at home on getting the program to take a set of N images at M exposure times. I implemented this into the program through 
+arrays and incrementing exposure times. However, I kept on running into overflow problems with the program that kill it, even though the 
+program works. Therefore, I have to diagnose where the overflow problems are occurring and what I have to do to fix them.
+
+7/7/2017: 8 hours
+Today, I fixed the overflow error by adjusting array sizes. Therefore, after a bit more debugging, I have now written a program that Takes 
+10 images at 10 different exposure times. I therefore started to figure out how to relate the program to the bigger picture. I also wrote
+a function that subtracts two image pointers from each other and writes the new image back to the first image pointer. I need to test this 
+image and start coming up with ways to finish the big projects for this code.
+
 
