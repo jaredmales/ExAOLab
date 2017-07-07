@@ -3,7 +3,7 @@ Don't open every file 640*480 times, have an array of fits pointers
 Put values directly into vector
 
 /*! \file gain_read_blank.cpp
-\brief A documented file that 
+\brief A documented file that
 Initializes the pylon resources, takes the photos, finds median photo.
 */
 
@@ -15,14 +15,25 @@ Initializes the pylon resources, takes the photos, finds median photo.
 *  \return an integer: 0 upon exit success, 1 otherwise
 */
 
-	
+
 int find_median() {
 	int exitCode = 0;
+	int expArray[c_countOfImagesToGrab];
+	int i, exp = 1000;
+	for (i = 0; i < c_countOfImagesToGrab; i++) {
+		if (i % 10 == 0 && i > 0)
+			exp = exp + 1000;
+		expArray[i] = exp;
+	}
 	const char *names[c_countOfImagesToGrab];
 	int kk = 0;
 	for (kk; kk < c_countOfImagesToGrab; ++kk) {  //creates an array of names for each of the files previously made
 		char base_filename[30];
-		strncpy(base_filename, "fitsimg_exp59_", sizeof(base_filename));
+		strncpy(base_filename, "fitsimg_exp", sizeof(base_filename));
+		char expnum[6];
+		sprintf(expnum, "%d", expArray[kk]);
+		strcat(base_filename, expnum);
+		strcat(base_filename, "_");
 		char num[3];
 		sprintf(num, "%d", kk);
 		strcat(base_filename, num);
@@ -85,6 +96,31 @@ int find_median() {
 	return exitCode;
 }
 
+//Assumes both parameters both point to fits files that have already been opened
+int subtract_images(fitsfile *fptr1, fitsfile *fptr2){
+	int exitCode = 0;
+	long fpixel[2] = { 1, 1 };
+	int pixel_arr1[640 * 480];
+	int pixel_arr2[640 * 480];
+	int new_arr[640 * 480];
+	fits_read_pix(fptr1, TDOUBLE, fpixel, 640*480, NULL, &pixel_arr1, NULL, &exitCode); //read img 1
+	fits_read_pix(fptr2, TDOUBLE, fpixel, 640*480, NULL, &pixel_arr2, NULL, &exitCode); //read img 2
+	int j, k;
+	for (k = 1; k <= 480; ++k) {   //Subract arrays to new array
+		for (j = 1; j <= 640; ++j) {
+			new_arr[(k - 1) * 640 + (j - 1)] = pixel_arr1[(k - 1) * 640 + (j - 1)] - pixel_arr2[(k - 1) * 640 + (j - 1)];
+		}
+	}
+	long fpixel2 = 1;
+	if (fits_write_img(fptr1, TDOUBLE, fpixel2, 640*480, new_arr, &exitCode) != 0)  // Writes pointer values to the image
+		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+
+	if (fits_close_file(fptr1, &exitCode) != 0) // Closes the fits file
+		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+
+	return exitCode;
+}
+
 //  Main function
 /** Initializes pylon resources, takes pictures, closes all pylon resources.
 * \return an integer: 0 upon exit success, 1 otherwise
@@ -95,9 +131,12 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];
-	int i;
-	for (i = 0; i < c_countOfImagesToGrab; i++)
-		expArray[i] = 59;
+	int i, exp = 1000;
+	for (i = 0; i < c_countOfImagesToGrab; i++) {
+		if (i % 10 == 0 && i > 0)
+			exp = exp + 1000;
+		expArray[i] = exp;
+	}
 	i = 0;
 	std::ios_base::sync_with_stdio(false);  	// Seperates std from stdio
 	PylonInitialize();  	// Initializes pylon runtime before using any pylon methods
@@ -122,7 +161,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				cam_image->temp = tempcam;
 				cam_image->camname = _strdup(newstr);
 
-				char real_filename[25];
+				char real_filename[30];
 				strncpy(real_filename, "!", sizeof(real_filename));
 				strcat(real_filename, "fitsimg_exp");
 				char exp_str[6];
@@ -160,7 +199,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			<< e.GetDescription() << endl;
 		exitCode = 1;
 	}
-	
+
 	std::cerr << endl << "Press Enter to exit." << endl;
 	while (cin.get() != '\n');
 	Pylon::PylonTerminate();   // Releases all pylon resources. 
