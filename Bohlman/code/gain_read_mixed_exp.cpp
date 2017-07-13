@@ -16,107 +16,46 @@ Initializes the pylon resources, takes the photos, finds median photo.
 */
 
 
-int find_median() {
-	int exitCode = 0;
-	int expArray[c_countOfImagesToGrab];
-	int i, exp = 1000;
-	for (i = 0; i < c_countOfImagesToGrab; i++) {
-		if (i % 10 == 0 && i > 0)
-			exp = exp + 1000;
-		expArray[i] = exp;
-	}
-	const char *names[c_countOfImagesToGrab];
-	int kk = 0;
-	for (kk; kk < c_countOfImagesToGrab; ++kk) {  //creates an array of names for each of the files previously made
-		char base_filename[30];
-		strncpy(base_filename, "fitsimg_exp", sizeof(base_filename));
-		char expnum[6];
-		sprintf(expnum, "%d", expArray[kk]);
-		strcat(base_filename, expnum);
-		strcat(base_filename, "_");
-		char num[3];
-		sprintf(num, "%d", kk);
-		strcat(base_filename, num);
-		strcat(base_filename, ".fits");
-		names[kk] = _strdup(base_filename);
-	}
-
-	//Array of fits pointers;
-	std::vector<fitsfile*> fpt_arr(c_countOfImagesToGrab);
-	int cc;
-	for (cc = 0; cc < c_countOfImagesToGrab; ++cc) {
-		fitsfile* fptr;
-		fpt_arr.push_back(fptr);
-		fits_open_file(&(fpt_arr.at(cc)), names[cc], READONLY, &exitCode);
-	}
-
-	int width = 640, height = 480;
-	double *image_arr = (double*)calloc(width * height, sizeof(double)); //Array of pixel values for final image
-	int j, k;
-	for (k = 1; k <= height; ++k) {   //Looks through each pixel in a picture
-		for (j = 1; j <= width; ++j) {
-			int ii;
-			double pixel_arr[c_countOfImagesToGrab];
-			for (ii = 0; ii < c_countOfImagesToGrab; ++ii) { //For each image
-				fitsfile *fptr;
-				long fpixel[2] = { j,k };
-				double pixels;
-				fits_read_pix(fpt_arr.at(ii), TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode); //read a singular pixel
-				pixel_arr[ii] = pixels;	//put it in an array to be compared with all other pixels
-			}
-			std::vector<double> v(pixel_arr, pixel_arr + c_countOfImagesToGrab);  //Find median of all pixel values
-			std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
-			image_arr[(k - 1)*width + (j - 1)] = v[v.size() / 2];
-		}
-		if (k % 40 == 0) //progress messages
-			cout << "Processing images..." << endl;
-	}
-
-	for (cc = 0; cc < c_countOfImagesToGrab; ++cc) {
-		fits_close_file(fpt_arr.at(cc), &exitCode);
-	}
-
-	fitsfile *fptr;
-	long naxes[2] = { width, height };
-	long naxis = 2, fpixel = 1;
-
-	if (fits_create_file(&fptr, "!median_lowexp_image.fits", &exitCode) != 0) //Creates new fits file
-		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-
-	if (fits_create_img(fptr, LONGLONG_IMG, naxis, naxes, &exitCode) != 0)  //Creates the primary array image
-		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-
-	if (fits_write_img(fptr, TDOUBLE, fpixel, width*height, image_arr, &exitCode) != 0)  // Writes pointer values to the image
-		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-
-	if (fits_close_file(fptr, &exitCode) != 0) // Closes the fits file
-		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-
-	std::cout << "Median image at minimum exposure produced!" << endl; //We did it
-	return exitCode;
-}
-
 //Assumes both parameters both point to fits files that have already been opened
-int subtract_images(fitsfile *fptr1, fitsfile *fptr2){
+int subtract_images(char* file_name){
 	int exitCode = 0;
-	long fpixel[2] = { 1, 1 };
-	int pixel_arr1[640 * 480];
-	int pixel_arr2[640 * 480];
-	int new_arr[640 * 480];
-	fits_read_pix(fptr1, TDOUBLE, fpixel, 640*480, NULL, &pixel_arr1, NULL, &exitCode); //read img 1
-	fits_read_pix(fptr2, TDOUBLE, fpixel, 640*480, NULL, &pixel_arr2, NULL, &exitCode); //read img 2
-	int j, k;
-	for (k = 1; k <= 480; ++k) {   //Subract arrays to new array
-		for (j = 1; j <= 640; ++j) {
-			new_arr[(k - 1) * 640 + (j - 1)] = pixel_arr1[(k - 1) * 640 + (j - 1)] - pixel_arr2[(k - 1) * 640 + (j - 1)];
-		}
-	}
-	long fpixel2 = 1;
-	if (fits_write_img(fptr1, TDOUBLE, fpixel2, 640*480, new_arr, &exitCode) != 0)  // Writes pointer values to the image
+	const char* median_name = "median_lowexp_image.fits";
+	fitsfile *fptr1, *fptr2;
+	if (fits_open_file(&fptr1, file_name, READWRITE, &exitCode))
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 
-	if (fits_close_file(fptr1, &exitCode) != 0) // Closes the fits file
+	if (fits_open_file(&fptr2, median_name, READONLY, &exitCode))
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+
+	long fpixel[2] = { 1,1 };
+	double * pixel_arr1, * pixel_arr2, * new_arr;
+	pixel_arr1 = new double[640 * 480];
+	pixel_arr2 = new double[640 * 480];
+	new_arr = new double[640 * 480];
+	int nelements = 640 * 480;
+
+	if (fits_read_pix(fptr1, TDOUBLE, fpixel, nelements, NULL, pixel_arr1, NULL, &exitCode))
+		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+
+	if (fits_read_pix(fptr2, TLONGLONG, fpixel, nelements, NULL, pixel_arr2, NULL, &exitCode))
+		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+
+	int j, k;
+	int width = 640, height = 480;
+	for (k = 0; k < height; ++k) {   //Subract arrays to new array
+		for (j = 0; j < width; ++j) {
+			new_arr[k*width + j] = pixel_arr1[k*width + j] - pixel_arr2[k*width + j];
+		}
+	}
+	long fpixel2[2] = { 1,1 };
+	if (fits_write_pix(fptr1, TDOUBLE, fpixel2, nelements, new_arr, &exitCode) != 0)  // Writes pointer values to the image
+		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+
+	fits_close_file(fptr1, &exitCode);
+	fits_close_file(fptr2, &exitCode);
+	delete(pixel_arr1);
+	delete(pixel_arr2);
+	delete(new_arr);
 
 	return exitCode;
 }
@@ -156,22 +95,23 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			if (ptrGrabResult->GrabSucceeded())  // If image is grabbed successfully: 
 			{
 				struct image *cam_image = new struct image; //Setting up image struct
-				cam_image->imgGrab = ptrGrabResult;
-				cam_image->exposure = exposure;
-				cam_image->temp = tempcam;
-				cam_image->camname = _strdup(newstr);
 
 				char real_filename[30];
 				strncpy(real_filename, "!", sizeof(real_filename));
 				strcat(real_filename, "fitsimg_exp");
-				char exp_str[6];
-				sprintf(exp_str, "%d", cam_image->exposure);
+				char exp_str[10];
+				sprintf(exp_str, "%d", exposure);
 				strcat(real_filename, exp_str);
-				char num_str[6];
+				char num_str[10];
 				sprintf(num_str, "_%d", i);
 				strcat(real_filename, num_str);
 				strcat(real_filename, ".fits");
-				cam_image->imgname = _strdup(real_filename);
+
+				cam_image->imgname = real_filename;
+				cam_image->imgGrab = ptrGrabResult;
+				cam_image->exposure = exposure;
+				cam_image->temp = tempcam;
+				cam_image->camname = _strdup(newstr);
 
 				if (write_basler_fits(cam_image) != 0)  //if image building did not work
 				{
@@ -181,6 +121,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				}
 				else {									//if image building did work
 					cout << "Image grab and write successful" << endl;
+					*(cam_image->imgname)++;
+					if (subtract_images(cam_image->imgname) == 0) {
+						cout << "Median image subtracted" << endl;
+					}
 					free(cam_image->camname);
 					delete(cam_image);
 				}
@@ -191,7 +135,6 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			}
 			++i;
 		}
-		exitCode = find_median();
 	}
 	catch (const GenericException &e)  // Provides error handling.
 	{

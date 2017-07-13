@@ -27,7 +27,7 @@ int find_median() {
 		sprintf(num, "%d", kk);
 		strcat(base_filename, num);
 		strcat(base_filename, ".fits");
-		names[kk] = _strdup(base_filename);
+		names[kk] = base_filename;
 	}
 
 	//Array of fits pointers;
@@ -81,6 +81,7 @@ int find_median() {
 	if (fits_close_file(fptr, &exitCode) != 0) // Closes the fits file
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 
+	free(image_arr);
 	std::cout << "Median image at minimum exposure produced!" << endl; //We did it
 	return exitCode;
 }
@@ -132,7 +133,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				sprintf(num_str, "_%d", i);
 				strcat(real_filename, num_str);
 				strcat(real_filename, ".fits");
-				cam_image->imgname = _strdup(real_filename);
+				cam_image->imgname = real_filename;
 
 				if (write_basler_fits(cam_image) != 0)  //if image building did not work
 				{
@@ -160,7 +161,6 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			<< e.GetDescription() << endl;
 		exitCode = 1;
 	}
-	
 	std::cerr << endl << "Press Enter to exit." << endl;
 	while (cin.get() != '\n');
 	Pylon::PylonTerminate();   // Releases all pylon resources. 
