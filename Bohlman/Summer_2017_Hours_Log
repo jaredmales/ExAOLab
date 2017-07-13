@@ -187,4 +187,26 @@ Today, I fixed the overflow error by adjusting array sizes. Therefore, after a b
 a function that subtracts two image pointers from each other and writes the new image back to the first image pointer. I need to test this 
 image and start coming up with ways to finish the big projects for this code.
 
+7/10/2017: 8 hours
+Today, I tried testing the subtracting of arrays function. The debugging of this function was not successful, however, but I’m not sure if
+that’s the fault of the other code or of this function. I also started implementing all of my code into one big file to streamline the image
+taking process.
+
+7/11/2017: 8 hours
+Today, I got stuck debugging the conglomerate file with all of the camera code, as I realized that this would not be practical for image 
+taking. I therefore aimed to finalize each of the camera programs separately and then see about combining them later with system calls or
+something. I implemented the subtract median image method into the mixed array image taking program, but I encountered some problems. Ended
+up trying to debug the program without many results due to overflow errors.
+
+7/12/2017: 8 hours
+Continued working on fixing the overflow errors that are in the program. Knew it was due to the reading in of the image, but couldn’t figure
+out why. Finally figured it out by looking at how the median image was written in a previous program, and changing the reading in of the 
+median image from double to long. Therefore, at the end of the day, I fixed all of the errors in the program and tested functionality.  
+I started to work on securing the program (i.e. stopping memory leaks).
+
+7/13/17: 6 hours
+Today, I finished both programs by detecting and fixing memory leaks through Visual Studio, while maintaining the structure and effectiveness
+of the programs. I uploaded everything to github and updated Jared as well.
+
+
 
