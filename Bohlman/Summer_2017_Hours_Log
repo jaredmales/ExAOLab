@@ -208,5 +208,24 @@ I started to work on securing the program (i.e. stopping memory leaks).
 Today, I finished both programs by detecting and fixing memory leaks through Visual Studio, while maintaining the structure and effectiveness
 of the programs. I uploaded everything to github and updated Jared as well.
 
+7/17/2017: 8 hours
+Today, I started writing the sigma clipping program. I started this program off by opening all 100 files, creating an array of fits pointers,
+and separating all 100 pictures into sets of 10 with the same exposure. I spent most of today debugging the iterator in the program that 
+moves between picture groups, and making sure I’m actually opening the images that I want.
 
+7/18/2017: 6.5 hours
+Today I finished off writing the first part of the sigma clipping program by correcting the iterator and then finding the median out of each 
+of those 10 images, and then writing that median to a file. I was encountering problems with the fits functions, though, as they were 
+throwing errors when reading files. I could not finish the debugging and testing for this, though.
 
+7/19/2017: 7.5 hours
+Today I finished debugging the first part of the program by changing parameters, directories, and file locations within the visual studio 
+project. I then needed to write the sigma clipping part of the program, so I looked up sigma clipping qualities and wrote the function or 
+sigma clipping. It was going to have to be a recursive function, though, as I needed to iterate through the data again if the clipping was
+unsatisfactory. However, the recursion bit caused the program to crash, and I could not fix it. 
+
+7/20/2017: 8 hours
+Today, I finished debugging and testing the sigma clipping program/recursion, ensuring that I have finished this step. I also debugged for 
+memory leaks, and uploaded everything to github. I also helped build the clean room today. I also planned out how I was going to work on the
+rest of this camera project. I think next week, I need to start on shining light on the ccd in order to get images that can be used for this
+assignment.
