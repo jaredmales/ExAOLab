@@ -11,26 +11,32 @@ Initializes the pylon resources, takes the photos, finds median photo.
 * \return an integer: 0 upon exit success, 1 otherwise
 */
 
+double std_dev_calc(std::vector<double> v) {
+	int ii;
+	double mean = 0;
+	for (ii = 0; ii < v.size(); ++ii) {
+		mean = mean + v.at(ii);
+	}
+	mean = mean / v.size();
+	double std_dev_arr[10];
+	for (ii = 0; ii < v.size(); ++ii) {
+		std_dev_arr[ii] = (mean - v.at(ii)) * (mean - v.at(ii));
+	}
+	double std_dev = 0;
+	for (ii = 0; ii < v.size(); ++ii) {
+		std_dev = std_dev + std_dev_arr[ii];
+	}
+	std_dev = std_dev / v.size();
+	std_dev = sqrt(std_dev);
+	return std_dev;
+}
+
 std::vector<double> sigma_clip(std::vector<double> v) {
 	int ii;
 	int size = v.size();
 	std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
 	double median = v[v.size() / 2];
-	double mean = 0;
-	for (ii = 0; ii < size; ++ii) {
-		mean = mean + v.at(ii);
-	}
-	mean = mean / size;
-	double std_dev_arr[10];
-	for (ii = 0; ii < size; ++ii) {
-		std_dev_arr[ii] = (mean - v.at(ii)) * (mean - v.at(ii));
-	}
-	double std_dev = 0;
-	for (ii = 0; ii < size; ++ii) {
-		std_dev = std_dev + std_dev_arr[ii];
-	}
-	std_dev = std_dev / size;
-	std_dev = sqrt(std_dev);
+	double std_dev = std_dev_calc(v);
 	vector<double> ::iterator it;
 	it = std::remove_if(v.begin(), v.end(), std::bind2nd(greater<double>(), median + std_dev));
 	v.erase(it, v.end());
@@ -40,41 +46,22 @@ std::vector<double> sigma_clip(std::vector<double> v) {
 
 	int new_size = v.size();
 	if (new_size != size) {
-		double new_std_dev = 0;
-
+		double new_std_dev = std_dev_calc(v);
 		std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
 		median = v[v.size() / 2];
-		mean = 0;
-		for (ii = 0; ii < new_size; ++ii) {
-			mean = mean + v.at(ii);
-		}
-		mean = mean / size;
-		double new_std_dev_arr[10];
-		for (ii = 0; ii < new_size; ++ii) {
-			new_std_dev_arr[ii] = (mean - v.at(ii)) * (mean - v.at(ii));
-		}
-		for (ii = 0; ii < new_size; ++ii) {
-			new_std_dev = new_std_dev + new_std_dev_arr[ii];
-		}
-		new_std_dev = new_std_dev / new_size;
-		new_std_dev = sqrt(new_std_dev);
-		
 		double dev_factor;
 		if (new_std_dev != 0)
 			dev_factor = (std_dev - new_std_dev) / new_std_dev;
-		else {
+		else
 			return v;
-		}
 
 		if (new_std_dev < (std_dev - dev_factor))
 			return v;
-		else {
+		else
 			return sigma_clip(v);
-		}
 	}
-	else {
+	else
 		return v;
-	}
 }
 
 int main(int argc, ///< [in] the integer value of the count of the command line arguments
@@ -130,11 +117,9 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 					}
 					pixel_arr[ii] = pixels;	//put it in an array to be compared with all other pixels
 				}
-
-				//sigma clip
-				std::vector<double> v(pixel_arr, pixel_arr + 10);  //Find median of all pixel values
-				v = sigma_clip(v);
-				std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
+				std::vector<double> v(pixel_arr, pixel_arr + 10);  
+				v = sigma_clip(v); //sigma clip
+				std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end()); //Find median of all pixel values
 				image_arr[(k - 1)*width + (j - 1)] = v[v.size() / 2];
 			}
 		}
@@ -170,6 +155,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
 		fits_close_file(fpt_arr.at(i), &exitCode);
 	}
+
 	std::cout << "Finished with the program" << endl;
 	cerr << endl << "Press Enter to exit." << endl;
 	while (cin.get() != '\n');
