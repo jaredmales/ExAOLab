@@ -1,31 +1,28 @@
-/*Fixes to the problem of the program taking forever:
-Don't open every file 640*480 times, have an array of fits pointers
-Put values directly into vector
-
 /*! \file gain_read_blank.cpp
-\brief A documented file that
-Initializes the pylon resources, takes the photos, finds median photo.
+\brief A documented file that takes 10 different pictures for 10 exposure times, for a total of 100 images taken. Subtracts median photo from each.
+Initializes the pylon resources, takes each photo and subtracts the median photo from each.
 */
 
 #include "stdafx.h"
 #include "write_basler_fits.h"
 
-//  Gets median image of the previous images.   
-/** Gets the names of the images, and goes into a for loop which gets the median of each pixel for each image and applies it to an int array, which then writes to a fits file
+//  Subtracts a median image from the given file name
+/** Gets the name of the file, opens it, opens the median file, subtracts the median file from the given file name, writes the new file.
 *  \return an integer: 0 upon exit success, 1 otherwise
 */
-
-
-//Assumes both parameters both point to fits files that have already been opened
 int subtract_images(char* file_name){
 	int exitCode = 0;
 	const char* median_name = "median_lowexp_image.fits";
 	fitsfile *fptr1, *fptr2;
-	if (fits_open_file(&fptr1, file_name, READWRITE, &exitCode))
+	if (fits_open_file(&fptr1, file_name, READWRITE, &exitCode)) {
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+		return 1;
+	}
 
-	if (fits_open_file(&fptr2, median_name, READONLY, &exitCode))
+	if (fits_open_file(&fptr2, median_name, READONLY, &exitCode)) {
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+		return 1;
+	}
 
 	long fpixel[2] = { 1,1 };
 	double * pixel_arr1, * pixel_arr2, * new_arr;
@@ -34,11 +31,15 @@ int subtract_images(char* file_name){
 	new_arr = new double[640 * 480];
 	int nelements = 640 * 480;
 
-	if (fits_read_pix(fptr1, TDOUBLE, fpixel, nelements, NULL, pixel_arr1, NULL, &exitCode))
+	if (fits_read_pix(fptr1, TDOUBLE, fpixel, nelements, NULL, pixel_arr1, NULL, &exitCode)) {
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+		return 1;
+	}
 
-	if (fits_read_pix(fptr2, TLONGLONG, fpixel, nelements, NULL, pixel_arr2, NULL, &exitCode))
+	if (fits_read_pix(fptr2, TLONGLONG, fpixel, nelements, NULL, pixel_arr2, NULL, &exitCode)) {
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+		return 1;
+	}
 
 	int j, k;
 	int width = 640, height = 480;
@@ -48,8 +49,10 @@ int subtract_images(char* file_name){
 		}
 	}
 	long fpixel2[2] = { 1,1 };
-	if (fits_write_pix(fptr1, TDOUBLE, fpixel2, nelements, new_arr, &exitCode) != 0)  // Writes pointer values to the image
+	if (fits_write_pix(fptr1, TDOUBLE, fpixel2, nelements, new_arr, &exitCode) != 0) {  // Writes pointer values to the image
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+		return 1;
+	}
 
 	fits_close_file(fptr1, &exitCode);
 	fits_close_file(fptr2, &exitCode);
@@ -61,7 +64,7 @@ int subtract_images(char* file_name){
 }
 
 //  Main function
-/** Initializes pylon resources, takes pictures, closes all pylon resources.
+/** Initializes pylon resources, takes pictures, subtracts median image, closes all pylon resources.
 * \return an integer: 0 upon exit success, 1 otherwise
 */
 int main(int argc, ///< [in] the integer value of the count of the command line arguments
@@ -116,6 +119,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				if (write_basler_fits(cam_image) != 0)  //if image building did not work
 				{
 					throw "Bad process in fits image writing!";
+					exitCode = 1;
 					free(cam_image->camname);
 					delete(cam_image);
 				}
@@ -124,6 +128,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 					*(cam_image->imgname)++;
 					if (subtract_images(cam_image->imgname) == 0) {
 						cout << "Median image subtracted" << endl;
+					}
+					else {
+						cout << "Error in file subtracting process" << endl;
+						exitCode = 1;
 					}
 					free(cam_image->camname);
 					delete(cam_image);

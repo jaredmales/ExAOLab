@@ -1,10 +1,5 @@
-/*Fixes to the problem of the program taking forever:
-Don't open every file 640*480 times, have an array of fits pointers
-Put values directly into vector
-
 /*! \file gain_read_blank.cpp
-\brief A documented file that 
-Initializes the pylon resources, takes the photos, finds median photo.
+\brief A documented file that initializes the pylon resources, takes the photos at the lowest exposure, and finds median photo pixel by pixel.
 */
 
 #include "stdafx.h"
@@ -14,8 +9,6 @@ Initializes the pylon resources, takes the photos, finds median photo.
 /** Gets the names of the images, and goes into a for loop which gets the median of each pixel for each image and applies it to an int array, which then writes to a fits file
 *  \return an integer: 0 upon exit success, 1 otherwise
 */
-
-	
 int find_median() {
 	int exitCode = 0;
 	const char *names[c_countOfImagesToGrab];

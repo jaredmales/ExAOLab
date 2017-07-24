@@ -1,16 +1,14 @@
-/*! \file gain_read_blank.cpp
-\brief A documented file that
-Initializes the pylon resources, takes the photos, finds median photo.
+/*! \file sigma_clip_mixed.cpp
+\brief A documented file that sigma clips and finds the median of already made files.
 */
 
 #include "stdafx.h"
 #include "write_basler_fits.h"
 
-//  Main function
-/** Initializes pylon resources, takes pictures, closes all pylon resources.
+//  std_dev_calc function
+/** Takes in a vector structure and finds the standard deviation of the data elements
 * \return an integer: 0 upon exit success, 1 otherwise
 */
-
 double std_dev_calc(std::vector<double> v) {
 	int ii;
 	double mean = 0;
@@ -31,6 +29,11 @@ double std_dev_calc(std::vector<double> v) {
 	return std_dev;
 }
 
+//  sigma_clip function
+/** Takes in a vector structure and sigma clips it until exit criteria is reached.
+* Is a recursive function.
+* \return an integer: 0 upon exit success, 1 otherwise
+*/
 std::vector<double> sigma_clip(std::vector<double> v) {
 	int ii;
 	int size = v.size();
@@ -64,6 +67,10 @@ std::vector<double> sigma_clip(std::vector<double> v) {
 		return v;
 }
 
+//  Main function
+/** Initializes pylon resources, takes pictures, closes all pylon resources.
+* \return an integer: 0 upon exit success, 1 otherwise
+*/
 int main(int argc, ///< [in] the integer value of the count of the command line arguments
 	char* argv[] ///< [ch.ar] the integer value of the count of the command line arguments
 )
@@ -137,15 +144,19 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 
 		if (fits_create_file(&fptr, filename2, &exitCode) != 0) { //Creates new fits file
 			fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+			exit(1);
 		}
 		if (fits_create_img(fptr, LONGLONG_IMG, naxis, naxes, &exitCode) != 0) { //Creates the primary array image
 			fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+			exit(1);
 		}
 		if (fits_write_img(fptr, TDOUBLE, fpixel, width*height, image_arr, &exitCode) != 0) {// Writes pointer values to the image
 			fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+			exit(1);
 		}
 		if (fits_close_file(fptr, &exitCode) != 0) { // Closes the fits file
 			fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+			exit(1);
 		}
 		free(image_arr);
 		std::cout << "Median image at minimum exposure produced!" << endl; //We did it
