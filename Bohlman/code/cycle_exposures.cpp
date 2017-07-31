@@ -21,15 +21,20 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	PylonInitialize();  	// Initializes pylon runtime before using any pylon methods
 	try
 	{
-			CBaslerUsbInstantCamera camera(CTlFactory::GetInstance().CreateFirstDevice());   // Creates an instant camera object with the camera device found first.
+		for (int j = 0; j < 10; ++j)
+		{
+			CDeviceInfo info;
+			info.SetDeviceClass(Camera_t::DeviceClass());
+			Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice());   // Creates an instant camera object with the camera device found first.
 			string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();
 			char* newstr = &file_name[0u];
-			camera.StartGrabbing(10);  		// Starts the grabbing of c_countOfImagesToGrab images.
 			CGrabResultPtr ptrGrabResult;
-			while (camera.IsGrabbing())
-			{
-				int exposure = expArray[i];  // Gets the desired exposure time from function get_exposure() 
-				camera.Basler_UsbCameraParams::CUsbCameraParams_Params::ExposureTime.SetValue(exposure);   // Sets the exposure of the next camera shot.
+			camera.Open();
+			camera.ExposureAuto.SetValue(ExposureAuto_Off);
+			int exposure = expArray[j];  // Gets the desired exposure time from function get_exposure() 
+			camera.ExposureTime.SetValue(exposure);
+			
+				camera.StartGrabbing(1);  		// Starts the grabbing of c_countOfImagesToGrab images.
 				int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();
 				camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  // Waits for an image and then retrieves it. A timeout of 5000 ms is used.
 				if (ptrGrabResult->GrabSucceeded())  // If image is grabbed successfully: 
@@ -52,6 +57,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 					strcat(real_filename, ".fits");
 					cam_image->imgname = _strdup(real_filename);
 
+
 					if (write_basler_fits(cam_image) != 0)  //if image building did not work
 					{
 						throw "Bad process in fits image writing!";
@@ -66,9 +72,8 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				}
 				else  // If image is not grabbed successfully
 				{
-					cout << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl; //Prints an error
+					cerr << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl; //Prints an error
 				}
-				++i;
 			}
 	}
 	catch (const GenericException &e)  // Provides error handling.
@@ -79,6 +84,6 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	}
 	cerr << endl << "Press Enter to exit." << endl;
 	while (cin.get() != '\n');
-	PylonTerminate();   // Releases all pylon resources. 
+	Pylon::PylonTerminate(true);   // Releases all pylon resources. 
 	return exitCode;
 }
