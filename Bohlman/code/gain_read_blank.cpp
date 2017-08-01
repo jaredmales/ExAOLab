@@ -40,7 +40,6 @@ int find_median() {
 			int ii;
 			double pixel_arr[c_countOfImagesToGrab];
 			for (ii = 0; ii < c_countOfImagesToGrab; ++ii) { //For each image
-				fitsfile *fptr;
 				long fpixel[2] = { j,k };
 				double pixels;
 				fits_read_pix(fpt_arr.at(ii), TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode); //read a singular pixel
@@ -97,24 +96,31 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	PylonInitialize();  	// Initializes pylon runtime before using any pylon methods
 	try
 	{
-		CBaslerUsbInstantCamera camera(CTlFactory::GetInstance().CreateFirstDevice());   // Creates an instant camera object with the camera device found first.
-		string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();
-		char* newstr = &file_name[0u];
-		camera.StartGrabbing(c_countOfImagesToGrab);  		// Starts the grabbing of c_countOfImagesToGrab images.
-		CGrabResultPtr ptrGrabResult;
-		while (camera.IsGrabbing())
+		CDeviceInfo info;
+		info.SetDeviceClass(Camera_t::DeviceClass());
+		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice());   // Creates an instant camera object with the camera device found first.
+		for (int j = 0; j < c_countOfImagesToGrab; ++j)
 		{
-			int exposure = expArray[i];  // Gets the desired exposure time from function get_exposure() 
-			camera.Basler_UsbCameraParams::CUsbCameraParams_Params::ExposureTime.SetValue(exposure);   // Sets the exposure of the next camera shot.
+			string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();
+			char* newstr = &file_name[0u];
+			CGrabResultPtr ptrGrabResult;
+			int exposure = expArray[j];  // Gets the desired exposure time from function get_exposure() 
+			
+			camera.Open();
+			camera.ExposureAuto.SetValue(ExposureAuto_Off);
+			camera.ExposureTime.SetValue(exposure);
+			
+			camera.StartGrabbing(1);  		// Starts the grabbing of c_countOfImagesToGrab images.
 			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();
 			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  // Waits for an image and then retrieves it. A timeout of 5000 ms is used.
+			camera.Close();
 			if (ptrGrabResult->GrabSucceeded())  // If image is grabbed successfully: 
 			{
 				struct image *cam_image = new struct image; //Setting up image struct
 				cam_image->imgGrab = ptrGrabResult;
 				cam_image->exposure = exposure;
 				cam_image->temp = tempcam;
-				cam_image->camname = _strdup(newstr);
+				cam_image->camname = newstr;
 
 				char real_filename[25];
 				strncpy(real_filename, "!", sizeof(real_filename));
@@ -123,7 +129,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				sprintf(exp_str, "%d", cam_image->exposure);
 				strcat(real_filename, exp_str);
 				char num_str[6];
-				sprintf(num_str, "_%d", i);
+				sprintf(num_str, "_%d", j);
 				strcat(real_filename, num_str);
 				strcat(real_filename, ".fits");
 				cam_image->imgname = real_filename;
@@ -131,12 +137,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				if (write_basler_fits(cam_image) != 0)  //if image building did not work
 				{
 					throw "Bad process in fits image writing!";
-					free(cam_image->camname);
 					delete(cam_image);
 				}
 				else {									//if image building did work
 					cout << "Image grab and write successful" << endl;
-					free(cam_image->camname);
 					delete(cam_image);
 				}
 			}
@@ -144,7 +148,6 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			{
 				cout << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl; //Prints an error
 			}
-			++i;
 		}
 		exitCode = find_median();
 	}

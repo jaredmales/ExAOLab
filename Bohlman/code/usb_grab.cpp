@@ -9,20 +9,8 @@ Exposure can be adjusted.
 A precompiled header required in VisualStudio that really helps speed up compilation time of the program.
 */
 
-/*! \var c_countOfImagesToGrab
-\brief Number of images to grab
-Details.
-*/
-
-/*! \var exitCode
-\brief what code to exit with, initialized at 0
-Details.
-*/
-
 #include "stdafx.h"
 #include "write_basler_fits.h"
-
-
 
 int exitCode = 0;
 
@@ -62,51 +50,47 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		info.SetDeviceClass(Camera_t::DeviceClass());
 		CGrabResultPtr ptrGrabResult;
 		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice());   // Creates an instant camera object with the camera device found first.
-
 		camera.Open();  		// Starts the grabbing of c_countOfImagesToGrab images.
 		camera.ExposureAuto.SetValue(ExposureAuto_Off);
 		camera.ExposureTime.SetValue(exposure);
-		//camera.Basler_UsbCameraParams::CUsbCameraParams_Params::ExposureTime.SetValue(exposure);   // Sets the exposure of the next camera shot.
 
 		string file_name = (string) camera.GetDeviceInfo().GetModelName() + " "+ (string) camera.GetDeviceInfo().GetSerialNumber();
 		char* newstr = &file_name[0u];
 		camera.StartGrabbing(1);  		// Starts the grabbing of c_countOfImagesToGrab images.
-		//camera.Basler_UsbCameraParams::CUsbCameraParams_Params::ExposureTime.SetValue(exposure);   // Sets the exposure of the next camera shot.
 		int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();
 		camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  // Waits for an image and then retrieves it. A timeout of 5000 ms is used.
-		if (ptrGrabResult->GrabSucceeded())  // If image is grabbed successfully: 
-			{
-				char real_filename[25];
-				strncpy(real_filename, "!", sizeof(real_filename));
-				strcat(real_filename, "fitsimg_exp");
-				char exp_str[6];
-				sprintf(exp_str, "%d", exposure);
-				strcat(real_filename, exp_str);
-				strcat(real_filename, ".fits");
-
-				struct image *cam_image = new struct image; //Setting up image struct
-				cam_image->imgGrab = ptrGrabResult;
-				cam_image->exposure = exposure;
-				cam_image->temp = tempcam;
-				cam_image->imgname = _strdup(real_filename);
-				cam_image->camname = _strdup(newstr);
-
-				if (write_basler_fits(cam_image) != 0)  //if image building did not work
-				{
-					throw "Bad process in fits image writing!";
-				}
-				else {									//if image building did work
-					cout << "Image grab and write successful" << endl;
-					free(cam_image->camname);
-					delete(cam_image);
-				}
-			}
-			else  // If image is not grabbed successfully
-			{
-				cout << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl; //Prints an error
-			}
 		camera.Close();
+		if (ptrGrabResult->GrabSucceeded())  // If image is grabbed successfully: 
+		{
+			char real_filename[25];
+			strncpy(real_filename, "!", sizeof(real_filename));
+			strcat(real_filename, "fitsimg_exp");
+			char exp_str[6];
+			sprintf(exp_str, "%d", exposure);
+			strcat(real_filename, exp_str);
+			strcat(real_filename, ".fits");
+
+			struct image *cam_image = new struct image; //Setting up image struct
+			cam_image->imgGrab = ptrGrabResult;
+			cam_image->exposure = exposure;
+			cam_image->temp = tempcam;
+			cam_image->imgname = real_filename;
+			cam_image->camname = newstr;
+
+			if (write_basler_fits(cam_image) != 0)  //if image building did not work
+			{
+				throw "Bad process in fits image writing!";
+			}
+			else {									//if image building did work
+				cout << "Image grab and write successful" << endl;
+				delete(cam_image);
+			}
 		}
+		else  // If image is not grabbed successfully
+		{
+			cout << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl; //Prints an error
+		}
+	}
 	catch (const GenericException &e)  // Provides error handling.
 	{
 		cerr << "An exception occurred." << endl

@@ -84,19 +84,27 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	PylonInitialize();  	// Initializes pylon runtime before using any pylon methods
 	try
 	{
-		CBaslerUsbInstantCamera camera(CTlFactory::GetInstance().CreateFirstDevice());   // Creates an instant camera object with the camera device found first.
-		string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();
-		char* newstr = &file_name[0u];
-		camera.StartGrabbing(c_countOfImagesToGrab);  		// Starts the grabbing of c_countOfImagesToGrab images.
-		CGrabResultPtr ptrGrabResult;
-		while (camera.IsGrabbing())
+		CDeviceInfo info;
+		info.SetDeviceClass(Camera_t::DeviceClass());
+		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice());   // Creates an instant camera object with the camera device found first.
+		
+		for (int j = 0; j < c_countOfImagesToGrab; ++j)
 		{
-			int exposure = expArray[i];  // Gets the desired exposure time from function get_exposure() 
-			camera.Basler_UsbCameraParams::CUsbCameraParams_Params::ExposureTime.SetValue(exposure);   // Sets the exposure of the next camera shot.
+			string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();
+			char* newstr = &file_name[0u];
+			CGrabResultPtr ptrGrabResult;
+			int exposure = expArray[j];  // Gets the desired exposure time from function get_exposure() 
+
+			camera.Open();
+			camera.ExposureAuto.SetValue(ExposureAuto_Off);
+			camera.ExposureTime.SetValue(exposure);
+
+			camera.StartGrabbing(1);  		// Starts the grabbing of c_countOfImagesToGrab images.
 			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();
 			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  // Waits for an image and then retrieves it. A timeout of 5000 ms is used.
+			camera.Close();
 			if (ptrGrabResult->GrabSucceeded())  // If image is grabbed successfully: 
-			{
+			{		
 				struct image *cam_image = new struct image; //Setting up image struct
 
 				char real_filename[30];
@@ -114,13 +122,12 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				cam_image->imgGrab = ptrGrabResult;
 				cam_image->exposure = exposure;
 				cam_image->temp = tempcam;
-				cam_image->camname = _strdup(newstr);
+				cam_image->camname = newstr;
 
 				if (write_basler_fits(cam_image) != 0)  //if image building did not work
 				{
 					throw "Bad process in fits image writing!";
 					exitCode = 1;
-					free(cam_image->camname);
 					delete(cam_image);
 				}
 				else {									//if image building did work
@@ -133,7 +140,6 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 						cout << "Error in file subtracting process" << endl;
 						exitCode = 1;
 					}
-					free(cam_image->camname);
 					delete(cam_image);
 				}
 			}
