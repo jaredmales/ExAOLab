@@ -234,3 +234,30 @@ assignment.
 Today, I cleaned up and updated the documentation for all of my code. I uploaded everything to github. I also started on shining lights on
 the detector to see what happens and how I can get precise images and how to finish calibrating my images.
 
+7/25/2017: 5 hours
+Today, I started messing with the set up of the detector and lights/paper in order to hopefully get a good combination of measurements for
+my program. I also started trying to link all of the separate programs together so I have them all at my disposal instantly. Almost finished
+with that, however, I was getting some linker errors.
+
+7/26/2017: 7 hours
+Today, I finished linking all of the programs together so I had many separate programs. I then started collecting data on camera 
+light/placement. However, I soon realized that although the single grab program was working correctly, the grabbing in a loop programs
+weren’t. Specifically, it looked like the exposure time never changed in the loop grabbing ones. Therefore, I tried to fix this problem 
+in my code.
+
+7/27/2017: 8 hours
+Today, I investigated why the program was not outputting the way I wanted. Specifically, it seemed as though the exposure time never 
+updated in the program, yet the code was working. I also was wondering why I was getting pure white images sometimes. I eventually saw in 
+some of the sample code Basler included that I needed to turn off auto exposure, so I did. I also experimented with grabbing the images in 
+a for loop, which had promising results, yet the exposure times I inputted and the Basler viewer’s pictures did not line up for some reason.
+
+7/31/2017: 8 hours
+Today, I spent the first part of the day again looking through the SDK to figure out why the actual exposure and my exposure were off.
+After looking over why the exposure time was a step behind, I realized that I needed to get the exposure time before I started grabbing 
+with the camera. And because just shifting that code caused an error, I realized that I needed to open the camera before anything and close
+it when I was done. This fixed work for the single grab program, so I started applying it to all programs.
+
+8/1/2017: 8 hours
+Today, I finished applying the fix to all of the files and again checking for memory leaks. Now, my code works the way I want it to. I 
+uploaded everything on GitHub and made sure all my code was functioning properly and accurately.
+
