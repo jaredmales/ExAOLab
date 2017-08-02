@@ -41,10 +41,11 @@ std::vector<double> sigma_clip(std::vector<double> v) {
 	double median = v[v.size() / 2];
 	double std_dev = std_dev_calc(v);
 	vector<double> ::iterator it;
+
 	it = std::remove_if(v.begin(), v.end(), std::bind2nd(greater<double>(), median + std_dev));
 	v.erase(it, v.end());
 
-	it = std::remove_if(v.begin(), v.end(), std::bind2nd(greater<double>(), median - std_dev));
+	it = std::remove_if(v.begin(), v.end(), std::bind2nd(less<double>(), median - std_dev));
 	v.erase(it, v.end());
 
 	int new_size = v.size();
@@ -77,10 +78,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];
-	int i, exp = 1000;
+	int i, exp = 2000;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
 		if (i % 10 == 0 && i > 0)
-			exp = exp + 1000;
+			exp = exp + 3000;
 		expArray[i] = exp;
 	}
 	const char *names[c_countOfImagesToGrab];
@@ -94,7 +95,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		sprintf(num_str, "_%d", i);
 		strcat(filename, num_str);
 		strcat(filename, ".fits");
-		names[i] = filename;
+		names[i] = _strdup(filename);
 	}
 	std::vector<fitsfile*> fpt_arr(c_countOfImagesToGrab);		//Array of fits pointers
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
@@ -118,19 +119,23 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				for (ii = 0; ii < 10; ++ii) { //For each image
 					long fpixel[2] = { j,k };
 					double pixels;
-					if (fits_read_pix(fpt_arr.at(image_num), TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode)) { //read a singular pixel
+					int pic = image_num + ii;
+					if (fits_read_pix(fpt_arr.at(pic), TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode)) { //read a singular pixel
 						fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 						exit(1);
 					}
 					pixel_arr[ii] = pixels;	//put it in an array to be compared with all other pixels
 				}
 				std::vector<double> v(pixel_arr, pixel_arr + 10);  
+
 				v = sigma_clip(v); //sigma clip
+
 				std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end()); //Find median of all pixel values
 				image_arr[(k - 1)*width + (j - 1)] = v[v.size() / 2];
 			}
 		}
-		
+		image_num = image_num + 10;
+
 		fitsfile *fptr;
 		long naxes[2] = { width, height };
 		long naxis = 2, fpixel = 1;
@@ -138,7 +143,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		char filename2[40];
 		strncpy(filename2, "!sigmaclip_image", sizeof(filename2));
 		char num_str[10];
-		sprintf(num_str, "_%d", image_num);
+		sprintf(num_str, "_%d", iterator);
 		strcat(filename2, num_str);
 		strcat(filename2, ".fits");
 
@@ -160,7 +165,6 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		}
 		free(image_arr);
 		std::cout << "Median image at minimum exposure produced!" << endl; //We did it
-		++image_num;
 	}
 
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
