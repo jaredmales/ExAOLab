@@ -259,5 +259,11 @@ it when I was done. This fixed work for the single grab program, so I started ap
 
 8/1/2017: 8 hours
 Today, I finished applying the fix to all of the files and again checking for memory leaks. Now, my code works the way I want it to. I 
-uploaded everything on GitHub and made sure all my code was functioning properly and accurately.
+uploaded everything on GitHub and made sure all my code was functioning properly and accurately. However, I discovered that the sigma 
+clipping code was broken, as it kept on reading the same image in and the vectors kept on throwing errors. I started fixing it today, 
+however, I have much to do tomorrow.
 
+8/2/2017: 8 hours
+Today, I fixed the sigma clipping code so it works properly. I therefore retrieved data from the camera and then put it through all the 
+programs. I also wrote a program to quickly subtract 2 images. I did this in order to compare the sigma clipped image with the raw ones and
+see if there was any difference (there was).
