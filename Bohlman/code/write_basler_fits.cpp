@@ -53,6 +53,7 @@ int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 		return 1;
 	}
+
 	if (fits_write_img(fptr, TBYTE, fpixel, width*height, pImageBuffer, &exitCode) != 0)  // Writes pointer values to the image
 	{
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages

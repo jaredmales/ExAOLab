@@ -73,10 +73,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];
-	int i, exp = 1000;
+	int i, exp = 2000;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
 		if (i % 10 == 0 && i > 0)
-			exp = exp + 1000;
+			exp = exp + 3000;
 		expArray[i] = exp;
 	}
 	i = 0;

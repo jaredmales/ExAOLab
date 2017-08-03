@@ -4,24 +4,24 @@
 
 #include "stdafx.h"
 #include "write_basler_fits.h"
+#include <numeric>
 
 //  std_dev_calc function
 /** Takes in a vector structure and finds the standard deviation of the data elements
 * \return an integer: 0 upon exit success, 1 otherwise
 */
 double std_dev_calc(std::vector<double> v) {
-	int ii;
 	double mean = 0;
-	for (ii = 0; ii < v.size(); ++ii) {
+	for (size_t ii = 0; ii < v.size(); ++ii) {
 		mean = mean + v.at(ii);
 	}
 	mean = mean / v.size();
 	double std_dev_arr[10];
-	for (ii = 0; ii < v.size(); ++ii) {
+	for (size_t ii = 0; ii < v.size(); ++ii) {
 		std_dev_arr[ii] = (mean - v.at(ii)) * (mean - v.at(ii));
 	}
 	double std_dev = 0;
-	for (ii = 0; ii < v.size(); ++ii) {
+	for (size_t ii = 0; ii < v.size(); ++ii) {
 		std_dev = std_dev + std_dev_arr[ii];
 	}
 	std_dev = std_dev / v.size();
@@ -35,7 +35,6 @@ double std_dev_calc(std::vector<double> v) {
 * \return an integer: 0 upon exit success, 1 otherwise
 */
 std::vector<double> sigma_clip(std::vector<double> v) {
-	int ii;
 	int size = v.size();
 	std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
 	double median = v[v.size() / 2];
@@ -110,7 +109,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	int iterator = 0, image_num = 0;
 	for (iterator; iterator < 10; iterator++) {
 		int width = 640, height = 480;
-		double *image_arr = (double*)calloc(width * height, sizeof(double)); //Array of pixel values for final image
+		//double *image_arr = (double*)calloc(width * height, sizeof(double)); //Array of pixel values for final image
 		int j, k;
 		for (k = 1; k <= height; ++k) {   //Looks through each pixel in a picture
 			for (j = 1; j <= width; ++j) {
@@ -130,12 +129,18 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 
 				v = sigma_clip(v); //sigma clip
 
-				std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end()); //Find median of all pixel values
-				image_arr[(k - 1)*width + (j - 1)] = v[v.size() / 2];
+				double std_dev = std_dev_calc(v);
+				double sum = std::accumulate(v.begin(), v.end(), 0.0);
+				double mean = sum / v.size();
+				cout << std_dev << '\t' << mean << endl;
+
+				//std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end()); //Find median of all pixel values
+				//image_arr[(k - 1)*width + (j - 1)] = v[v.size() / 2];
 			}
 		}
 		image_num = image_num + 10;
 
+		/*
 		fitsfile *fptr;
 		long naxes[2] = { width, height };
 		long naxis = 2, fpixel = 1;
@@ -165,15 +170,17 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		}
 		free(image_arr);
 		std::cout << "Median image at minimum exposure produced!" << endl; //We did it
+		*/
 	}
 
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
 		fits_close_file(fpt_arr.at(i), &exitCode);
 	}
-
+	/*
 	std::cout << "Finished with the program" << endl;
 	cerr << endl << "Press Enter to exit." << endl;
 	while (cin.get() != '\n');
+	*/
 	return exitCode;
 }
 
