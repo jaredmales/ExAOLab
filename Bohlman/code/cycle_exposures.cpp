@@ -2,7 +2,7 @@
 \brief A documented file that takes and writes an image for 10 different exposures
 Initializes the pylon resources, takes the photos, and passes a struct to write_basler_fits() function with image data in it
 */
-#include "stdafx.h"
+
 #include "write_basler_fits.h"
 
 //  Main function
@@ -44,7 +44,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				cam_image->imgGrab = ptrGrabResult;
 				cam_image->exposure = exposure;
 				cam_image->temp = tempcam;
-				cam_image->camname = _strdup(newstr);
+				cam_image->camname = newstr;
 				char real_filename[25];
 				strncpy(real_filename, "!", sizeof(real_filename));
 				strcat(real_filename, "fitsimg_exp");
@@ -64,7 +64,6 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				}
 				else {									//if image building did work
 					cout << "Image grab and write successful" << endl;
-					free(cam_image->camname);
 					delete(cam_image);
 				}
 			}

@@ -9,7 +9,6 @@ Exposure can be adjusted.
 A precompiled header required in VisualStudio that really helps speed up compilation time of the program.
 */
 
-#include "stdafx.h"
 #include "write_basler_fits.h"
 
 int exitCode = 0;

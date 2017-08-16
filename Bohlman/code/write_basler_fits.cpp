@@ -3,8 +3,8 @@
 Takes the struct and creates the fits file and updates the keys that provide image data.
 */
 
-#include "stdafx.h"
 #include "write_basler_fits.h"
+
 
 //  Writes fits file of the image struct passed to function.   
 /** Gets the buffer of the image, parameters of image, generates a file name based off of exposure value, and creates image while error checking.
@@ -13,9 +13,7 @@ Takes the struct and creates the fits file and updates the keys that provide ima
 int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image
 )
 {
-#ifdef PYLON_WIN_BUILD
 	uint8_t *pImageBuffer = (uint8_t *)cam_image->imgGrab->GetBuffer();  // Gets image buffer from pointer to image data
-#endif		
 	int exitCode = 0;
 	fitsfile *fptr;       //Creates pointer to the FITS file; defined in fitsio.h   
 	int width = (int)cam_image->imgGrab->GetWidth();

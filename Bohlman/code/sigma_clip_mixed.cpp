@@ -2,9 +2,9 @@
 \brief A documented file that sigma clips and finds the median of already made files.
 */
 
-#include "stdafx.h"
 #include "write_basler_fits.h"
 #include <numeric>
+#include <cmath>
 
 //  std_dev_calc function
 /** Takes in a vector structure and finds the standard deviation of the data elements
@@ -77,10 +77,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];
-	int i, exp = 2000;
+	int i, exp = 700;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
 		if (i % 10 == 0 && i > 0)
-			exp = exp + 3000;
+			exp = exp + 700;
 		expArray[i] = exp;
 	}
 	const char *names[c_countOfImagesToGrab];
@@ -94,7 +94,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		sprintf(num_str, "_%d", i);
 		strcat(filename, num_str);
 		strcat(filename, ".fits");
-		names[i] = _strdup(filename);
+		names[i] = strdup(filename);
 	}
 	std::vector<fitsfile*> fpt_arr(c_countOfImagesToGrab);		//Array of fits pointers
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
@@ -144,14 +144,12 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		fitsfile *fptr;
 		long naxes[2] = { width, height };
 		long naxis = 2, fpixel = 1;
-
 		char filename2[40];
 		strncpy(filename2, "!sigmaclip_image", sizeof(filename2));
 		char num_str[10];
 		sprintf(num_str, "_%d", iterator);
 		strcat(filename2, num_str);
 		strcat(filename2, ".fits");
-
 		if (fits_create_file(&fptr, filename2, &exitCode) != 0) { //Creates new fits file
 			fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 			exit(1);
@@ -183,4 +181,3 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	*/
 	return exitCode;
 }
-
