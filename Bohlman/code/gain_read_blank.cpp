@@ -2,7 +2,6 @@
 \brief A documented file that initializes the pylon resources, takes the photos at the lowest exposure, and finds median photo pixel by pixel.
 */
 
-#include "stdafx.h"
 #include "write_basler_fits.h"
 
 //  Gets median image of the previous images.   
