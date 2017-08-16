@@ -263,7 +263,58 @@ uploaded everything on GitHub and made sure all my code was functioning properly
 clipping code was broken, as it kept on reading the same image in and the vectors kept on throwing errors. I started fixing it today, 
 however, I have much to do tomorrow.
 
-8/2/2017: 8 hours
-Today, I fixed the sigma clipping code so it works properly. I therefore retrieved data from the camera and then put it through all the 
-programs. I also wrote a program to quickly subtract 2 images. I did this in order to compare the sigma clipped image with the raw ones and
-see if there was any difference (there was).
+8/2/2017: 7.5 hours
+Today, I fixed the sigma clipping code so it works properly. I therefore retrieved data from the camera and then put it through 
+all the programs. I also wrote a program to quickly subtract 2 images. I did this in order to compare the sigma clipped image 
+with the raw ones and see if there was any difference (there was). I then took the retrieved data from the camera and got usable 
+sigma clipping out of it for now. I need to graph this data for the last steps of this project.
+
+8/3/2017: 8 hours
+Today, I tried to install GSL to use with the program. I need GSL in order to quickly graph the data and figure out the 
+gain/noise. However, GSL was refusing to work with my laptop. I tried install from a different source for a direct for Windows 
+version (wouldn’t link with program), from Bash (Nothing would unpack correctly and Windows Bash is trash), from Cygwin 
+(wouldn’t work), from MinGW (also not working), and from the Windows command prompt, but nothing would work. I think I’m going 
+to start using Linux now.
+
+8/7/2016: 8 hours
+Today, I started trying to install CentOS. I spent the first half of my day repartitioning my computer, funding resources, and 
+downloading the stupidly large ISO file. I spent the second half of the day formatting the hard drive. Hard drive wouldn’t read, 
+will troubleshoot tomorrow.
+
+8/8/2017: 7 hours
+Today, I tried to install CentOS again. I broke and got a flash drive since the hard drive wouldn’t work, and now I need to go 
+get reimbursed for that. I used Rufus to put the ISO on the flash drive and messed around in BIOS to get dual booting to work. 
+I did it once, however, I forgot to install the GUI. So I had to retry. Again and again.
+
+8/9/2017: 7 hours
+Today, I finished installing CentOS. Therefore, I started installing other programs that would help me with transferring code. 
+I installed pylon, Sulbime, valgrind, dev_tools_6, cfitsio, and gsl. I started transferring and testing programs that I 
+previously made to CentOS. I also realized that I needed to do make files for all programs, so I researched how to compile them
+today.
+
+8/10/2017: 8 hours
+Today, I wrote the make files for each program I transferred. I had too look up makefiles (since I was a bit rusty on them, and 
+I had to look in the Basler help to figure out which flags I needed, and I also had to look at the cfitsio documentation to see 
+how to compile programs with cfitsio I then started fixing all the transferring errors that resulted from compiling the programs
+with make files.
+
+8/14/2017: 8 hours
+Today, I started trying to install gsl on my CentOS machine, This turned out to be a bit of a chore, since I was having problems 
+with shared libraries and how to compile programs. I finally got an example program working for gsl, so I looked at the gsl 
+documentation to see how I should find the gain and noise. 
+
+8/15/2017: 8 hours
+Today, I wrote and compiled the program that finds the gain and noise from the std_dev and mean data points that my sigma 
+clipping program finds. I also wrote the makefile that allows this program to work, and I tried it with sample data, which gave
+results. The program takes in a data file with a certain amount  of std_dev and mean values on it, and using a gsl function, 
+figures out gain and noise.
+
+8/16/2017: 6 hours
+Today, I started figuring out actual good data for the whole series of programs. I had to make sure all of the programs worked 
+and I had to find a certain set of exposure ranges in my set up to find good values for gain and noise. I did this, and got 
+these values for noise and gain:
+M (Gain): 0.00295914
+B (Read Noise): -0.102368
+Probably not the best measurements, but I'll take a look tomorrow to see if I can get anything better
+
+8/17/2017: 8 hours
