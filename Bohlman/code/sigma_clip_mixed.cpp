@@ -77,10 +77,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];
-	int i, exp = 700;
+	int i, exp = 300;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
 		if (i % 10 == 0 && i > 0)
-			exp = exp + 700;
+			exp = exp + 750;
 		expArray[i] = exp;
 	}
 	const char *names[c_countOfImagesToGrab];
