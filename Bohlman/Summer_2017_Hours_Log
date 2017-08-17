@@ -318,3 +318,13 @@ B (Read Noise): -0.102368
 Probably not the best measurements, but I'll take a look tomorrow to see if I can get anything better
 
 8/17/2017: 8 hours
+Today, I tried to figure out the inconsistencies with the results of the gain/noise program. I started off by first giving the 
+program some sample data that would naturally give a line of y = x, which worked. That means that the program is not necessarily
+the problem. I then downloaded plotutils and gv, to see what the plot of the data showed (It was a bunch of crap). I then tried 
+to get new sets of data to see what I would get. I got:
+M (Gain): 0.00286682
+B (Read Noise): -0.0955313
+A third trial gave me the numbers:
+M (Gain): 0.00270822
+B (Read Noise): -0.0761547
+Why is my data doing this? I don't know.
