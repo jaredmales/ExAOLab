@@ -5,6 +5,7 @@
 #include "write_basler_fits.h"
 #include <numeric>
 #include <cmath>
+#include <gsl/gsl_fit.h>
 
 //  std_dev_calc function
 /** Takes in a vector structure and finds the standard deviation of the data elements
@@ -105,79 +106,56 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			exit(1);
 		}
 	}
-	
-	int iterator = 0, image_num = 0;
-	for (iterator; iterator < 10; iterator++) {
-		int width = 640, height = 480;
-		//double *image_arr = (double*)calloc(width * height, sizeof(double)); //Array of pixel values for final image
-		int j, k;
-		for (k = 1; k <= height; ++k) {   //Looks through each pixel in a picture
-			for (j = 1; j <= width; ++j) {
-				int ii;
+	int width = 640, height = 480;
+	int j, k;
+	std::vector<double> gain(640*480);		//Array of fits pointers
+	std::vector<double> noise(640*480);
+
+	for (k = 1; k <= height; ++k) {   //Looks through each pixel in a picture
+		for (j = 1; j <= width; ++j) {
+			double mean[10];
+			double std_dev[10];
+			int iterator = 0;
+			int iterator2 = 0;
+			for (i = 0; i < c_countOfImagesToGrab; ++i) {
 				double pixel_arr[10];
-				for (ii = 0; ii < 10; ++ii) { //For each image
-					long fpixel[2] = { j,k };
-					double pixels;
-					int pic = image_num + ii;
-					if (fits_read_pix(fpt_arr.at(pic), TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode)) { //read a singular pixel
-						fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-						exit(1);
-					}
-					pixel_arr[ii] = pixels;	//put it in an array to be compared with all other pixels
+				long fpixel[2] = { j,k };
+				double pixels;
+				if (fits_read_pix(fpt_arr.at(i), TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode)) { //read a singular pixel
+					fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+					exit(1);
 				}
-				std::vector<double> v(pixel_arr, pixel_arr + 10);  
-
-				v = sigma_clip(v); //sigma clip
-
-				double std_dev = std_dev_calc(v);
-				double sum = std::accumulate(v.begin(), v.end(), 0.0);
-				double mean = sum / v.size();
-				cout << std_dev << '\t' << mean << endl;
-
-				//std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end()); //Find median of all pixel values
-				//image_arr[(k - 1)*width + (j - 1)] = v[v.size() / 2];
+				pixel_arr[iterator] = pixels;	//put it in an array to be compared with all other pixels
+				++iterator;
+				if (iterator%10 == 0) {
+					std::vector<double> v(pixel_arr, pixel_arr + 10); 
+					double std_dev_num = std_dev_calc(v);
+					double sum = std::accumulate(v.begin(), v.end(), 0.0);
+					double mean_num = sum / v.size();
+					cout << mean_num << '\t' << std_dev_num << endl;
+					mean[iterator2] = mean_num;
+					std_dev[iterator2] = std_dev_num;
+					++iterator2;
+					iterator = 0;
+				}
 			}
+			double c0 = 0, c1 = 0, cov00 = 0, cov01 = 0, cov11 = 0, sumsq = 0;
+  			gsl_fit_linear(mean, 1, std_dev, 1, 10, &c0, &c1, &cov00, &cov01, &cov11, &sumsq);
+			//std::cout << "M (Gain): " << 1/c1 << '\n' << "B (Read Noise): " << c0/c1 << std::endl;
+			gain.push_back(1/c1);
+			noise.push_back(c0/c1);
 		}
-		image_num = image_num + 10;
-
-		/*
-		fitsfile *fptr;
-		long naxes[2] = { width, height };
-		long naxis = 2, fpixel = 1;
-		char filename2[40];
-		strncpy(filename2, "!sigmaclip_image", sizeof(filename2));
-		char num_str[10];
-		sprintf(num_str, "_%d", iterator);
-		strcat(filename2, num_str);
-		strcat(filename2, ".fits");
-		if (fits_create_file(&fptr, filename2, &exitCode) != 0) { //Creates new fits file
-			fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-			exit(1);
-		}
-		if (fits_create_img(fptr, LONGLONG_IMG, naxis, naxes, &exitCode) != 0) { //Creates the primary array image
-			fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-			exit(1);
-		}
-		if (fits_write_img(fptr, TDOUBLE, fpixel, width*height, image_arr, &exitCode) != 0) {// Writes pointer values to the image
-			fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-			exit(1);
-		}
-		if (fits_close_file(fptr, &exitCode) != 0) { // Closes the fits file
-			fits_report_error(stderr, exitCode);  // Prints out any fits error messages
-			exit(1);
-		}
-		free(image_arr);
-		std::cout << "Median image at minimum exposure produced!" << endl; //We did it
-		*/
 	}
-
+	double gain_mean = std::accumulate(gain.begin(), gain.end(), 0.0)/gain.size();
+	//cout << "Gain: "<< gain_mean << endl;
+	double noise_mean = std::accumulate(noise.begin(), noise.end(), 0.0)/noise.size();
+	//cout << "Read Noise: " << noise_mean << endl;
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
 		fits_close_file(fpt_arr.at(i), &exitCode);
 	}
-	/*
-	std::cout << "Finished with the program" << endl;
-	cerr << endl << "Press Enter to exit." << endl;
-	while (cin.get() != '\n');
-	*/
+	
+	//std::cout << "Finished with the program" << endl;
+	//cerr << endl << "Press Enter to exit." << endl;
+	//while (cin.get() != '\n');
 	return exitCode;
 }
