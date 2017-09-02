@@ -352,4 +352,6 @@ noteiced that none of my coding efforts were getting me a good solid line of dat
 std dev was for some of the data, and discovered that I was wrong with my sd dev/ variance getting. Will fix later this week.
 
 9/1/2017: 3 hours
-Tried to fix my std dev problems. 
+Tried to fix my std dev problems. In the end, it didn't really make too much of a difference, so I feel like I should take more 
+data in order to try and see if that clears up anything with the way my code works. I will do that next week, but I do have the
+plots currently for what I have come up with.
