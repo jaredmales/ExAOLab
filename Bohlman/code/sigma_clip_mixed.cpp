@@ -111,8 +111,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	std::vector<double> gain(640*480);		//Array of fits pointers
 	std::vector<double> noise(640*480);
 
-	for (k = 1; k <= height; ++k) {   //Looks through each pixel in a picture
-		for (j = 1; j <= width; ++j) {
+	for (k = height/2; k <= height/2; k = k+height/2) {   //Looks through each pixel in a picture
+		for (j = width/2; j <= width/2; j = j + width/2) {
+/*	for (k = 1; k <= height; ++k) {   //Looks through each pixel in a picture
+		for (j = 1; j <= width; ++j) {*/
 			double mean[10];
 			double std_dev[10];
 			int iterator = 0;
@@ -127,35 +129,39 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				}
 				pixel_arr[iterator] = pixels;	//put it in an array to be compared with all other pixels
 				++iterator;
-				if (iterator%10 == 0) {
-					std::vector<double> v(pixel_arr, pixel_arr + 10); 
+				if (iterator == 10) {
+					std::vector<double> v(pixel_arr, pixel_arr + 10);
+					/*
+					for (std::vector<double>::const_iterator i = v.begin(); i != v.end(); ++i)
+    						std::cout << *i << ", ";	 
+					cout << endl;
+					*/
 					double std_dev_num = std_dev_calc(v);
-					double sum = std::accumulate(v.begin(), v.end(), 0.0);
-					double mean_num = sum / v.size();
-					cout << mean_num << '\t' << std_dev_num << endl;
+					double mean_num = std::accumulate(v.begin(), v.end(), 0.0) / v.size();
+					cout << mean_num <<  '\t' << (std_dev_num*std_dev_num) << endl;
 					mean[iterator2] = mean_num;
 					std_dev[iterator2] = std_dev_num;
 					++iterator2;
 					iterator = 0;
 				}
 			}
+			/*
 			double c0 = 0, c1 = 0, cov00 = 0, cov01 = 0, cov11 = 0, sumsq = 0;
   			gsl_fit_linear(mean, 1, std_dev, 1, 10, &c0, &c1, &cov00, &cov01, &cov11, &sumsq);
-			//std::cout << "M (Gain): " << 1/c1 << '\n' << "B (Read Noise): " << c0/c1 << std::endl;
+			std::cout << "M (Gain): " << 1/c1 << '\n' << "B (Read Noise): " << c0/c1 << std::endl;
 			gain.push_back(1/c1);
 			noise.push_back(c0/c1);
+			*/
 		}
 	}
+	/*
 	double gain_mean = std::accumulate(gain.begin(), gain.end(), 0.0)/gain.size();
-	//cout << "Gain: "<< gain_mean << endl;
+	cout << "Gain: "<< gain_mean << endl;
 	double noise_mean = std::accumulate(noise.begin(), noise.end(), 0.0)/noise.size();
-	//cout << "Read Noise: " << noise_mean << endl;
+	cout << "Read Noise: " << noise_mean << endl;
+	*/
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
 		fits_close_file(fpt_arr.at(i), &exitCode);
 	}
-	
-	//std::cout << "Finished with the program" << endl;
-	//cerr << endl << "Press Enter to exit." << endl;
-	//while (cin.get() != '\n');
 	return exitCode;
 }
