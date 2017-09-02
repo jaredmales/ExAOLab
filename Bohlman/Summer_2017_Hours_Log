@@ -329,16 +329,27 @@ M (Gain): 0.00270822
 B (Read Noise): -0.0761547
 Why is my data doing this? I don't know.
 
-8/18/2017: 4 Hours
+8/21/2017: 4 Hours
 Today, I tried to fix the processing of my code with Jared's help. WHat I did was shuffle some code around so that sigma clipping
 file would produce viable data , which I could then graph. I also tried to install gv, and emailed a guy for help with that.
 
-8/19/2017: 8 hours
+8/22/2017: 8 hours
 Today, I finished coding and got some viable data values that I used to graph and see what the line looked like. However, I could 
 not get the graph to work, so I think I should take averages of data. Asked Jared for help with that.
 
-8/20/2017: 2 hours
-Tried to install gv.
+8/23/2017: 2 hours
+Tried to install gv, by emailing the dude that developed gv. Got back instructions to install a bunch of packages and then try again.
+Instructions unclear. I almost threw my laptop out of a window.
 
-8/21/2017: 4 hours
+8/28/2017: 4 hours
+Today, I started reducing the sizes of my points that were graphed on the graphs I was producing in order to actually see the data. 
+I also started to mess with the different kinds of graphs produced and how the different options affected the size of the graph. Spoke 
+to Jared about coding troubles.
 
+8/29/2017: 7 hours
+Today, while messing with my graphing parameters, I discovered that when graphing any set of points (I tried with 4 sets), I 
+noteiced that none of my coding efforts were getting me a good solid line of data. Therefore, I tried to double check what the 
+std dev was for some of the data, and discovered that I was wrong with my sd dev/ variance getting. Will fix later this week.
+
+9/1/2017: 3 hours
+Tried to fix my std dev problems. 
