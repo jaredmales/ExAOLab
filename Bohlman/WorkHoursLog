@@ -376,3 +376,16 @@ whole.
 9/11/2017: 3 hours
 Sent out graphed images to Jared, looked at code and pictures to look at various pieces of the functions that could be messing up.
 
+9/12/2017: 7 hours
+Spoke with Jared about the direction of code and what I have gotten done so far. In the end, my assignment now is to read in all 
+the data and just bin each of the data sets to get a nice average. Then graph that with the data. I started theorizing how I was 
+going to do so.
+
+9/13/2017: 2 hours
+Today, I started writing the code for binning everything. I struggled with C++ file IO, so I did a lot of research for that.
+
+9/15/2017: 2 hours
+Almost finished writing the program today, still having a bit of trouble with data read in and sorting.
+
+9/18/2017: 2 hours
+Finished the program, graphed the data, looks great. Showed Jared (hopefully). Updated this log.
