@@ -72,10 +72,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];
-	int i, exp = 300;
+	int i, exp = 600;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
-		if (i % 10 == 0 && i > 0)
-			exp = exp + 750;
+		if (i % 100 == 0 && i > 0)
+			exp = exp + 575;
 		expArray[i] = exp;
 	}
 	i = 0;
@@ -131,6 +131,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				}
 				else {									//if image building did work
 					cout << "Image grab and write successful" << endl;
+/*
 					*(cam_image->imgname)++;
 					if (subtract_images(cam_image->imgname) == 0) {
 						cout << "Median image subtracted" << endl;
@@ -139,6 +140,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 						cout << "Error in file subtracting process" << endl;
 						exitCode = 1;
 					}
+*/
 					delete(cam_image);
 				}
 			}
