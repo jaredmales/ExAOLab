@@ -78,10 +78,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];
-	int i, exp = 300;
+	int i, exp = 600;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
-		if (i % 10 == 0 && i > 0)
-			exp = exp + 750;
+		if (i % 100 == 0 && i > 0)
+			exp = exp + 575;
 		expArray[i] = exp;
 	}
 	const char *names[c_countOfImagesToGrab];
@@ -110,9 +110,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	int j, k;
 	std::vector<double> gain(640*480);		//Array of fits pointers
 	std::vector<double> noise(640*480);
+	std::vector<double> 
 
-	for (k = height/2; k <= height/2; k = k+height/2) {   //Looks through each pixel in a picture
-		for (j = width/2; j <= width/2; j = j + width/2) {
+	for (k = 1; k <= height; k = k+10) {   //Looks through each pixel in a picture
+		for (j = 1; j <= width; j = j+10) {
 /*	for (k = 1; k <= height; ++k) {   //Looks through each pixel in a picture
 		for (j = 1; j <= width; ++j) {*/
 			double mean[10];
@@ -120,7 +121,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			int iterator = 0;
 			int iterator2 = 0;
 			for (i = 0; i < c_countOfImagesToGrab; ++i) {
-				double pixel_arr[10];
+				double pixel_arr[1000];
 				long fpixel[2] = { j,k };
 				double pixels;
 				if (fits_read_pix(fpt_arr.at(i), TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode)) { //read a singular pixel
@@ -129,7 +130,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				}
 				pixel_arr[iterator] = pixels;	//put it in an array to be compared with all other pixels
 				++iterator;
-				if (iterator == 10) {
+				if (iterator == 100) {
 					std::vector<double> v(pixel_arr, pixel_arr + 10);
 					/*
 					for (std::vector<double>::const_iterator i = v.begin(); i != v.end(); ++i)
