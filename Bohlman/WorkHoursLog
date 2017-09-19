@@ -388,4 +388,12 @@ Today, I started writing the code for binning everything. I struggled with C++ f
 Almost finished writing the program today, still having a bit of trouble with data read in and sorting.
 
 9/18/2017: 2 hours
-Finished the program, graphed the data, looks great. Showed Jared (hopefully). Updated this log. Updated GitHub.
+Finished the program, graphed the data, looks great. Showed Jared, tried to start working on getting the median of the data. 
+Updated this log. Updated GitHub.
+
+9/19/2017: 7.5 hours
+Program was not working right with median, as there was an uptick in variance towards the end. Therefore, when talking to Jared,
+he recommended that I change the data structure of my program and then calculate the mean. I did so, but now there is a downtick 
+at the top exposure. Emailed Jared.
+
+
