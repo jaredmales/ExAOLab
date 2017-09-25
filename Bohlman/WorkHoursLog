@@ -398,9 +398,14 @@ at the top exposure. Emailed Jared.
 
 
 9/20/2017: 2.5 hours
+Implemented median function that Jared gave me. Did some preliminary testing with it and rewrote some of my code to see what would happen
+if I took the median of all variance bins instead of the means. Getting good results, except for the last bin. Not sure if this was code 
+error, so tomorrow I will review the code.
 
 
 9/22/2017: 2 hours
+Despite my best efforts, today, I was unable to figure out why the last bin was not responding. I will therefore email Jared to see what is 
+going on, and if it's the camera, data, or just because I am foolish.
 
 
 
