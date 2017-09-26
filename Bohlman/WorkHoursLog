@@ -396,16 +396,22 @@ Program was not working right with median, as there was an uptick in variance to
 he recommended that I change the data structure of my program and then calculate the mean. I did so, but now there is a downtick 
 at the top exposure. Emailed Jared.
 
-
 9/20/2017: 2.5 hours
 Implemented median function that Jared gave me. Did some preliminary testing with it and rewrote some of my code to see what would happen
 if I took the median of all variance bins instead of the means. Getting good results, except for the last bin. Not sure if this was code 
 error, so tomorrow I will review the code.
 
-
 9/22/2017: 2 hours
 Despite my best efforts, today, I was unable to figure out why the last bin was not responding. I will therefore email Jared to see what is 
 going on, and if it's the camera, data, or just because I am foolish.
 
+9/25/2017: 4 hours
+Started changing the program around to see if that made an improvement. Notably, changed value collection when binning to median 
+instead of mean. Noted results, although the change wasn't that notable. Emailed Jared and will meet with him tomorrow. 
+
+9/26/2017: 7 hours
+Collected data from a center square in each of the images. Noted the change in results (barely any), but wondered how I could 
+quantify it. Wrote a program that got the slope of the outputted data and compared results for whole picture iterations and middle box 
+iterations. Barely any change, but I kept results.
 
 
