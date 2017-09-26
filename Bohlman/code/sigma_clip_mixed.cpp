@@ -110,10 +110,9 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	int j, k;
 	std::vector<double> gain(640*480);		//Array of fits pointers
 	std::vector<double> noise(640*480);
-	std::vector<double> 
 
-	for (k = 1; k <= height; k = k+10) {   //Looks through each pixel in a picture
-		for (j = 1; j <= width; j = j+10) {
+	for (k = 150; k <= 300; k = k+1) {   //Looks through each pixel in a picture
+		for (j = 200; j <= 400; j = j+5) {
 /*	for (k = 1; k <= height; ++k) {   //Looks through each pixel in a picture
 		for (j = 1; j <= width; ++j) {*/
 			double mean[10];

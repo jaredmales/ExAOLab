@@ -24,7 +24,7 @@ int main (void)
         std::istringstream iss(str);
         double n, m;
         iss >> n >> m;
-        std_dev[i] = n;
+        std_dev[i] = n*n;
         mean[i] = m;
         ++i;
   }
@@ -33,7 +33,7 @@ int main (void)
 
   gsl_fit_linear(mean, 1, std_dev, 1, nelements, &c0, &c1, &cov00, &cov01, &cov11, &sumsq);
 
-  std::cout << "M (Gain): " << c1 << '\n' << "B (Read Noise): " << c0 << std::endl;
+  std::cout << "M (Gain): " << 1/c1 << '\n' << "B (Read Noise): " << c0/c1 << std::endl;
 
   return 0;
 }
