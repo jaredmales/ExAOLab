@@ -9,64 +9,19 @@
 
 //  std_dev_calc function
 /** Takes in a vector structure and finds the standard deviation of the data elements
-* \return an integer: 0 upon exit success, 1 otherwise
+* \return an integer
 */
 double std_dev_calc(std::vector<double> v) {
-	double mean = 0;
-	for (size_t ii = 0; ii < v.size(); ++ii) {
-		mean = mean + v.at(ii);
-	}
-	mean = mean / v.size();
-	double std_dev_arr[10];
-	for (size_t ii = 0; ii < v.size(); ++ii) {
-		std_dev_arr[ii] = (mean - v.at(ii)) * (mean - v.at(ii));
-	}
+	double mean = std::accumulate(v.begin(), v.end(), 0.0) / v.size();
 	double std_dev = 0;
-	for (size_t ii = 0; ii < v.size(); ++ii) {
-		std_dev = std_dev + std_dev_arr[ii];
+	for (int i = 0; i < v.size(); ++i) {
+		//cout << v[i] << endl;
+		std_dev = std_dev + ((mean - v[i]) * (mean - v[i]));
 	}
 	std_dev = std_dev / v.size();
-	std_dev = sqrt(std_dev);
 	return std_dev;
 }
 
-//  sigma_clip function
-/** Takes in a vector structure and sigma clips it until exit criteria is reached.
-* Is a recursive function.
-* \return an integer: 0 upon exit success, 1 otherwise
-*/
-std::vector<double> sigma_clip(std::vector<double> v) {
-	int size = v.size();
-	std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
-	double median = v[v.size() / 2];
-	double std_dev = std_dev_calc(v);
-	vector<double> ::iterator it;
-
-	it = std::remove_if(v.begin(), v.end(), std::bind2nd(greater<double>(), median + std_dev));
-	v.erase(it, v.end());
-
-	it = std::remove_if(v.begin(), v.end(), std::bind2nd(less<double>(), median - std_dev));
-	v.erase(it, v.end());
-
-	int new_size = v.size();
-	if (new_size != size) {
-		double new_std_dev = std_dev_calc(v);
-		std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
-		median = v[v.size() / 2];
-		double dev_factor;
-		if (new_std_dev != 0)
-			dev_factor = (std_dev - new_std_dev) / new_std_dev;
-		else
-			return v;
-
-		if (new_std_dev < (std_dev - dev_factor))
-			return v;
-		else
-			return sigma_clip(v);
-	}
-	else
-		return v;
-}
 
 //  Main function
 /** Initializes pylon resources, takes pictures, closes all pylon resources.
@@ -108,19 +63,13 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	}
 	int width = 640, height = 480;
 	int j, k;
-	std::vector<double> gain(640*480);		//Array of fits pointers
-	std::vector<double> noise(640*480);
 
-	for (k = 150; k <= 300; k = k+1) {   //Looks through each pixel in a picture
-		for (j = 200; j <= 400; j = j+5) {
-/*	for (k = 1; k <= height; ++k) {   //Looks through each pixel in a picture
-		for (j = 1; j <= width; ++j) {*/
-			double mean[10];
-			double std_dev[10];
+	for (k = 1; k <= height; k = k+10) {   //Looks through each pixel in a picture
+		for (j = 1; j <= width; j = j+10) {
+			//cout << k << "   " << j << endl;
 			int iterator = 0;
-			int iterator2 = 0;
 			for (i = 0; i < c_countOfImagesToGrab; ++i) {
-				double pixel_arr[1000];
+				double pixel_arr[100];
 				long fpixel[2] = { j,k };
 				double pixels;
 				if (fits_read_pix(fpt_arr.at(i), TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode)) { //read a singular pixel
@@ -130,36 +79,16 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				pixel_arr[iterator] = pixels;	//put it in an array to be compared with all other pixels
 				++iterator;
 				if (iterator == 100) {
-					std::vector<double> v(pixel_arr, pixel_arr + 10);
-					/*
-					for (std::vector<double>::const_iterator i = v.begin(); i != v.end(); ++i)
-    						std::cout << *i << ", ";	 
-					cout << endl;
-					*/
+					std::vector<double> v(pixel_arr, pixel_arr + 100);
 					double std_dev_num = std_dev_calc(v);
 					double mean_num = std::accumulate(v.begin(), v.end(), 0.0) / v.size();
-					cout << mean_num <<  '\t' << (std_dev_num*std_dev_num) << endl;
-					mean[iterator2] = mean_num;
-					std_dev[iterator2] = std_dev_num;
-					++iterator2;
+					cout << mean_num <<  '\t' << std_dev_num << endl;
 					iterator = 0;
 				}
 			}
-			/*
-			double c0 = 0, c1 = 0, cov00 = 0, cov01 = 0, cov11 = 0, sumsq = 0;
-  			gsl_fit_linear(mean, 1, std_dev, 1, 10, &c0, &c1, &cov00, &cov01, &cov11, &sumsq);
-			std::cout << "M (Gain): " << 1/c1 << '\n' << "B (Read Noise): " << c0/c1 << std::endl;
-			gain.push_back(1/c1);
-			noise.push_back(c0/c1);
-			*/
 		}
 	}
-	/*
-	double gain_mean = std::accumulate(gain.begin(), gain.end(), 0.0)/gain.size();
-	cout << "Gain: "<< gain_mean << endl;
-	double noise_mean = std::accumulate(noise.begin(), noise.end(), 0.0)/noise.size();
-	cout << "Read Noise: " << noise_mean << endl;
-	*/
+
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
 		fits_close_file(fpt_arr.at(i), &exitCode);
 	}
