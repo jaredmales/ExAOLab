@@ -8,6 +8,7 @@ Initializes the pylon resources, takes the photos, and passes a struct to write_
 //  Main function
 /** Initializes pylon resources, takes pictures, closes all pylon resources.
 * \return an integer: 0 upon exit success, 1 otherwise
+* \todo check ch.ar meaning
 */
 int main(int argc, ///< [in] the integer value of the count of the command line arguments
 	char* argv[] ///< [ch.ar] the integer value of the count of the command line arguments
