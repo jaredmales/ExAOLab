@@ -412,6 +412,13 @@ instead of mean. Noted results, although the change wasn't that notable. Emailed
 9/26/2017: 7 hours
 Collected data from a center square in each of the images. Noted the change in results (barely any), but wondered how I could 
 quantify it. Wrote a program that got the slope of the outputted data and compared results for whole picture iterations and middle box 
-iterations. Barely any change, but I kept results.
+iterations. Barely any change, but I kept results. Spoke with Jared, revised program, discussed several aspects of the program including
+where to go from here, fits cube implementation, bookeeping, git, and other aspects. Jared will give me some code in order to see
+why the last bin of variance is acting up.
+
+9/27/2017: 2 hours
+Uploaded all files to dropbox so Jared could check them out, completed RCR training, looked at 3d cubes in order to see what I should do 
+to my program going forward.
+
 
 
