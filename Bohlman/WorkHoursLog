@@ -426,7 +426,8 @@ so I will investigate that tomorrow.
 
 10/03/2017: 8 hours
 Worked with new code. Fixed the memory error and obtained the data from the images.Data is slightly different, but no noticeable effect
-in the overview of the graph/medians. Back to square one, I guess?
+in the overview of the graph/medians. Back to square one, I guess? In any case, some of the pixel values aren't matching up, so I am 
+going to have to redo code and check on that, and also update Jared.
 
 
 
