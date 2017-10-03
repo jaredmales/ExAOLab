@@ -421,7 +421,12 @@ Uploaded all files to dropbox so Jared could check them out, completed RCR train
 to my program going forward.
 
 10/2/2017: 4 hours
-Edited code in order to make 3 fits cubes. Currently testing to see if program still works.
+Edited code in order to make 3 fits cubes. Currently testing to see if program still works. Getting a memory dump due to a seg fault, 
+so I will investigate that tomorrow.
+
+10/03/2017: 8 hours
+Worked with new code. Fixed the memory error and obtained the data from the images.Data is slightly different, but no noticeable effect
+in the overview of the graph/medians. Back to square one, I guess?
 
 
 
