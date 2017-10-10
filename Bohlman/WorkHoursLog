@@ -421,21 +421,28 @@ Uploaded all files to dropbox so Jared could check them out, completed RCR train
 to my program going forward.
 
 10/2/2017: 4 hours
-Edited code in order to make 3 fits cubes. Currently testing to see if program still works. Getting a memory dump due to a seg fault, 
+Edited code in order to make 3d fits cubes. Currently testing to see if program still works. Getting a memory dump due to a seg fault, 
 so I will investigate that tomorrow.
 
 10/03/2017: 8 hours
-Worked with new code. Fixed the memory error and obtained the data from the images.Data is slightly different, but no noticeable effect
+Worked with new code. Fixed the memory error and obtained the data from the images. Data is slightly different, but no noticeable effect
 in the overview of the graph/medians. Back to square one, I guess? In any case, some of the pixel values aren't matching up, so I am 
 going to have to redo code and check on that, and also update Jared.
 
 10/04/2017: 2 hours
-
+Worked more on 3d fits cube code. Getting a lot of data that is unorganized. Tried to fix the way the arrays read in the data. Feel like 
+I'm almost there?
 
 10/09/2017: 4 hours
-
+Tried finishing up 3d fits cube code, there's an offset of 1 pixel. Super close to finishing it! Met with Jared, who outlined priorities 
+of: fitting lines to variance/median value data, writing new code that loops endlessly over 10 files, and starting to work more with git. 
+Fits cubes were pushed on the backburner. Started fitting lines to the variance/mean graph.
 
 10/10/2017: 8 hours
+Today, I finished graphing the different linear fits that were discussed yesterday. I also wrote basic code to loop over 10 images, similar
+ to what was discussed yesterday. It works, and there don't seem to be any problems with the program. Sent it to Jared for further inspection.
+I also worked with git, installing it and updating the files and file systems while learning git. The repo looks better now, as it's integrated 
+with my computer.
 
 
 
