@@ -1,0 +1,4 @@
+Red line: original data medians
+Green line: linear fit of all data
+Blue line: linear fit up to 200 counts
+Magenta line: linear fit up to 134 counts
