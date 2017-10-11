@@ -41,8 +41,9 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	}
 	const char *names[c_countOfImagesToGrab];
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {  //creates an array of names for each of the files previously made
-		char filename[40];
-		strncpy(filename, "fitsimg_exp", sizeof(filename));
+		char filename[100];
+		//strncpy(filename, "fitsimg_exp", sizeof(filename));
+		strncpy(filename, "/home/cbohlman/Documents/caao_summer2017/ExAOLab/Bohlman/code/raw_data_091217/fitsimg_exp", sizeof(filename));
 		char exp_str[10];
 		sprintf(exp_str, "%d", expArray[i]);
 		strcat(filename, exp_str);
