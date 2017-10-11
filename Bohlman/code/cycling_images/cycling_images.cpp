@@ -42,9 +42,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		camera.ExposureAuto.SetValue(ExposureAuto_Off);					// Sets up exposure time from above value
 		camera.ExposureTime.SetValue(exposure);
 		camera.Close();
+		camera.StartGrabbing();  
 		while (1) {
 			if (i == 10) i = 0;			
-			camera.StartGrabbing(1);  							// Starts the grabbing of a singular image
+										// Starts the grabbing of a singular image
 			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();
 			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  	// Waits for an image and then retrieves it. A timeout of 5000 ms is used
 			if (ptrGrabResult->GrabSucceeded())  						// If image is grabbed successfully 

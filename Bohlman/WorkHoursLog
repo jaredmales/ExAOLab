@@ -1,327 +1,173 @@
 CAAO Internship Log: 2017
 
 5/17/2017: 7 hours
-Today, I got introduced to what I will be doing and who I’ll be working with. I also got introduced to my work space and some of the
-equipment I will be working with. I also had timesheet difficulties, so I spent a fair amount of time today trying to figure out how I can
-put in my hours online (looking for future correspondence concerning online timesheet). I also picked up some equipment: monitor from Kim,
-keyboard and mouse from dude on 3rd floor. The first two tasks I was given was to download the software for the Basler acA640 -750 µm
-camera and figure out how to use it, and to read the book “Handbook of CCD Astronomy” cover to cover. I downloaded the software for the
-camera and took a few videos/pictures with it. I also went through the first 3 chapters of the handbook and took notes on it. Tomorrow, I
-want to take notes on the next two chapters of the handbook (4 and 5), and play around with the software for the camera more and start
-working on a write up for that. I also want to resolve my timesheet difficulties.
+Today, I got introduced to what I will be doing and who I’ll be working with. I also got introduced to my work space and some of theequipment I will be working with. I also had timesheet difficulties, so I spent a fair amount of time today trying to figure out how I canput in my hours online (looking for future correspondence concerning online timesheet). I also picked up some equipment: monitor from Kim,keyboard and mouse from dude on 3rd floor. The first two tasks I was given was to download the software for the Basler acA640 -750 µmcamera and figure out how to use it, and to read the book “Handbook of CCD Astronomy” cover to cover. I downloaded the software for thecamera and took a few videos/pictures with it. I also went through the first 3 chapters of the handbook and took notes on it. Tomorrow, Iwant to take notes on the next two chapters of the handbook (4 and 5), and play around with the software for the camera more and startworking on a write up for that. I also want to resolve my timesheet difficulties.
 
 5/18/2017: 8 hours
-Inputted hours today on UAccess. Also read/took notes through chapters 4 and 5 of the handbook. Started looking at the Basler camera
-features and cataloged the different features I could find. Made notes on what program I am supposed to make and started to program in C to
-reach my goals. Read the SDK guide for the Basler camera so I could program this correctly. Tomorrow, I want to finish taking notes on the
-handbook and continue programming in C.
+Inputted hours today on UAccess. Also read/took notes through chapters 4 and 5 of the handbook. Started looking at the Basler camerafeatures and cataloged the different features I could find. Made notes on what program I am supposed to make and started to program in C toreach my goals. Read the SDK guide for the Basler camera so I could program this correctly. Tomorrow, I want to finish taking notes on thehandbook and continue programming in C.
 
 5/19/2017: 8 hours
-Finished working through the handbook and taking notes. Set up Visual Studio on my laptop, along with fixing environment variables and
-removing programs that could mess with my coding, and tried to import the sample projects with it. Had to download Windows SDK 8.1 to try
-and build the programs. My goals for next week include starting to actually code the program I want to use with the Basler program, read
-through the handbook one more time, and to start learning C++.
+Finished working through the handbook and taking notes. Set up Visual Studio on my laptop, along with fixing environment variables andremoving programs that could mess with my coding, and tried to import the sample projects with it. Had to download Windows SDK 8.1 to tryand build the programs. My goals for next week include starting to actually code the program I want to use with the Basler program, readthrough the handbook one more time, and to start learning C++.
 
 5/22/2017: 8 hours
-Reinstalled/Modified the Visual Studio installation and got the building of the sample C++ files to work with the camera. Quickly learned
-basic concepts of C++ in order to apply those concepts to my code writing. Combed through the API in order to view what exactly I have to
-do in order to achieve my goals for programming. Focused exclusively on trying t find out how to edit the exposure time today; got a few
-leads but nothing spectacular yet. Tomorrow, I want to make more headway on the camera exposure problem and begin planning my code writing. 
-Also, I want to change my hours log in the GitHub page to a markdown format.
+Reinstalled/Modified the Visual Studio installation and got the building of the sample C++ files to work with the camera. Quickly learnedbasic concepts of C++ in order to apply those concepts to my code writing. Combed through the API in order to view what exactly I have todo in order to achieve my goals for programming. Focused exclusively on trying t find out how to edit the exposure time today; got a fewleads but nothing spectacular yet. Tomorrow, I want to make more headway on the camera exposure problem and begin planning my code writing. Also, I want to change my hours log in the GitHub page to a markdown format.
 
 5/23/2017: 8 hours
-Mostly worked in the API for pylon today. Figured out that I want to make a USB Instant Camera object, and implemented that into the start 
-of my code. Right now, the code is only for grabbing a single image, and hasn’t been tested. It also was written quite choppily, so it has 
-not been doxygen-ized. I also got a tour of the lab today, specifically looking at Beast (GPU problems?) and Corona. Tomorrow, my goals are
-finish writing and testing my first C++ program written specifically for the USB camera, and then look through the API and see what I have 
-to do in order to start adapting some of my goals for the camera software. I also want to use doxygen to correctly comment the sample 
-program I have written once it’s done.
+Mostly worked in the API for pylon today. Figured out that I want to make a USB Instant Camera object, and implemented that into the start of my code. Right now, the code is only for grabbing a single image, and hasn’t been tested. It also was written quite choppily, so it has not been doxygen-ized. I also got a tour of the lab today, specifically looking at Beast (GPU problems?) and Corona. Tomorrow, my goals arefinish writing and testing my first C++ program written specifically for the USB camera, and then look through the API and see what I have to do in order to start adapting some of my goals for the camera software. I also want to use doxygen to correctly comment the sample program I have written once it’s done.
 
 5/24/2017: 8 hours
-Coded exclusively today. Tested my initial sample program, and it worked for all two test cases (camera connected, camera unconnected). I
-tried to work on the three assignments set out for me. In terms of exposure, I tried to set the value of the parameter, but that is 
-throwing an error in the program. I also have exported the output of the camera in the tiff format, so I am going to want to learn how 
-to change that to fits and also keep the image and store it in the memory. I also did not get to format my code in the doxygen format, 
-so I must do that soon. 
+Coded exclusively today. Tested my initial sample program, and it worked for all two test cases (camera connected, camera unconnected). Itried to work on the three assignments set out for me. In terms of exposure, I tried to set the value of the parameter, but that is throwing an error in the program. I also have exported the output of the camera in the tiff format, so I am going to want to learn how to change that to fits and also keep the image and store it in the memory. I also did not get to format my code in the doxygen format, so I must do that soon. 
 
 5/25/2017: 6 hours
-Finished writing the exposure setting part of the software I’m working on for the Basler camera. Tested it, and I believe it works, 
-therefore, I have achieved one of the goals for this software. I also started researching ways to use fits with C++, and looked at CCFits
-and FITS++. Finally, I started viewing at how I am going to store the data of the picture in memory. I shall work more on the last two 
-goals next week, when I can ask Jared questions about the exposure, any wrappers/packages I should use, and whatnot. I also started 
-reading up on the doxygen notation, and started formatting my code that way, so I will need to finish that next week.
+Finished writing the exposure setting part of the software I’m working on for the Basler camera. Tested it, and I believe it works, therefore, I have achieved one of the goals for this software. I also started researching ways to use fits with C++, and looked at CCFitsand FITS++. Finally, I started viewing at how I am going to store the data of the picture in memory. I shall work more on the last two goals next week, when I can ask Jared questions about the exposure, any wrappers/packages I should use, and whatnot. I also started reading up on the doxygen notation, and started formatting my code that way, so I will need to finish that next week.
 
 5/30/2017: 5 hours (Thus far) + 2 hours (Later)
-Worked more with Doxygen installation and my code. realized that I need to take my code out of the main function for my doxygen commenting 
-to work. Started to install cfitsio and cmake in order to work with fits files in my code. Might finish installation of those two tonight, 
-as I have to leave early.
+Worked more with Doxygen installation and my code. realized that I need to take my code out of the main function for my doxygen commenting to work. Started to install cfitsio and cmake in order to work with fits files in my code. Might finish installation of those two tonight, as I have to leave early.
 Later Edit: Worked on installations for cmake and cfitsio. WIll continue tomorrow.
 
 5/31/2017: 7 hours
-Today, I worked on the installation for cmake and cfitsio to get them to work, which was certainly difficult. I believe cmake installed 
-correctly, but I might have to do a reinstall just to make sure. I still couldn't get an example program for cfitsio to work, so I'll 
-have to continue with that tomorrow. I am getting compilation errors, which I think is in part due to linking libraries/headers incorrectly.
+Today, I worked on the installation for cmake and cfitsio to get them to work, which was certainly difficult. I believe cmake installed correctly, but I might have to do a reinstall just to make sure. I still couldn't get an example program for cfitsio to work, so I'll have to continue with that tomorrow. I am getting compilation errors, which I think is in part due to linking libraries/headers incorrectly.
 
 6/01/2017: 8 hours
-Today, I worked on repairing the cmake/cfitsio installation. I reinstalled cmake so hopefully that fixed any problems with that program. In 
-order to get the cfitsio example program to work, I eventually discovered a workaround involving the .dll for cfitsio being included in every
-project library with VS. Because the program ended up working after that and including cfitsio libraries, I wanted to start repurposing the 
-example fits program from cfitsio to my own program. Therefore I started reading the programmers guide to cfitsio to help with that.
+Today, I worked on repairing the cmake/cfitsio installation. I reinstalled cmake so hopefully that fixed any problems with that program. Inorder to get the cfitsio example program to work, I eventually discovered a workaround involving the .dll for cfitsio being included in everyproject library with VS. Because the program ended up working after that and including cfitsio libraries, I wanted to start repurposing the example fits program from cfitsio to my own program. Therefore I started reading the programmers guide to cfitsio to help with that.
 
 6/02/2017: 8 hours
-Worked on adding the cfitsio program to my own, including the painful process of adding libraries, dll files, and configuring the project. 
-However, the program only outputs a .tiff file thus far, but I want a fits file from the program. Therefore, I started trying to reformat the
-image file in memory to make a fits file instead. Investigated the Basler SDK API in order to find how to get data from each pixel.
+Worked on adding the cfitsio program to my own, including the painful process of adding libraries, dll files, and configuring the project. However, the program only outputs a .tiff file thus far, but I want a fits file from the program. Therefore, I started trying to reformat theimage file in memory to make a fits file instead. Investigated the Basler SDK API in order to find how to get data from each pixel.
 
 6/05/2017: 8 hours
-Honestly could not find a way to directly transfer data from memory to a fits file from the basler image object. Asked for help, and 
-discovered some shortcomings of my code in terms of how fits expects image data to be read into a file. Fixed the code and will start 
-debugging tomorrow, as the program doesn't produce a readable output.
+Honestly could not find a way to directly transfer data from memory to a fits file from the basler image object. Asked for help, and discovered some shortcomings of my code in terms of how fits expects image data to be read into a file. Fixed the code and will start debugging tomorrow, as the program doesn't produce a readable output.
 
 6/6/2017: 6 hours
-Debugged the program today, noticed that there was a method that had a non zero exit code, so I tried to find the cause of this. Kept on 
-getting an error somewhere in the code due to null pointers/mistakes when making the fits file, so tomorrow, I will look at these errors
-further and examine why it's affecting my code.
+Debugged the program today, noticed that there was a method that had a non zero exit code, so I tried to find the cause of this. Kept on getting an error somewhere in the code due to null pointers/mistakes when making the fits file, so tomorrow, I will look at these errorsfurther and examine why it's affecting my code.
 
 6/7/2017: 8 hours
-Finished debugging the program today, realized that the errors were wonky variables, cleaning up io stream of stdin, and an error with array 
-parameters and behaviors when reading in data. Program works and outputs a viewable file, however, the outputted fits file does not match
-outputted tiff file, so I needed to get help with that.
+Finished debugging the program today, realized that the errors were wonky variables, cleaning up io stream of stdin, and an error with array parameters and behaviors when reading in data. Program works and outputs a viewable file, however, the outputted fits file does not matchoutputted tiff file, so I needed to get help with that.
 
 6/8/2017: 8 hours
-Worked with the SDK in finding the solution to my problem, which is the wrong kind of data is being transferred to the fits file created, so 
-the raw image does not match the fits file. Couldn't find much in the SDK, though. I cleaned up my code, updated GitHub, and updated my 
-computer (by accident). In the coming days, I will need help on what to do here. What data do I pull from the image to put on the fits file?
+Worked with the SDK in finding the solution to my problem, which is the wrong kind of data is being transferred to the fits file created, so the raw image does not match the fits file. Couldn't find much in the SDK, though. I cleaned up my code, updated GitHub, and updated my computer (by accident). In the coming days, I will need help on what to do here. What data do I pull from the image to put on the fits file?
 
 6/12/2017: 8 hours
-Over the weekend, I altered my code, so I tested that today. Images still were not matching up, so I tried to continue testing and reading the 
-SDK to see if there was anything that I was missing. Got suggestions from Jared to use the image buffer in copying data and relooking at the 
-nested for loops governing the transfer of data. Implemented that, but received broken programs. Will work more on that/test tomorrow.
+Over the weekend, I altered my code, so I tested that today. Images still were not matching up, so I tried to continue testing and reading the SDK to see if there was anything that I was missing. Got suggestions from Jared to use the image buffer in copying data and relooking at the nested for loops governing the transfer of data. Implemented that, but received broken programs. Will work more on that/test tomorrow.
 
 6/13/2017: 8 hours
-Finished changing my code and getting the pixel data from the buffer instead of using the getpixeldata function. Tested program, and the gray 
-values for all of the pixels matched up, and was told that my code was actually working, because the fits image was altered due to stretch and
-ratio and whatnot. Therefore, the three main goals I had for this program (capture an image with an arbitrary exposure time, store image in 
-memory, and write image to a fits file) are completed, meaning I have finished this assignment's goals. I started cleaning up my code, as now, 
-I am going to have to put everything into different functions to get the functionality and ease of use of this code up to par with what Jared
-wants.
+Finished changing my code and getting the pixel data from the buffer instead of using the getpixeldata function. Tested program, and the gray values for all of the pixels matched up, and was told that my code was actually working, because the fits image was altered due to stretch andratio and whatnot. Therefore, the three main goals I had for this program (capture an image with an arbitrary exposure time, store image in memory, and write image to a fits file) are completed, meaning I have finished this assignment's goals. I started cleaning up my code, as now, I am going to have to put everything into different functions to get the functionality and ease of use of this code up to par with what Jared wants.
 
 6/14/2017: 8 hours
-Finished separating the program into different functions while preserving the core functionalities of the program. Tested to make sure I 
-didn’t mess it up, and it worked fine. Will have to ask Jared to see if there is anything else I must do in terms of separating the program 
-out. Also finished the doxygen notation of the program. Again, I will have to see if Jared approves of the doxygen work I have done, and what
-I need to change.
+Finished separating the program into different functions while preserving the core functionalities of the program. Tested to make sure I didn’t mess it up, and it worked fine. Will have to ask Jared to see if there is anything else I must do in terms of separating the program out. Also finished the doxygen notation of the program. Again, I will have to see if Jared approves of the doxygen work I have done, and whatI need to change.
 
 6/15/2017: 6 hours
-Header files with doxygen are being weird, so I tried to diagnose the problem. Couldn’t, so I’ll have to take a look at that later.
-Reconfigured my program so that I don’t need an array to read in the values, I just need the pointer to the image buffer. Program kept
-crashing (!!) until I fixed it by messing with the values of the byte size in the fits functions. Uploaded everything to github.
+Header files with doxygen are being weird, so I tried to diagnose the problem. Couldn’t, so I’ll have to take a look at that later.Reconfigured my program so that I don’t need an array to read in the values, I just need the pointer to the image buffer. Program keptcrashing (!!) until I fixed it by messing with the values of the byte size in the fits functions. Uploaded everything to github.
 
 6/19/2017: 8 hours
-Jared emailed me over the weekend for some coding goals, so I proceeded to try and knock those out today. I fixed the documentation of my 
-code, as some was unnecessary, some was in the wrong place, and my formatting was really off for some. I changed the position of incrementing
-iterators, read the Basler SDK and tried output the model name of the camera as well as the serial number of the camera (even though I was 
-having problems with the serial number being unreadable), and added the time of picture taken to the fits image header.
+Jared emailed me over the weekend for some coding goals, so I proceeded to try and knock those out today. I fixed the documentation of my code, as some was unnecessary, some was in the wrong place, and my formatting was really off for some. I changed the position of incrementingiterators, read the Basler SDK and tried output the model name of the camera as well as the serial number of the camera (even though I was having problems with the serial number being unreadable), and added the time of picture taken to the fits image header.
 
 6/20/17: 8 hours
-Today, I got the serial number problem working, and I also looked up parameters of the pointer to image to see what data was there that I 
-could take. I ended up making a struct in my code, and passing that to the write_basler_fits function, and when I got that struct implemented
-into my code, I also tried to write as many properties as possible to the header of the outputted fits file. I also reformatted my code more
-to check for and recognize errors. 
+Today, I got the serial number problem working, and I also looked up parameters of the pointer to image to see what data was there that I could take. I ended up making a struct in my code, and passing that to the write_basler_fits function, and when I got that struct implementedinto my code, I also tried to write as many properties as possible to the header of the outputted fits file. I also reformatted my code more to check for and recognize errors. 
 
 6/21/17: 8 hours
-Today, I got the filename problem sorted out and the program working. I then sorted the program into a header file, a file with just the 
-write_basler_fits function, and then the main function in the last cpp file. I then adapted the program to read 10 different exposures from 
-an int array and take 10 different pictures and spit them all out. After cleaning up the code, I now have streamlined the program and cleaned
-it up so it’s less memory intensive.
+Today, I got the filename problem sorted out and the program working. I then sorted the program into a header file, a file with just the write_basler_fits function, and then the main function in the last cpp file. I then adapted the program to read 10 different exposures from an int array and take 10 different pictures and spit them all out. After cleaning up the code, I now have streamlined the program and cleaned it up so it’s less memory intensive.
 
 6/22/2017: 6 hours
-Today, I worked on cleaning up the documentation for the code that I am using the doxygen wizard on. I uploaded the files and organized the 
-github repository, so they all should be current and organized. I also started theorizing about that I am going to need to run my program on 
-linux. I will need to install cfitsio (UNIX .tar file), pylon SDK, the 2 .cpp files, and the header file. I will also need to try and figure
-out how to use Linux effectively. Another project is to find flat field images for the camera and avoid saturation, meaning that I have to 
-find a way to put paper over the detector and shine a light on it at different exposures. I theorized different ways to do that as well with
-some post it notes and my phone flashlight for now.
+Today, I worked on cleaning up the documentation for the code that I am using the doxygen wizard on. I uploaded the files and organized the github repository, so they all should be current and organized. I also started theorizing about that I am going to need to run my program on linux. I will need to install cfitsio (UNIX .tar file), pylon SDK, the 2 .cpp files, and the header file. I will also need to try and figure out how to use Linux effectively. Another project is to find flat field images for the camera and avoid saturation, meaning that I have to find a way to put paper over the detector and shine a light on it at different exposures. I theorized different ways to do that as well withsome post it notes and my phone flashlight for now.
 
 6/26/2017: 8 hours
-Today I worked on what Jared sent me in the email this morning. Specifically, I started work on the flat field images project. I started by 
-implementing code to take an image at the lowest exposure. I then programmed to open that image file and read in all of the data with 
-cfitsio. Currently, I am in process of getting the program to take 10 images in a loop, write them all, then open them again and read a 
-pixel of data from them.
+Today I worked on what Jared sent me in the email this morning. Specifically, I started work on the flat field images project. I started by implementing code to take an image at the lowest exposure. I then programmed to open that image file and read in all of the data with cfitsio. Currently, I am in process of getting the program to take 10 images in a loop, write them all, then open them again and read a pixel of data from them.
 
 6/27/2017: 7 hours
-Today, I continued working on getting the program to take 10 images in a loop, write them all, then open them again and read a pixel of 
-data from them. I was having problems with opening the images back up again in a loop with cfitsio, and the names of the images have to be 
-structured in a certain way. I also forgot that the names had to have a .fits at the end, and that was causing me problems.
+Today, I continued working on getting the program to take 10 images in a loop, write them all, then open them again and read a pixel of data from them. I was having problems with opening the images back up again in a loop with cfitsio, and the names of the images have to be structured in a certain way. I also forgot that the names had to have a .fits at the end, and that was causing me problems.
 
 6/28/2017: 7 hours
-Today I finished implementing cfitsio to read a pixel from a loop of 10 images. I then tried to expand the implementation to read the 
-entirety of 10 images and trying to find the median pixel value for every pixel in the 10 images. However, I have been running into runtime
-errors in my code. Therefore, I will now have to diagnose and treat accordingly.
+Today I finished implementing cfitsio to read a pixel from a loop of 10 images. I then tried to expand the implementation to read the entirety of 10 images and trying to find the median pixel value for every pixel in the 10 images. However, I have been running into runtimeerrors in my code. Therefore, I will now have to diagnose and treat accordingly.
 
 6/29/2017: 8 hours
-Today I debugged the program and made it work for 10 images. It spits out the correct median image, and I tried to optimize it for speed. 
-What I have to try next is that by changing the constant amount of images variable, this program works for 100 images as well. I will start 
-testing next week.
+Today I debugged the program and made it work for 10 images. It spits out the correct median image, and I tried to optimize it for speed. What I have to try next is that by changing the constant amount of images variable, this program works for 100 images as well. I will start testing next week.
 
 7/3/2017: 8 hours
-Today, I made sure the program worked with 100 image grab, which it did. However, it was really slow, so I came up with these suggestions 
-for fixes to the problem of the program taking forever: Don't open every file 640*480 time, have an array of fits pointers, and put the 
-pixel values directly into vectors instead of into arrays and then vectors. I tried making the program faster with arrays of fits pointers,
-but I encountered problems. I also cleaned up and documented the program, and uploaded everything to GitHub.
+Today, I made sure the program worked with 100 image grab, which it did. However, it was really slow, so I came up with these suggestions for fixes to the problem of the program taking forever: Don't open every file 640*480 time, have an array of fits pointers, and put the pixel values directly into vectors instead of into arrays and then vectors. I tried making the program faster with arrays of fits pointers,but I encountered problems. I also cleaned up and documented the program, and uploaded everything to GitHub.
 
 7/5/2017: 6 hours
-Today, I moved some heavy-ass boxes into the lab. I also debugged my code in order to make the program faster by cleaning up data transfer
-in each f the functions. I also finally developed vectors of fits pointers to be used in the program to open all of the images initially. 
-When I finished correctly writing the program, the program speed was very fast, even with 100 images. Therefore, I solved the speed problem
-of the program.
+Today, I moved some heavy-ass boxes into the lab. I also debugged my code in order to make the program faster by cleaning up data transferin each f the functions. I also finally developed vectors of fits pointers to be used in the program to open all of the images initially. When I finished correctly writing the program, the program speed was very fast, even with 100 images. Therefore, I solved the speed problem of the program.
 
 7/6/2017: 6 hours
-Today, I worked at home on getting the program to take a set of N images at M exposure times. I implemented this into the program through 
-arrays and incrementing exposure times. However, I kept on running into overflow problems with the program that kill it, even though the 
-program works. Therefore, I have to diagnose where the overflow problems are occurring and what I have to do to fix them.
+Today, I worked at home on getting the program to take a set of N images at M exposure times. I implemented this into the program through arrays and incrementing exposure times. However, I kept on running into overflow problems with the program that kill it, even though the program works. Therefore, I have to diagnose where the overflow problems are occurring and what I have to do to fix them.
 
 7/7/2017: 8 hours
-Today, I fixed the overflow error by adjusting array sizes. Therefore, after a bit more debugging, I have now written a program that Takes 
-10 images at 10 different exposure times. I therefore started to figure out how to relate the program to the bigger picture. I also wrote
-a function that subtracts two image pointers from each other and writes the new image back to the first image pointer. I need to test this 
-image and start coming up with ways to finish the big projects for this code.
+Today, I fixed the overflow error by adjusting array sizes. Therefore, after a bit more debugging, I have now written a program that Takes 10 images at 10 different exposure times. I therefore started to figure out how to relate the program to the bigger picture. I also wrotea function that subtracts two image pointers from each other and writes the new image back to the first image pointer. I need to test this image and start coming up with ways to finish the big projects for this code.
 
 7/10/2017: 8 hours
-Today, I tried testing the subtracting of arrays function. The debugging of this function was not successful, however, but I’m not sure if
-that’s the fault of the other code or of this function. I also started implementing all of my code into one big file to streamline the image
-taking process.
+Today, I tried testing the subtracting of arrays function. The debugging of this function was not successful, however, but I’m not sure ifthat’s the fault of the other code or of this function. I also started implementing all of my code into one big file to streamline the imagetaking process.
 
 7/11/2017: 8 hours
-Today, I got stuck debugging the conglomerate file with all of the camera code, as I realized that this would not be practical for image 
-taking. I therefore aimed to finalize each of the camera programs separately and then see about combining them later with system calls or
-something. I implemented the subtract median image method into the mixed array image taking program, but I encountered some problems. Ended
-up trying to debug the program without many results due to overflow errors.
+Today, I got stuck debugging the conglomerate file with all of the camera code, as I realized that this would not be practical for image taking. I therefore aimed to finalize each of the camera programs separately and then see about combining them later with system calls orsomething. I implemented the subtract median image method into the mixed array image taking program, but I encountered some problems. Endedup trying to debug the program without many results due to overflow errors.
 
 7/12/2017: 8 hours
-Continued working on fixing the overflow errors that are in the program. Knew it was due to the reading in of the image, but couldn’t figure
-out why. Finally figured it out by looking at how the median image was written in a previous program, and changing the reading in of the 
-median image from double to long. Therefore, at the end of the day, I fixed all of the errors in the program and tested functionality.  
-I started to work on securing the program (i.e. stopping memory leaks).
+Continued working on fixing the overflow errors that are in the program. Knew it was due to the reading in of the image, but couldn’t figureout why. Finally figured it out by looking at how the median image was written in a previous program, and changing the reading in of the median image from double to long. Therefore, at the end of the day, I fixed all of the errors in the program and tested functionality. I started to work on securing the program (i.e. stopping memory leaks).
 
 7/13/17: 6 hours
-Today, I finished both programs by detecting and fixing memory leaks through Visual Studio, while maintaining the structure and effectiveness
-of the programs. I uploaded everything to github and updated Jared as well.
+Today, I finished both programs by detecting and fixing memory leaks through Visual Studio, while maintaining the structure and effectiveness of the programs. I uploaded everything to github and updated Jared as well.
 
 7/17/2017: 8 hours
-Today, I started writing the sigma clipping program. I started this program off by opening all 100 files, creating an array of fits pointers,
-and separating all 100 pictures into sets of 10 with the same exposure. I spent most of today debugging the iterator in the program that 
-moves between picture groups, and making sure I’m actually opening the images that I want.
+Today, I started writing the sigma clipping program. I started this program off by opening all 100 files, creating an array of fits pointers,and separating all 100 pictures into sets of 10 with the same exposure. I spent most of today debugging the iterator in the program that moves between picture groups, and making sure I’m actually opening the images that I want.
 
 7/18/2017: 6.5 hours
-Today I finished off writing the first part of the sigma clipping program by correcting the iterator and then finding the median out of each 
-of those 10 images, and then writing that median to a file. I was encountering problems with the fits functions, though, as they were 
-throwing errors when reading files. I could not finish the debugging and testing for this, though.
+Today I finished off writing the first part of the sigma clipping program by correcting the iterator and then finding the median out of each of those 10 images, and then writing that median to a file. I was encountering problems with the fits functions, though, as they were throwing errors when reading files. I could not finish the debugging and testing for this, though.
 
 7/19/2017: 7.5 hours
-Today I finished debugging the first part of the program by changing parameters, directories, and file locations within the visual studio 
-project. I then needed to write the sigma clipping part of the program, so I looked up sigma clipping qualities and wrote the function or 
-sigma clipping. It was going to have to be a recursive function, though, as I needed to iterate through the data again if the clipping was
-unsatisfactory. However, the recursion bit caused the program to crash, and I could not fix it. 
+Today I finished debugging the first part of the program by changing parameters, directories, and file locations within the visual studio project. I then needed to write the sigma clipping part of the program, so I looked up sigma clipping qualities and wrote the function or sigma clipping. It was going to have to be a recursive function, though, as I needed to iterate through the data again if the clipping was unsatisfactory. However, the recursion bit caused the program to crash, and I could not fix it. 
 
 7/20/2017: 8 hours
-Today, I finished debugging and testing the sigma clipping program/recursion, ensuring that I have finished this step. I also debugged for 
-memory leaks, and uploaded everything to github. I also helped build the clean room today. I also planned out how I was going to work on the
-rest of this camera project. I think next week, I need to start on shining light on the ccd in order to get images that can be used for this
-assignment.
+Today, I finished debugging and testing the sigma clipping program/recursion, ensuring that I have finished this step. I also debugged for memory leaks, and uploaded everything to github. I also helped build the clean room today. I also planned out how I was going to work on therest of this camera project. I think next week, I need to start on shining light on the ccd in order to get images that can be used for this assignment.
 
 7/24/2017: 8 hours
-Today, I cleaned up and updated the documentation for all of my code. I uploaded everything to github. I also started on shining lights on
-the detector to see what happens and how I can get precise images and how to finish calibrating my images.
+Today, I cleaned up and updated the documentation for all of my code. I uploaded everything to github. I also started on shining lights on the detector to see what happens and how I can get precise images and how to finish calibrating my images.
 
 7/25/2017: 5 hours
-Today, I started messing with the set up of the detector and lights/paper in order to hopefully get a good combination of measurements for
-my program. I also started trying to link all of the separate programs together so I have them all at my disposal instantly. Almost finished
-with that, however, I was getting some linker errors.
+Today, I started messing with the set up of the detector and lights/paper in order to hopefully get a good combination of measurements formy program. I also started trying to link all of the separate programs together so I have them all at my disposal instantly. Almost finished with that, however, I was getting some linker errors.
 
 7/26/2017: 7 hours
-Today, I finished linking all of the programs together so I had many separate programs. I then started collecting data on camera 
-light/placement. However, I soon realized that although the single grab program was working correctly, the grabbing in a loop programs
-weren’t. Specifically, it looked like the exposure time never changed in the loop grabbing ones. Therefore, I tried to fix this problem 
-in my code.
+Today, I finished linking all of the programs together so I had many separate programs. I then started collecting data on camera light/placement. However, I soon realized that although the single grab program was working correctly, the grabbing in a loop programsweren’t. Specifically, it looked like the exposure time never changed in the loop grabbing ones. Therefore, I tried to fix this problem in my code.
 
 7/27/2017: 8 hours
-Today, I investigated why the program was not outputting the way I wanted. Specifically, it seemed as though the exposure time never 
-updated in the program, yet the code was working. I also was wondering why I was getting pure white images sometimes. I eventually saw in 
-some of the sample code Basler included that I needed to turn off auto exposure, so I did. I also experimented with grabbing the images in 
-a for loop, which had promising results, yet the exposure times I inputted and the Basler viewer’s pictures did not line up for some reason.
+Today, I investigated why the program was not outputting the way I wanted. Specifically, it seemed as though the exposure time never updated in the program, yet the code was working. I also was wondering why I was getting pure white images sometimes. I eventually saw in some of the sample code Basler included that I needed to turn off auto exposure, so I did. I also experimented with grabbing the images in a for loop, which had promising results, yet the exposure times I inputted and the Basler viewer’s pictures did not line up for some reason.
 
 7/31/2017: 8 hours
-Today, I spent the first part of the day again looking through the SDK to figure out why the actual exposure and my exposure were off.
-After looking over why the exposure time was a step behind, I realized that I needed to get the exposure time before I started grabbing 
-with the camera. And because just shifting that code caused an error, I realized that I needed to open the camera before anything and close
-it when I was done. This fixed work for the single grab program, so I started applying it to all programs.
+Today, I spent the first part of the day again looking through the SDK to figure out why the actual exposure and my exposure were off.After looking over why the exposure time was a step behind, I realized that I needed to get the exposure time before I started grabbing with the camera. And because just shifting that code caused an error, I realized that I needed to open the camera before anything and closeit when I was done. This fixed work for the single grab program, so I started applying it to all programs.
 
 8/1/2017: 8 hours
-Today, I finished applying the fix to all of the files and again checking for memory leaks. Now, my code works the way I want it to. I 
-uploaded everything on GitHub and made sure all my code was functioning properly and accurately. However, I discovered that the sigma 
-clipping code was broken, as it kept on reading the same image in and the vectors kept on throwing errors. I started fixing it today, 
-however, I have much to do tomorrow.
+Today, I finished applying the fix to all of the files and again checking for memory leaks. Now, my code works the way I want it to. I uploaded everything on GitHub and made sure all my code was functioning properly and accurately. However, I discovered that the sigma clipping code was broken, as it kept on reading the same image in and the vectors kept on throwing errors. I started fixing it today, however, I have much to do tomorrow.
 
 8/2/2017: 7.5 hours
-Today, I fixed the sigma clipping code so it works properly. I therefore retrieved data from the camera and then put it through 
-all the programs. I also wrote a program to quickly subtract 2 images. I did this in order to compare the sigma clipped image 
-with the raw ones and see if there was any difference (there was). I then took the retrieved data from the camera and got usable 
-sigma clipping out of it for now. I need to graph this data for the last steps of this project.
+Today, I fixed the sigma clipping code so it works properly. I therefore retrieved data from the camera and then put it through all the programs. I also wrote a program to quickly subtract 2 images. I did this in order to compare the sigma clipped image with the raw ones and see if there was any difference (there was). I then took the retrieved data from the camera and got usable sigma clipping out of it for now. I need to graph this data for the last steps of this project.
 
 8/3/2017: 8 hours
-Today, I tried to install GSL to use with the program. I need GSL in order to quickly graph the data and figure out the 
-gain/noise. However, GSL was refusing to work with my laptop. I tried install from a different source for a direct for Windows 
-version (wouldn’t link with program), from Bash (Nothing would unpack correctly and Windows Bash is trash), from Cygwin 
-(wouldn’t work), from MinGW (also not working), and from the Windows command prompt, but nothing would work. I think I’m going 
-to start using Linux now.
+Today, I tried to install GSL to use with the program. I need GSL in order to quickly graph the data and figure out the gain/noise. However, GSL was refusing to work with my laptop. I tried install from a different source for a direct for Windows version (wouldn’t link with program), from Bash (Nothing would unpack correctly and Windows Bash is trash), from Cygwin (wouldn’t work), from MinGW (also not working), and from the Windows command prompt, but nothing would work. I think I’m going to start using Linux now.
 
 8/7/2016: 8 hours
-Today, I started trying to install CentOS. I spent the first half of my day repartitioning my computer, funding resources, and 
-downloading the stupidly large ISO file. I spent the second half of the day formatting the hard drive. Hard drive wouldn’t read, 
-will troubleshoot tomorrow.
+Today, I started trying to install CentOS. I spent the first half of my day repartitioning my computer, funding resources, and downloading the stupidly large ISO file. I spent the second half of the day formatting the hard drive. Hard drive wouldn’t read, will troubleshoot tomorrow.
 
 8/8/2017: 7 hours
-Today, I tried to install CentOS again. I broke and got a flash drive since the hard drive wouldn’t work, and now I need to go 
-get reimbursed for that. I used Rufus to put the ISO on the flash drive and messed around in BIOS to get dual booting to work. 
-I did it once, however, I forgot to install the GUI. So I had to retry. Again and again.
+Today, I tried to install CentOS again. I broke and got a flash drive since the hard drive wouldn’t work, and now I need to go get reimbursed for that. I used Rufus to put the ISO on the flash drive and messed around in BIOS to get dual booting to work. I did it once, however, I forgot to install the GUI. So I had to retry. Again and again.
 
 8/9/2017: 7 hours
-Today, I finished installing CentOS. Therefore, I started installing other programs that would help me with transferring code. 
-I installed pylon, Sulbime, valgrind, dev_tools_6, cfitsio, and gsl. I started transferring and testing programs that I 
-previously made to CentOS. I also realized that I needed to do make files for all programs, so I researched how to compile them
-today.
+Today, I finished installing CentOS. Therefore, I started installing other programs that would help me with transferring code. I installed pylon, Sulbime, valgrind, dev_tools_6, cfitsio, and gsl. I startedtransferring and testing programs that I previously made to CentOS. I also realized that I needed to do make files for all programs, so I researched how to compile themtoday.
 
 8/10/2017: 8 hours
-Today, I wrote the make files for each program I transferred. I had too look up makefiles (since I was a bit rusty on them, and 
-I had to look in the Basler help to figure out which flags I needed, and I also had to look at the cfitsio documentation to see 
-how to compile programs with cfitsio I then started fixing all the transferring errors that resulted from compiling the programs
-with make files.
+Today, I wrote the make files for each program I transferred. I had too look up makefiles (since I was a bit rusty on them, and I had to look in the Basler help to figure out which flags I needed, and I also had to look at the cfitsio documentation to see how to compile programs with cfitsio I then started fixing all the transferring errors that resulted from compiling the programswith make files.
 
 8/14/2017: 8 hours
-Today, I started trying to install gsl on my CentOS machine, This turned out to be a bit of a chore, since I was having problems 
-with shared libraries and how to compile programs. I finally got an example program working for gsl, so I looked at the gsl 
-documentation to see how I should find the gain and noise. 
+Today, I started trying to install gsl on my CentOS machine, This turned out to be a bit of a chore, since I was having problems with shared libraries and how to compile programs. I finally got an example program working for gsl, so I looked at the gsl documentation to see how I should find the gain and noise. 
 
 8/15/2017: 8 hours
-Today, I wrote and compiled the program that finds the gain and noise from the std_dev and mean data points that my sigma 
-clipping program finds. I also wrote the makefile that allows this program to work, and I tried it with sample data, which gave
-results. The program takes in a data file with a certain amount  of std_dev and mean values on it, and using a gsl function, 
-figures out gain and noise.
+Today, I wrote and compiled the program that finds the gain and noise from the std_dev and mean data points that my sigma clipping program finds. I also wrote the makefile that allows this program to work, and I tried it with sample data, which gaveresults. The program takes in a data file with a certain amount  of std_dev and mean values on it, and using a gsl function, figures out gain and noise.
 
 8/16/2017: 6 hours
-Today, I started figuring out actual good data for the whole series of programs. I had to make sure all of the programs worked 
-and I had to find a certain set of exposure ranges in my set up to find good values for gain and noise. I did this, and got 
-these values for noise and gain:
+Today, I started figuring out actual good data for the whole series of programs. I had to make sure all of the programs worked and I had to find a certain set of exposure ranges in my set up to find good values for gain and noise. I did this, and got these values for noise and gain:
 M (Gain): 0.00295914
 B (Read Noise): -0.102368
 Probably not the best measurements, but I'll take a look tomorrow to see if I can get anything better
 
 8/17/2017: 8 hours
-Today, I tried to figure out the inconsistencies with the results of the gain/noise program. I started off by first giving the 
-program some sample data that would naturally give a line of y = x, which worked. That means that the program is not necessarily
-the problem. I then downloaded plotutils and gv, to see what the plot of the data showed (It was a bunch of crap). I then tried 
-to get new sets of data to see what I would get. I got:
+Today, I tried to figure out the inconsistencies with the results of the gain/noise program. I started off by first giving the program some sample data that would naturally give a line of y = x, which worked. That means that the program is not necessarilythe problem. I then downloaded plotutils and gv, to see what the plot of the data showed (It was a bunch of crap). I then tried to get new sets of data to see what I would get. I got:
 M (Gain): 0.00286682
 B (Read Noise): -0.0955313
 A third trial gave me the numbers:
@@ -330,56 +176,40 @@ B (Read Noise): -0.0761547
 Why is my data doing this? I don't know.
 
 8/21/2017: 4 Hours
-Today, I tried to fix the processing of my code with Jared's help. WHat I did was shuffle some code around so that sigma clipping
-file would produce viable data , which I could then graph. I also tried to install gv, and emailed a guy for help with that.
+Today, I tried to fix the processing of my code with Jared's help. WHat I did was shuffle some code around so that sigma clipping file would produce viable data , which I could then graph. I also tried to install gv, and emailed a guy for help with that.
 
 8/22/2017: 8 hours
-Today, I finished coding and got some viable data values that I used to graph and see what the line looked like. However, I could 
-not get the graph to work, so I think I should take averages of data. Asked Jared for help with that.
+Today, I finished coding and got some viable data values that I used to graph and see what the line looked like. However, I could not get the graph to work, so I think I should take averages of data. Asked Jared for help with that.
 
 8/23/2017: 2 hours
-Tried to install gv, by emailing the dude that developed gv. Got back instructions to install a bunch of packages and then try again.
-Instructions unclear. I almost threw my laptop out of a window.
+Tried to install gv, by emailing the dude that developed gv. Got back instructions to install a bunch of packages and then try again. Instructions unclear. I almost threw my laptop out of a window.
 
 8/28/2017: 4 hours
-Today, I started reducing the sizes of my points that were graphed on the graphs I was producing in order to actually see the data. 
-I also started to mess with the different kinds of graphs produced and how the different options affected the size of the graph. Spoke 
-to Jared about coding troubles.
+Today, I started reducing the sizes of my points that were graphed on the graphs I was producing in order to actually see the data. I also started to mess with the different kinds of graphs produced and how the different options affected the size of the graph. Spoke to Jared about coding troubles.
 
 8/29/2017: 7 hours
-Today, while messing with my graphing parameters, I discovered that when graphing any set of points (I tried with 4 sets), I 
-noteiced that none of my coding efforts were getting me a good solid line of data. Therefore, I tried to double check what the 
-std dev was for some of the data, and discovered that I was wrong with my sd dev/ variance getting. Will fix later this week.
+Today, while messing with my graphing parameters, I discovered that when graphing any set of points (I tried with 4 sets), I noteiced that none of my coding efforts were getting me a good solid line of data. Therefore, I tried to double check what the std dev was for some of the data, and discovered that I was wrong with my sd dev/ variance getting. Will fix later this week.
 
 9/1/2017: 3 hours
-Tried to fix my std dev problems. In the end, it didn't really make too much of a difference, so I feel like I should take more 
-data in order to try and see if that clears up anything with the way my code works. I will do that next week, but I do have the
-plots currently for what I have come up with.
+Tried to fix my std dev problems. In the end, it didn't really make too much of a difference, so I feel like I should take more data in order to try and see if that clears up anything with the way my code works. I will do that next week, but I do have the plots currently for what I have come up with.
 
 9/5/2017: 2 hours
-Could not collect data today because of work being done in the lab, but I started getting code ready to get 1000 pictures and get 
-data based off of that. Hopefully I can do that tomorrow.
+Could not collect data today because of work being done in the lab, but I started getting code ready to get 1000 pictures and get data based off of that. Hopefully I can do that tomorrow.
 
 9/6/2017: 2 hours
-Could not collext any data today because of people working in the lab, so I shored up my code for a bit and updated all of my 
-files for this project.
+Could not collext any data today because of people working in the lab, so I shored up my code for a bit and updated all of myfiles for this project.
 
 9/7/2017: 8 hours
-Finished writing/compiling the code today today to read 1000 pictures. Took 1000 pictures. Started analyzing the 1000 pictures by 
-looking at how the behavior of the pixels looked on a graph. Wrote a script today to automatically graph plots for me. Emailed 
-Jared about the results.
+Finished writing/compiling the code today today to read 1000 pictures. Took 1000 pictures. Started analyzing the 1000 pictures by looking at how the behavior of the pixels looked on a graph. Wrote a script today to automatically graph plots for me. Emailed Jared about the results.
 
 9/8/2017: 2 hours
-Graphed individual pictures on plots to see how the behaviors of singular pixels fell into the larger behavior of the images as a
-whole.
+Graphed individual pictures on plots to see how the behaviors of singular pixels fell into the larger behavior of the images as a whole.
 
 9/11/2017: 3 hours
 Sent out graphed images to Jared, looked at code and pictures to look at various pieces of the functions that could be messing up.
 
 9/12/2017: 7 hours
-Spoke with Jared about the direction of code and what I have gotten done so far. In the end, my assignment now is to read in all 
-the data and just bin each of the data sets to get a nice average. Then graph that with the data. I started theorizing how I was 
-going to do so.
+Spoke with Jared about the direction of code and what I have gotten done so far. In the end, my assignment now is to read in all the data and just bin each of the data sets to get a nice average. Then graph that with the data. I started theorizing how I was going to do so.
 
 9/13/2017: 2 hours
 Today, I started writing the code for binning everything. I struggled with C++ file IO, so I did a lot of research for that.
@@ -388,61 +218,45 @@ Today, I started writing the code for binning everything. I struggled with C++ f
 Almost finished writing the program today, still having a bit of trouble with data read in and sorting.
 
 9/18/2017: 2 hours
-Finished the program, graphed the data, looks great. Showed Jared, tried to start working on getting the median of the data. 
-Updated this log. Updated GitHub.
+Finished the program, graphed the data, looks great. Showed Jared, tried to start working on getting the median of the data. Updated this log. Updated GitHub.
 
 9/19/2017: 7.5 hours
-Program was not working right with median, as there was an uptick in variance towards the end. Therefore, when talking to Jared,
-he recommended that I change the data structure of my program and then calculate the mean. I did so, but now there is a downtick 
-at the top exposure. Emailed Jared.
+Program was not working right with median, as there was an uptick in variance towards the end. Therefore, when talking to Jared,he recommended that I change the data structure of my program and then calculate the mean. I did so, but now there is a downtick at the top exposure. Emailed Jared.
 
 9/20/2017: 2.5 hours
-Implemented median function that Jared gave me. Did some preliminary testing with it and rewrote some of my code to see what would happen
-if I took the median of all variance bins instead of the means. Getting good results, except for the last bin. Not sure if this was code 
-error, so tomorrow I will review the code.
+Implemented median function that Jared gave me. Did some preliminary testing with it and rewrote some of my code to see what would happenif I took the median of all variance bins instead of the means. Getting good results, except for the last bin. Not sure if this was code error, so tomorrow I will review the code.
 
 9/22/2017: 2 hours
-Despite my best efforts, today, I was unable to figure out why the last bin was not responding. I will therefore email Jared to see what is 
-going on, and if it's the camera, data, or just because I am foolish.
+Despite my best efforts, today, I was unable to figure out why the last bin was not responding. I will therefore email Jared to see what is going on, and if it's the camera, data, or just because I am foolish.
 
 9/25/2017: 4 hours
-Started changing the program around to see if that made an improvement. Notably, changed value collection when binning to median 
-instead of mean. Noted results, although the change wasn't that notable. Emailed Jared and will meet with him tomorrow. 
+Started changing the program around to see if that made an improvement. Notably, changed value collection when binning to median instead of mean. Noted results, although the change wasn't that notable. Emailed Jared and will meet with him tomorrow. 
 
 9/26/2017: 7 hours
-Collected data from a center square in each of the images. Noted the change in results (barely any), but wondered how I could 
-quantify it. Wrote a program that got the slope of the outputted data and compared results for whole picture iterations and middle box 
-iterations. Barely any change, but I kept results. Spoke with Jared, revised program, discussed several aspects of the program including
-where to go from here, fits cube implementation, bookeeping, git, and other aspects. Jared will give me some code in order to see
-why the last bin of variance is acting up.
+Collected data from a center square in each of the images. Noted the change in results (barely any), but wondered how I could quantify it. Wrote a program that got the slope of the outputted data and compared results for whole picture iterations and middle box iterations. Barely any change, but I kept results. Spoke with Jared, revised program, discussed several aspects of the program includingwhere to go from here, fits cube implementation, bookeeping, git, and other aspects. Jared will give me some code in order to seewhy the last bin of variance is acting up.
 
 9/27/2017: 2 hours
-Uploaded all files to dropbox so Jared could check them out, completed RCR training, looked at 3d cubes in order to see what I should do 
-to my program going forward.
+Uploaded all files to dropbox so Jared could check them out, completed RCR training, looked at 3d cubes in order to see what I should do to my program going forward.
 
 10/2/2017: 4 hours
-Edited code in order to make 3d fits cubes. Currently testing to see if program still works. Getting a memory dump due to a seg fault, 
-so I will investigate that tomorrow.
+Edited code in order to make 3d fits cubes. Currently testing to see if program still works. Getting a memory dump due to a seg fault, so I will investigate that tomorrow.
 
 10/03/2017: 8 hours
-Worked with new code. Fixed the memory error and obtained the data from the images. Data is slightly different, but no noticeable effect
-in the overview of the graph/medians. Back to square one, I guess? In any case, some of the pixel values aren't matching up, so I am 
-going to have to redo code and check on that, and also update Jared.
+Worked with new code. Fixed the memory error and obtained the data from the images. Data is slightly different, but no noticeable effectin the overview of the graph/medians. Back to square one, I guess? In any case, some of the pixel values aren't matching up, so I am going to have to redo code and check on that, and also update Jared.
 
 10/04/2017: 2 hours
-Worked more on 3d fits cube code. Getting a lot of data that is unorganized. Tried to fix the way the arrays read in the data. Feel like 
-I'm almost there?
+Worked more on 3d fits cube code. Getting a lot of data that is unorganized. Tried to fix the way the arrays read in the data. Feel like I'm almost there?
 
 10/09/2017: 4 hours
-Tried finishing up 3d fits cube code, there's an offset of 1 pixel. Super close to finishing it! Met with Jared, who outlined priorities 
-of: fitting lines to variance/median value data, writing new code that loops endlessly over 10 files, and starting to work more with git. 
-Fits cubes were pushed on the backburner. Started fitting lines to the variance/mean graph.
+Tried finishing up 3d fits cube code, there's an offset of 1 pixel. Super close to finishing it! Met with Jared, who outlined priorities of: fitting lines to variance/median value data, writing new code that loops endlessly over 10 files, and starting to work more with git. Fits cubes were pushed on the backburner. Started fitting lines to the variance/mean graph.
 
 10/10/2017: 8 hours
-Today, I finished graphing the different linear fits that were discussed yesterday. I also wrote basic code to loop over 10 images, similar
- to what was discussed yesterday. It works, and there don't seem to be any problems with the program. Sent it to Jared for further inspection.
-I also worked with git, installing it and updating the files and file systems while learning git. The repo looks better now, as it's integrated 
-with my computer.
+Today, I finished graphing the different linear fits that were discussed yesterday. I also wrote basic code to loop over 10 images, similar to what was discussed yesterday. It works, and there don't seem to be any problems with the program. Sent it to Jared for further inspection.I also worked with git, installing it and updating the files and file systems while learning git. The repo looks better now, as it's integrated with my computer.
+
+10/11/2017: 2 hours
+Today, I organized the repo some more. I also played around file access in the repo, and worked with the continously grabbing program a bit so it's continous and hopefully less memory intensive. Spoke with Jared about using nanosleep() or something to simulate the program sleeping for x amount of seconds. The good thing is nanosleep() is more resistant to signal interrupts, so maybe I can set up some signal handlers for 
+the program. Also, on Monday I should:
+do the same experiment (getting 10 images and doing an analysis) but with less light, so you need twice the exposure time to collect the same number of photons.  If the rollover happens at the same exposure time, then we know it's a camera mode thing.  If it happens at the same counts, then it's a real effect.  We also need to look into what other parameters the camera has besides exposure time.
 
 
 
