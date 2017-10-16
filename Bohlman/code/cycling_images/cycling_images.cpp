@@ -5,6 +5,7 @@ Initializes the pylon resources, takes the photos, and passes a struct to write_
 
 #include "write_basler_fits.h"
 #include <csignal>
+#include <time.h>
 
 /*
 void signalHandler( int signum ) {
@@ -24,7 +25,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	char* argv[] ///< [ch.ar] the integer value of the count of the command line arguments
 )
 {
-	//signal(SIGINT, signalHandler);	
+	//signal(SIGINT, signalHandler);
+	struct timespec tim, tim2;
+  	tim.tv_sec  = 1;
+	tim.tv_nsec = 0;
 	int exitCode = 0;
 	int i = 0;
 	int exposure = 5000;
@@ -47,7 +51,9 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			if (i == 10) i = 0;			
 										// Starts the grabbing of a singular image
 			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();
+
 			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  	// Waits for an image and then retrieves it. A timeout of 5000 ms is used
+			nanosleep(&tim , &tim2);	
 			if (ptrGrabResult->GrabSucceeded())  						// If image is grabbed successfully 
 			{
 				struct image *cam_image = new struct image; 				// Setting up image struct
