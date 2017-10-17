@@ -262,7 +262,7 @@ do the same experiment (getting 10 images and doing an analysis) but with less l
 Today, I integrated nanosleep() into the cycling imaging program, which now updates files every second. Also, I tried to fix the fitscube function in order to use it from here on out with getting data from the camera. I think I'm almost there.
 
 10/17/2017: 8 hours
-Today, I finished fixing the fits cube function to work with the data. It worked with the previous raw data almpost exactly, so I did the same experiment but with a lower light brightness and higher exposure times. Produced an interesting plot that agreed with my previous assesments of a spike and then dip in variance, so Jared instructed me to plot both sets of data in the same graph, and bin the data on the same graph.
+Today, I finished fixing the fits cube function to work with the data. It worked with the previous raw data almpost exactly, so I did the same experiment but with a lower light brightness and higher exposure times. Produced an interesting plot that agreed with my previous assesments of a spike and then dip in variance, so Jared instructed me to plot both sets of data in the same graph, and bin the data on the same graph. I did that, and performed a linear fit analysis on the data. I should therefore start working on a report for this whole process. This should probably be similar to the report I wrote earlier this year.
 
 
 
