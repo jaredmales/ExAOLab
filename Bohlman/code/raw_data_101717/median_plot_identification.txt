@@ -1,0 +1,4 @@
+Red line: Raw medians graphed
+Green line: Linear fit to all data
+Blue line: Linear fit to all data up to 200 counts
+
