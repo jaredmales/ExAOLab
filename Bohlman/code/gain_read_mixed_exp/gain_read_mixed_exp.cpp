@@ -1,5 +1,5 @@
-/*! \file gain_read_blank.cpp
-\brief A documented file that takes 10 different pictures for 10 exposure times, for a total of 100 images taken. Subtracts median photo from each.
+/*! \file gain_read_mixed_exp.cpp
+\brief A documented file that takes 100 different pictures for 10 exposure times, for a total of 1000 images taken. Can subtract median photo from each.
 Initializes the pylon resources, takes each photo and subtracts the median photo from each.
 */
 

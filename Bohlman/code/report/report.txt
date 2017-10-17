@@ -1,0 +1,8 @@
+1. Pick out 10 exposures
+2. Get a blank image from gain_read_blank
+3. Get raw data from gain_read_mixed_exp
+4. Get median values from graph_bins
+5. Get plot from graph_bins/graphing.sh
+6. Get line coefficients from linear_fit
+7. Get line values from linear_fits
+8. Graph line values with linear_fits/graphing.sh

@@ -1,6 +1,5 @@
 /*! \file cycle_exposures.cpp
-\brief A documented file that takes and writes an image for 10 different exposures
-Initializes the pylon resources, takes the photos, and passes a struct to write_basler_fits() function with image data in it
+\brief A documented file that takes and writes images indefinitely for a single exposure. Terminated with SIGINT (ctrl+c)
 */
 
 #include "write_basler_fits.h"
