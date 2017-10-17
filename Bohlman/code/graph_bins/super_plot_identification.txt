@@ -1,0 +1,5 @@
+Identification for super_plot.ps:
+Red dots: higher exposure/lower light level binned data
+Black dots: lower exposures/higher light level binned data
+Green line: median of each mean bin of variances for higher exposure/lower light level binned data
+Blue line: median of each mean bin of variances for lower exposure/higher light level binned data
