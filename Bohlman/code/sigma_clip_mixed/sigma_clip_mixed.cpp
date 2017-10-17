@@ -5,7 +5,6 @@
 #include "write_basler_fits.h"
 #include <numeric>
 #include <cmath>
-#include <gsl/gsl_fit.h>
 
 //  std_dev_calc function
 /** Takes in a vector structure and finds the standard deviation of the data elements

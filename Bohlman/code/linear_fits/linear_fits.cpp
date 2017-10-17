@@ -16,18 +16,18 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 )
 {
 	int exitCode = 0;
-	double b = 0.153334, m = 0.0274015;
+	double b = 0.347011, m = 0.025809;
 	std::vector <double> points(0);
-	points.push_back(22);
-	points.push_back(44);
-	points.push_back(89);
-	points.push_back(22);
-	points.push_back(112);
-	points.push_back(134);
-	points.push_back(157);
-	points.push_back(180);
-	points.push_back(202);
-	points.push_back(223);
+	points.push_back(26);
+	points.push_back(50);
+	points.push_back(75);
+	points.push_back(100);
+	points.push_back(125);
+	points.push_back(150);
+	points.push_back(175);
+	points.push_back(199);
+	points.push_back(222);
+	points.push_back(242);
 	for (int i = 0; i < 10; i++) {
 		std::cout << points[i] << '\t' << (points[i]*m) + b << std::endl;
 	}
