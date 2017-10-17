@@ -33,17 +33,17 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];
-	int i, exp = 600;
+	int i, exp = 3000;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
 		if (i % 100 == 0 && i > 0)
-			exp = exp + 575;
+			exp = exp + 2700;
 		expArray[i] = exp;
 	}
 	const char *names[c_countOfImagesToGrab];
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {  //creates an array of names for each of the files previously made
 		char filename[100];
 		//strncpy(filename, "fitsimg_exp", sizeof(filename));
-		strncpy(filename, "/home/cbohlman/Documents/caao_summer2017/ExAOLab/Bohlman/code/raw_data_091217/fitsimg_exp", sizeof(filename));
+		strncpy(filename, "/home/cbohlman/Documents/caao_summer2017/ExAOLab/Bohlman/code/raw_data_101717/fitsimg_exp", sizeof(filename));
 		char exp_str[10];
 		sprintf(exp_str, "%d", expArray[i]);
 		strcat(filename, exp_str);
@@ -82,107 +82,109 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	for (k = 1; k <= height; k = k+10) {   //Looks through each pixel in a picture
 		for (j = 1; j <= width; j = j+10) {
 			//cout << k << '\t' << j << endl;
-			double pixel_arr[100];
+			double pixel_arr[1000];
 			int z = 0;
 			
 			for (i = 0; i < 100; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
+				//cout << ((k-1)*width + (j-1))+(i*width*height)-1 << endl;
 				z++;
 			}
 			std::vector<double> v01(pixel_arr, pixel_arr + 100);
 			double std_dev_num = std_dev_calc(v01);
 			double mean_num = std::accumulate(v01.begin(), v01.end(), 0.0) / v01.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
-			
+			//cout << endl;
 			z = 0;
 			for (i = 100; i < 200; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
 				z++;
 			}
 			std::vector<double> v02(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v02);
 			mean_num = std::accumulate(v02.begin(), v02.end(), 0.0) / v02.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
-
+			//cout << endl;
 			z = 0;
 			for (i = 200; i < 300; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
 				z++;
 			}
 			std::vector<double> v03(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v03);
 			mean_num = std::accumulate(v03.begin(), v03.end(), 0.0) / v03.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
-
+			//cout << endl;
 			z = 0;
 			for (i = 300; i < 400; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
 				z++;
 			}
 			std::vector<double> v04(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v04);
 			mean_num = std::accumulate(v04.begin(), v04.end(), 0.0) / v04.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
-
+			//cout << endl;
 			z = 0;
 			for (i = 400; i < 500; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
 				z++;
 			}
 			std::vector<double> v05(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v05);
 			mean_num = std::accumulate(v05.begin(), v05.end(), 0.0) / v05.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
-
+			
 			z = 0;
 			for (i = 500; i < 600; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
 				z++;
 			}
 			std::vector<double> v06(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v06);
 			mean_num = std::accumulate(v06.begin(), v06.end(), 0.0) / v06.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
-
+			//cout << endl;
 			z = 0;
 			for (i = 600; i < 700; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
 				z++;
 			}
 			std::vector<double> v07(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v07);
 			mean_num = std::accumulate(v07.begin(), v07.end(), 0.0) / v07.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
-
+			//cout << endl;
 			z = 0;
 			for (i = 700; i < 800; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
 				z++;
 			}
 			std::vector<double> v08(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v08);
 			mean_num = std::accumulate(v08.begin(), v08.end(), 0.0) / v08.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
-
+			//cout << endl;
 			z = 0;
 			for (i = 800; i < 900; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
 				z++;
 			}
 			std::vector<double> v09(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v09);
 			mean_num = std::accumulate(v09.begin(), v09.end(), 0.0) / v09.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
-			
+			//cout << endl;
 			z = 0;
 			for (i = 900; i < 1000; ++i) {
-				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)-1];
+				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
 				z++;
 			}
 			std::vector<double> v10(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v10);
 			mean_num = std::accumulate(v10.begin(), v10.end(), 0.0) / v10.size();
 			cout << mean_num <<  '\t' << std_dev_num << endl;
+			//cout << endl;
 		}
 	}
 	

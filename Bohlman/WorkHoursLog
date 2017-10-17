@@ -258,6 +258,14 @@ Today, I organized the repo some more. I also played around file access in the r
 the program. Also, on Monday I should:
 do the same experiment (getting 10 images and doing an analysis) but with less light, so you need twice the exposure time to collect the same number of photons.  If the rollover happens at the same exposure time, then we know it's a camera mode thing.  If it happens at the same counts, then it's a real effect.  We also need to look into what other parameters the camera has besides exposure time.
 
+10/16/2017: 3 hours
+Today, I integrated nanosleep() into the cycling imaging program, which now updates files every second. Also, I tried to fix the fitscube function in order to use it from here on out with getting data from the camera. I think I'm almost there.
+
+10/17/2017: 8 hours
+Today, I finished fixing the fits cube function to work with the data. It worked with the previous raw data almpost exactly, so I did the same experiment but with a lower light brightness and higher exposure times. Produced an interesting plot that agreed with my previous assesments of a spike and then dip in variance, so Jared instructed me to plot both sets of data in the same graph, and bin the data on the same graph.
+
+
+
 
 
 
