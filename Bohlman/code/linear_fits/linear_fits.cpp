@@ -1,5 +1,5 @@
 /*! \file linear_fit.cpp
-\brief A documented file that sigma clips and finds the median of already made files.
+\brief A documented file that uses y int and slope to correctly output coordinates at certain points
 */
 
 #include <fstream>

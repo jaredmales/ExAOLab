@@ -1,3 +1,6 @@
+/*! \file graph_bins.cpp
+\brief A file that finds median variance and median mean value for each bin so they can be graphed.
+*/
 #include <fstream>
 #include <iostream>
 #include <vector>

@@ -1,5 +1,5 @@
 /*! \file gain_read_blank.cpp
-\brief A documented file that initializes the pylon resources, takes a number of images at the lowest exposure, and finds/writes median image 
+\brief A documented file that initializes the pylon resources, takes a number of images at the lowest exposure, and finds/writes median image in rder to make an averaged flat image
 */
 
 #include "write_basler_fits.h"
