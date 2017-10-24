@@ -37,7 +37,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		//size = size - (size/2);
 		double c0 = 0, c1 = 0, cov00 = 0, cov01 = 0, cov11 = 0, sumsq = 0;
   		gsl_fit_linear(&mean[0], 1, &var[0], 1, size, &c0, &c1, &cov00, &cov01, &cov11, &sumsq);
-		std::cout << "M (Slope): " << c1 << '\n' << "B (Y Int): " << c0 << std::endl;
+		std::cout << "M (Gain): " << 1/c1 << '\n' << "B (Read Noise): " << c0/c1 << std::endl;
 	}
 	else {
         	std::cerr << "Nothing read in." << std::endl;
