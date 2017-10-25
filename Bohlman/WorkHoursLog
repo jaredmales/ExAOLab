@@ -265,6 +265,17 @@ Today, I integrated nanosleep() into the cycling imaging program, which now upda
 Today, I finished fixing the fits cube function to work with the data. It worked with the previous raw data almpost exactly, so I did the same experiment but with a lower light brightness and higher exposure times. Produced an interesting plot that agreed with my previous assesments of a spike and then dip in variance, so Jared instructed me to plot both sets of data in the same graph, and bin the data on the same graph. I did that, and performed a linear fit analysis on the data. I should therefore start working on a report for this whole process. This should probably be similar to the report I wrote earlier this year.
 
 
+10/18/2017: 2 hours
+Today, I started working on the report. Not much to say about that.
+
+10/23/2017: 4 hours
+Today, I continued working on the report. I am almost finished with it, and I should finalize it soon.
+
+10/24/2017: 3 hours
+Today I finished working on the report. I therefore will turn it in tomorrow and work on the multiple camera handling.
+
+10/25/2017: 2 hours
+Updated report with more concise conclusions and tested out multiple camera handling events with new equiptment.
 
 
 
