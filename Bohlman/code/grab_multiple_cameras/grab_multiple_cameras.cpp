@@ -1,4 +1,4 @@
-// grab_multiple_cameras.cpp
+// Grab_MultipleCameras.cpp
 /*
     Note: Before getting started, Basler recommends reading the Programmer's Guide topic
     in the pylon C++ API documentation that gets installed with pylon.
@@ -16,11 +16,8 @@
     image event handlers. Please note that this is not shown in this example.
 */
 // Include files to use the PYLON API.
-
-// Namespace for using pylon objects.
-// Number of images to be grabbed.
 #include "write_basler_fits.h"
-
+#include <pylon/usb/BaslerUsbInstantCameraArray.h>
 // Limits the amount of cameras used for grabbing.
 // It is important to manage the available bandwidth when grabbing with multiple cameras.
 // This applies, for instance, if two GigE cameras are connected to the same network adapter via a switch.
@@ -48,7 +45,9 @@ int main(int argc, char* argv[])
             throw RUNTIME_EXCEPTION( "No camera present.");
         }
         // Create an array of instant cameras for the found devices and avoid exceeding a maximum number of devices.
-        CInstantCameraArray cameras( min( devices.size(), c_maxCamerasToUse));
+        //CInstantCameraArray cameras( min( devices.size(), c_maxCamerasToUse));
+        CBaslerUsbInstantCameraArray cameras( min( devices.size(), c_maxCamerasToUse));
+
         // Create and attach all Pylon Devices.
         for ( size_t i = 0; i < cameras.GetSize(); ++i)
         {
@@ -56,41 +55,55 @@ int main(int argc, char* argv[])
             // Print the model name of the camera.
             cout << "Using device " << cameras[ i ].GetDeviceInfo().GetModelName() << endl;
         }
-
         // Starts grabbing for all cameras starting with index 0. The grabbing
         // is started for one camera after the other. That's why the images of all
         // cameras are not taken at the same time.
         // However, a hardware trigger setup can be used to cause all cameras to grab images synchronously.
         // According to their default configuration, the cameras are
         // set up for free-running continuous acquisition.
+        int expos = 4999;											//SET EXPOSURE HERE
+        cameras.Open();
+		cameras[0].ExposureAuto.SetValue(ExposureAuto_Off);
+		cameras[0].ExposureTime.SetValue(expos);
+		cameras[1].ExposureAuto.SetValue(ExposureAuto_Off);
+		cameras[1].ExposureTime.SetValue(expos);
         cameras.StartGrabbing();
         // This smart pointer will receive the grab result data.
-        CGrabResultPtr ptrGrabResult;
+        CGrabResultPtr ptrGrabResult1;
+		CGrabResultPtr ptrGrabResult2;
         // Grab c_countOfImagesToGrab from the cameras.
-        for( uint32_t i = 0; i < c_countOfImagesToGrab && cameras.IsGrabbing(); ++i)
+		int i = 0;
+        while(cameras.IsGrabbing())
         {
-            cameras.RetrieveResult( 5000, ptrGrabResult, TimeoutHandling_ThrowException);
-            // When the cameras in the array are created the camera context value
+            
+	    cameras[0].RetrieveResult( 5000, ptrGrabResult1, TimeoutHandling_ThrowException);
+	    cameras[1].RetrieveResult( 5000, ptrGrabResult2, TimeoutHandling_ThrowException);
+	    // When the cameras in the array are created the camera context value
             // is set to the index of the camera in the array.
             // The camera context is a user settable value.
             // This value is attached to each grab result and can be used
             // to determine the camera that produced the grab result.
-            intptr_t cameraContextValue = ptrGrabResult->GetCameraContext();
-		if (ptrGrabResult->GrabSucceeded())  						// If image is grabbed successfully 
+            //intptr_t cameraContextValue = ptrGrabResult1->GetCameraContext();
+        if (ptrGrabResult1->GrabSucceeded())  						// If image is grabbed successfully 
 		{
-			char* newstr = "filler";
-			int exposure = 5000 + i;
-			int tempcam = 100;
-			char real_filename[25];							// Construct file name from exposure time
+			string file_name = (string) cameras[0].GetDeviceInfo().GetModelName() + " "+ (string) cameras[0].GetDeviceInfo().GetSerialNumber();
+			char* newstr = &file_name[0u];
+			int tempcam = (int)cameras[0].DeviceTemperature.GetValue();
+			int exposure = (int)cameras[0].ExposureTime.GetValue();
+			char real_filename[30];							// Construct file name from exposure time
 			strncpy(real_filename, "!", sizeof(real_filename));
-			strcat(real_filename, "fitsimg_exp");
+			strcat(real_filename, "fitsimg_cam0_");
 			char exp_str[6];
 			sprintf(exp_str, "%d", exposure);
 			strcat(real_filename, exp_str);
+			strcat(real_filename, "_");
+			char num_str[6];
+			sprintf(num_str, "%d", i);
+			strcat(real_filename, num_str);
 			strcat(real_filename, ".fits");
 
 			struct image *cam_image = new struct image; 				// Construct image struct and set up parameters
-			cam_image->imgGrab = ptrGrabResult;
+			cam_image->imgGrab = ptrGrabResult1;
 			cam_image->exposure = exposure;
 			cam_image->temp = tempcam;
 			cam_image->imgname = real_filename;
@@ -107,10 +120,49 @@ int main(int argc, char* argv[])
 		}
 		else  										// If image is not grabbed successfully, throw an error
 		{
-			cerr << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl;
+			cerr << "Error: " << ptrGrabResult1->GetErrorCode() << " " << ptrGrabResult1->GetErrorDescription() << endl;
 			exitCode = 1;
-		}	
-	    
+		}
+        if (ptrGrabResult2->GrabSucceeded())  						// If image is grabbed successfully 
+		{
+			string file_name = (string) cameras[1].GetDeviceInfo().GetModelName() + " "+ (string) cameras[0].GetDeviceInfo().GetSerialNumber();
+			char* newstr = &file_name[0u];
+			int tempcam = (int)cameras[1].DeviceTemperature.GetValue();
+			int exposure = (int)cameras[1].ExposureTime.GetValue();
+			char real_filename[30];							// Construct file name from exposure time
+			strncpy(real_filename, "!", sizeof(real_filename));
+			strcat(real_filename, "fitsimg_cam1_");
+			char exp_str[6];
+			sprintf(exp_str, "%d", exposure);
+			strcat(real_filename, exp_str);
+			strcat(real_filename, "_");
+			char num_str[6];
+			sprintf(num_str, "%d", i);
+			strcat(real_filename, num_str);
+			strcat(real_filename, ".fits");
+
+			struct image *cam_image = new struct image; 				// Construct image struct and set up parameters
+			cam_image->imgGrab = ptrGrabResult2;
+			cam_image->exposure = exposure;
+			cam_image->temp = tempcam;
+			cam_image->imgname = real_filename;
+			cam_image->camname = newstr;
+
+			if (write_basler_fits(cam_image) != 0)  				// If image building from struct did not work
+			{
+				throw "Bad process in fits image writing!";
+			}
+			else {									// If image building from struct did work
+				cout << "Image grab and write successful" << endl;
+				delete(cam_image);
+			}
+		}
+		else  										// If image is not grabbed successfully, throw an error
+		{
+			cerr << "Error: " << ptrGrabResult2->GetErrorCode() << " " << ptrGrabResult2->GetErrorDescription() << endl;
+			exitCode = 1;
+		}
+	++i;
         }
     }
     catch (const GenericException &e)
@@ -124,3 +176,4 @@ int main(int argc, char* argv[])
     PylonTerminate(); 
     return exitCode;
 }
+

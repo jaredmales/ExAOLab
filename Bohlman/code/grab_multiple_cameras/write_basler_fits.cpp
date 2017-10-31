@@ -31,7 +31,7 @@ int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 		return 1;
 	}
-	if (fits_update_key(fptr, TLONG, "EXPOSURE", &(cam_image->exposure), "Total Exposure Time", &exitCode) != 0)  //Writes exprosure keyword of image from struct
+	if (fits_update_key(fptr, TINT, "EXPOSURE", &(cam_image->exposure), "Total Exposure Time", &exitCode) != 0)  //Writes exprosure keyword of image from struct
 	{
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 		return 1;
