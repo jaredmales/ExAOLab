@@ -5,11 +5,9 @@ contains prototype so other cpp files can use write_basler_fits() function
 */
 
 #include <pylon/PylonIncludes.h>
-#ifdef PYLON_WIN_BUILD
-#    include <pylon/PylonGUI.h>
-#endif
 #include <pylon/PixelData.h>
 #include <pylon/GrabResultData.h>
+#include <pylon/usb/BaslerUsbInstantCameraArray.h>
 #include <pylon/usb/BaslerUsbInstantCamera.h>
 #include <pylon/usb/_BaslerUsbCameraParams.h>
 #include <GenApi/IFloat.h>
