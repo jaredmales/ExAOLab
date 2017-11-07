@@ -1,0 +1,11 @@
+FIRST DATA SET: 
+Red line: original data medians
+Green line: linear fit of all data
+Blue line: linear fit up to 200 counts
+Magenta line: linear fit up to 134 counts
+
+SECOND DATA SET:
+Cyan line: original data medians
+Red dotted line: linear fit of all data
+Green dotted line: linear fit up to 200 counts
+Blue dotted line: linear fit up to 125 counts

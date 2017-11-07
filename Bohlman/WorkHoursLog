@@ -291,12 +291,12 @@ Looked into syncronous camera aquisition, didn't get anywhere, so I emailed Jare
 
 11/6/2017: 4 hours
 present plots of counts vs. exposure time in each case: done
-do a fit in both data sets just up to ~130 counts
-repeat the fit with all the data at once (i.e. combine the data)
+do a fit in both data sets just up to ~130 counts: done
+repeat the fit with all the data at once (i.e. combine the data): done
 Time of image from one camera: 2017-10-31T21:01:33
 time of image from other camera: 2017-10-31T21:01:33
 Can't tell the delay from this. Is there another way I could do this? Couldn't find anything in the sdk.
-Present a plot of counts vs. exposure time for each: 
+Present a plot of counts vs. exposure time for each: done
 
 
 
