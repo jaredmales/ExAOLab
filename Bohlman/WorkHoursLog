@@ -287,6 +287,18 @@ Continued writing code for multiple camera handling. Having some difficulties wi
 Finished the program for grabbing images with multiple cameras with accurate header information and customizable exposure time. However, it doesn't grab images syncronously, which is a real bummer. There's a small delay in between the image grabbing. I think I have to look more into that.
 
 11/1/2017: 4 hours
+Looked into syncronous camera aquisition, didn't get anywhere, so I emailed Jared. Next week, I should finalze the report and start expanding the programs with the multi camera set up.
+
+11/6/2017: 4 hours
+present plots of counts vs. exposure time in each case: done
+do a fit in both data sets just up to ~130 counts
+repeat the fit with all the data at once (i.e. combine the data)
+Time of image from one camera: 2017-10-31T21:01:33
+time of image from other camera: 2017-10-31T21:01:33
+Can't tell the delay from this. Is there another way I could do this? Couldn't find anything in the sdk.
+Present a plot of counts vs. exposure time for each: 
+
+
 
 
 
