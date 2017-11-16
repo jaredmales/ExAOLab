@@ -32,17 +32,17 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];
-	int i, exp = 3000;
+	int i, exp = 500;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
 		if (i % 100 == 0 && i > 0)
-			exp = exp + 2700;
+			exp = exp + 400;
 		expArray[i] = exp;
 	}
 	const char *names[c_countOfImagesToGrab];
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {  //creates an array of names for each of the files previously made
 		char filename[100];
 		//strncpy(filename, "fitsimg_exp", sizeof(filename));
-		strncpy(filename, "/home/cbohlman/Documents/caao_summer2017/ExAOLab/Bohlman/code/raw_data_101717/fitsimg_exp", sizeof(filename));
+		strncpy(filename, "/home/cbohlman/Documents/caao_summer2017/ExAOLab/Bohlman/code/raw_data_110917/fitsimg_exp", sizeof(filename));
 		char exp_str[10];
 		sprintf(exp_str, "%d", expArray[i]);
 		strcat(filename, exp_str);
