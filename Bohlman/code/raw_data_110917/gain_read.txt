@@ -1,0 +1,11 @@
+All data:
+M (Gain): 38.5405
+B (Read Noise): 13.0938
+
+Data up to 200 counts:
+M (Gain): 36.1023
+B (Read Noise): 7.14861
+
+Data up to ~130 counts:
+M (Gain): 31.5741
+B (Read Noise): -1.99984

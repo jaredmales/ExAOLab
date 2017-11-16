@@ -289,17 +289,60 @@ Finished the program for grabbing images with multiple cameras with accurate hea
 11/1/2017: 4 hours
 Looked into syncronous camera aquisition, didn't get anywhere, so I emailed Jared. Next week, I should finalze the report and start expanding the programs with the multi camera set up.
 
-11/6/2017
+11/6/2017: 3 hours
 present plots of counts vs. exposure time in each case: done
 Time of image from one camera: 2017-10-31T21:01:33
 time of image from other camera: 2017-10-31T21:01:33
 Can't tell the delay from this. Is there another way I could do this? Couldn't find anything in the sdk.
 
-11/7/2017
+11/7/2017: 8 hours
 Finalized plots and inserted them into the report. Finished the report. 
 do a fit in both data sets just up to ~130 counts: done
 repeat the fit with all the data at once (i.e. combine the data): done
-Emailed Jared.
+Emailed Jared, and here is a list of what I have to do soon:
+Implement new camera stuff/PCIe card/driver on Corona, potentially (will speak more next week)
+Get gain and read noise on second camera. I can start on this today.
+
+11/8/2017: 1.5 hours
+Camera was missing, just unplugged.
+Emailed Jared at 3:40 after I noticed and looked around.
+Nothing in my emails.
+Left. Clearly I can't do anything today.
+
+11/9/2017 1.5 hours
+Got the gain noise fo the new camera. Interesting values that I will have to think about. Next week, will focus on the new camera stuff.
+
+11/13/2017: 4 hours
+Started trying to install the EDT software, however, my computer does not like the install. Getting this error:
+couldn't load file "/tmp/tcl_6drZm1": libXss.so.1: cannot open shared object file: No such file or directory
+    while executing
+"load /run/media/cbohlman/CDROM/tclkit/tclkit-linux-x86_64/lib/tk8.6/libtk8.6.so Tk"
+    ("package ifneeded Tk 8.6.1" script)
+    invoked from within
+"package require Tk"
+    (file "startmnu.tcl" line 11)
+Trying to figure out what to do in order to make this not do that. Googled various portions of the error message.
+
+11/14/2017 (Jury duty shortened): 4 hours
+Did a bit more research on the compiling software problems. Also organized/updated different files so they were current.
+
+11/15/2017: 2 hours
+Got the package to compile.
+Did:
+cd /run/media/cbohlman/CDROM
+sudo ./linux.go.sh (failed install)
+
+LD_LIBRARY_PATH=/usr/local/lib
+export LD_LIBRARY_PATH
+(These 2 might not have done anything, but I want to record exactly what I did.)
+
+sudo yum install libXScrnSaver
+sudo ./linux.go.sh
+
+11/16/2017
+Got an account on
+
+
 
 
 
