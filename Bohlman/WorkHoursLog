@@ -424,4 +424,11 @@ Again, today I looked at the EDT software (specifcally the guide, take.c, and si
 11/28/2017: 8 hours
 Today, Jared connected a monitor to the computer, and then it started working on my screen. Even closing the terminal and reopening it made vlviewer work. However, the problem is that vlviewer is very slow, and I can't seem to get the phantom channel to work with the generic camera. Also, running vlviewer with sudo just doesn't make the program work at all.
 
+1. Change permissions on edt folder to a+w
+2. Don't run with sudo.
+3. Work with channel 2 and run with generic camera.
+
+Tested out many configurations, and they seemed to work with the different channels.
+Restarted my computer and the phantom channel still works.
+
 
