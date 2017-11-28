@@ -430,5 +430,6 @@ Today, Jared connected a monitor to the computer, and then it started working on
 
 Tested out many configurations, and they seemed to work with the different channels.
 Restarted my computer and the phantom channel still works.
+Al of the phantom channel configurations produce the correct data (I believe). In order to code in the future, I will need to use take.c, simple_take, and initcam.c to do the required things.
 
 
