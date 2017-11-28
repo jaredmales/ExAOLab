@@ -339,15 +339,89 @@ export LD_LIBRARY_PATH
 sudo yum install libXScrnSaver
 sudo ./linux.go.sh
 
-11/16/2017
-Got an account on
+11/16/2017: 4 hours
+Got an account on exao0.as.arizona.edu
+Tried to install software from CD, but that didn't work because the cd wasn't mounted.
+Installed from website, and that worked. Next, I must test the board mounting.
 
+11/20/2017: 4 hours
+tested sample. output:
+setting timeout to 5000 ms
+Hit return to do simple read 1048576 (1.000000 Mbytes) 
+edt_read: Success
+pciload:
+Library version 5.5.4.1
+pdv driver version 5.5.4.1 10/23/2017
+pdv unit 0 (VisionLink F4):
+  ID 0xa3, 5cgtfd5c5 PCIe FPGA, Micron N25Q064A13ESE40G FPROM
+  s/n VLF400596, p/n 019-14856-11, i/f fpga none, rev 11, clock 100 Mhz, opt IRIG
+  PCIe negotiated link width x4, 5.0 Gbps
+  Sector 0 (BOOT)  <visionlinkf4-05.rpd 5CGTFD5C5U19C7 01/13/2016 14:59:03>
+sudo ./vlviewer -pdv0_2
+./vlviewer: /opt/EDTpdv/libtiff.so.5: no version information available (required by ./vlviewer)
+vlviewer: cannot connect to X server 
+after logging in with: ssh -X exao0.as.arizona.edu
+sudo ./vlviewer -pdv0_2
+./vlviewer: /opt/EDTpdv/libtiff.so.5: no version information available (required by ./vlviewer)
+X11 connection rejected because of wrong authentication.
+vlviewer: cannot connect to X server localhost:10.0
 
+11/21/2017: 8 hours
+After clearing up that the board was properly connected to the computer, I wanted to understand why vlviewer wasn't working. I emailed Jared, and got a few responses back about why, and I tried solutions to figure out why.
+After running just 'sudo startx', and also running 'sudo init 5' and then 'sudo startx', I keep getting the same error.
 
+==) Using system config directory "/usr/share/X11/xorg.conf.d"
+(EE)
+Fatal server error:
+(EE) no screens found(EE)
+(EE)
+Please consult the The X.Org Foundation support
+     at http://wiki.x.org
+ for help.
+(EE) Please also check the log file at "/var/log/Xorg.1.log" for additional information.
+(EE)
+(EE) Server terminated with error (1). Closing log file.
+xinit: giving up
+xinit: unable to connect to X server: Connection refused
+xinit: server error
+The last part of the log file says:
+[431789.972] (--) NVIDIA(GPU-0):
+[431789.972] (EE) NVIDIA(0): Failed to assign any connected display devices to X screen 0.
+[431789.972] (EE) NVIDIA(0):     Set AllowEmptyInitialConfiguration if you want the server
+[431789.972] (EE) NVIDIA(0):     to start anyway
+[431789.972] (EE) NVIDIA(0): Failing initialization of X screen 0
+[431790.676] (II) UnloadModule: "nvidia"
+[431790.676] (II) UnloadSubModule: "wfb"
+[431790.676] (II) UnloadSubModule: "fb"
+[431790.676] (EE) Screen(s) found, but none have a usable configuration.
 
+sudo nvidia-xconfig:
+Using X configuration file: "/etc/X11/xorg.conf".
+WARNING: No Screen specified, constructing implicit screen section.
+WARNING: No Layout specified, constructing implicit layout section using screen
+         "Default Screen".
+WARNING: Unable to find CorePointer in X configuration; attempting to add new
+         CorePointer section.
+WARNING: The CorePointer device was not specified explicitly in the layout;
+         using the first mouse device.
+WARNING: Unable to find CoreKeyboard in X configuration; attempting to add new
+         CoreKeyboard section.
+WARNING: The CoreKeyboard device was not specified explicitly in the layout;
+         using the first keyboard device.
+Backed up file '/etc/X11/xorg.conf' as
+'/etc/X11/xorg.conf.nvidia-xconfig-original'
+Backed up file '/etc/X11/xorg.conf' as '/etc/X11/xorg.conf.backup'
+New X configuration file written to '/etc/X11/xorg.conf'
 
+Jared said he'd connect a monitor to the computer so we could see if that helped.
 
+11/22/2017: 2 hours
+Today, I looked at the edt software to see what I could do with it. Examined the user guide and take.c to see how I can adapt it for my own code.
 
+11/27/2017: 4 hours
+Again, today I looked at the EDT software (specifcally the guide, take.c, and simple_take.c). Found exposure functions that we can use in the future. Also emailed Jared about monitor, and he said we'd find out tomorrow.
 
+11/28/2017: 8 hours
+Today, Jared connected a monitor to the computer, and then it started working on my screen. Even closing the terminal and reopening it made vlviewer work. However, the problem is that vlviewer is very slow, and I can't seem to get the phantom channel to work with the generic camera. Also, running vlviewer with sudo just doesn't make the program work at all.
 
 
