@@ -432,4 +432,15 @@ Tested out many configurations, and they seemed to work with the different chann
 Restarted my computer and the phantom channel still works.
 Al of the phantom channel configurations produce the correct data (I believe). In order to code in the future, I will need to use take.c, simple_take, and initcam.c to do the required things.
 
+11/29/2017: 2 hours
+Since everything worked, I decided to start my foray into coding for this board. Eventually, when we attach a camera to it, this board is going to be useful, so I needed to start now. I found and bookmarked the API for this device online, and started "grep"-ping through the various c files in order to see what routines to use to do what I want.
+My goals are:
+1. Recognize camera
+2. Reset exposure time
+3. Output image to fits file.
+I also installed cfitsio on exao0, though the build is having some problems. Looks like I'm going to have to look into that in the future.
+
+12/05/2017: 8 hours
+Today, I finished fixing cfitsio on exao0. I also wrote the code for a program that uses the visionlink f4 to set the exposure time, and output the image to a fits file. It works with the phantom channel, so I assume all I need to do is to check the exposure time once a camera is connected.
+
 
