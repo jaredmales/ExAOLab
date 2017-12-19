@@ -1,10 +1,10 @@
 CAAO Internship Log: 2017
 
 5/17/2017: 7 hours
-Today, I got introduced to what I will be doing and who I’ll be working with. I also got introduced to my work space and some of theequipment I will be working with. I also had timesheet difficulties, so I spent a fair amount of time today trying to figure out how I canput in my hours online (looking for future correspondence concerning online timesheet). I also picked up some equipment: monitor from Kim,keyboard and mouse from dude on 3rd floor. The first two tasks I was given was to download the software for the Basler acA640 -750 µmcamera and figure out how to use it, and to read the book “Handbook of CCD Astronomy” cover to cover. I downloaded the software for thecamera and took a few videos/pictures with it. I also went through the first 3 chapters of the handbook and took notes on it. Tomorrow, Iwant to take notes on the next two chapters of the handbook (4 and 5), and play around with the software for the camera more and startworking on a write up for that. I also want to resolve my timesheet difficulties.
+Today, I got introduced to what I will be doing and who I’ll be working with. I also got introduced to my work space and some of the equipment I will be working with. I also had timesheet difficulties, so I spent a fair amount of time today trying to figure out how I can put in my hours online (looking for future correspondence concerning online timesheet). I also picked up some equipment: monitor from Kim, keyboard and mouse from dude on 3rd floor. The first two tasks I was given was to download the software for the Basler acA640 -750 µmcamera and figure out how to use it, and to read the book “Handbook of CCD Astronomy” cover to cover. I downloaded the software for the camera and took a few videos/pictures with it. I also went through the first 3 chapters of the handbook and took notes on it. Tomorrow, I want to take notes on the next two chapters of the handbook (4 and 5), and play around with the software for the camera more and start working on a write up for that. I also want to resolve my timesheet difficulties.
 
 5/18/2017: 8 hours
-Inputted hours today on UAccess. Also read/took notes through chapters 4 and 5 of the handbook. Started looking at the Basler camerafeatures and cataloged the different features I could find. Made notes on what program I am supposed to make and started to program in C toreach my goals. Read the SDK guide for the Basler camera so I could program this correctly. Tomorrow, I want to finish taking notes on thehandbook and continue programming in C.
+Inputted hours today on UAccess. Also read/took notes through chapters 4 and 5 of the handbook. Started looking at the Basler camerafeatures and cataloged the different features I could find. Made notes on what program I am supposed to make and started to program in C to reach my goals. Read the SDK guide for the Basler camera so I could program this correctly. Tomorrow, I want to finish taking notes on thehandbook and continue programming in C.
 
 5/19/2017: 8 hours
 Finished working through the handbook and taking notes. Set up Visual Studio on my laptop, along with fixing environment variables andremoving programs that could mess with my coding, and tried to import the sample projects with it. Had to download Windows SDK 8.1 to tryand build the programs. My goals for next week include starting to actually code the program I want to use with the Basler program, readthrough the handbook one more time, and to start learning C++.
@@ -442,5 +442,20 @@ I also installed cfitsio on exao0, though the build is having some problems. Loo
 
 12/05/2017: 8 hours
 Today, I finished fixing cfitsio on exao0. I also wrote the code for a program that uses the visionlink f4 to set the exposure time, and output the image to a fits file. It works with the phantom channel, so I assume all I need to do is to check the exposure time once a camera is connected.
+To use my program, the progra defaults to thelast camera used. This can be specified with initcam -c 2 -f camera_config/yourCamera.cfg, where yourCamera.cfg is the configuration file of the camera you want.
+For generic testing (which is what I am doing), use one of the genericXXcl.cfg files provided.
+Wrote a shell script to initialize the camera, it should be ran before the program.
+
+12/12/2017: 2 hours
+Today, I finished timesheets for these next 2 weeks. I also looked into what I will be doing for these next two weeks. Since there isn't a lot for me to do, I think it'll be more focused on administrative tasks for me in order to set myself up for next year.
+
+12/14/2017: 4 hours
+Today, I tried to look more at the reviosu programs I have made and the current one I am working on. I also organized my exa0 workspace more, so I can easily scp the folder of work between exa0 to my own laptop. My workspace is organized now, and the /opt folder on exa0 should also be less disorganized now.
+
+12/19/2017: 8 hours
+Updated OS/files on computer. Changed around certain directories and such. Finalized and commented the vlink frame grabber code and transfered it to the GitHub.
+Next year, I want to start categorizing a new camera, as I think this board is finished. Woo.
+
+
 
 

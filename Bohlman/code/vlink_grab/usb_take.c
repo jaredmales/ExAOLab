@@ -1,4 +1,6 @@
-//gcc usb_take.c -I /opt/EDTpdv -L/opt/EDTpdv -lpdv -lpthread -lm -ldl -L/opt/cfitsio -lcfitsio -lcurl -g -o ./usb_take
+// File: usb_grab.c
+// Purpose: Uses the VLink F4 grabber to grab data from a phantom channel and output it to a fits file
+// gcc usb_take.c -I /opt/EDTpdv -L/opt/EDTpdv -lpdv -lpthread -lm -ldl -L/opt/cfitsio -lcfitsio -lcurl -g -o ./usb_take
 
 #include "edtinc.h"
 #include "fitsio.h"
@@ -52,7 +54,6 @@ int write_fits(struct image *cam_image  ///< [st] the struct of the image
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 		return 1;
 	}
-
 	if (fits_write_img(fptr, TBYTE, fpixel, cam_image->width*cam_image->height, pImageBuffer, &exitCode) != 0)  // Writes pointer values to the image
 	{
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
@@ -67,35 +68,9 @@ int write_fits(struct image *cam_image  ///< [st] the struct of the image
 }
 
 int main ( int argc, char *argv[] ) {
-	PdvDev *pdv_p = pdv_open_channel(EDT_INTERFACE, 0, 2);
-	int	exposure, gain, offset, set_exposurie = 0;
+	PdvDev *pdv_p = pdv_open_channel(NULL, 0, 2);
+	int	exposure = 5000;
 	struct image *cam_image = (struct image*) malloc(sizeof(struct image));;
-	/*
-	while (argc && ((argv[0][0] == '-') || (argv[0][0] == '/'))) {
-        	switch (argv[0][1]) {
-		case 'e':		// exposure time 
-		set_exposure = 1;
-		exposure = atoi(argv[0]);
-		}
-		case 'c':           // channel 
-                if (argc < 1)
-                {
-                    usage(progname, "Error: option 'c' requires a numeric argument\n", 1);
-                }
-                if ((argv[0][0] >= '0') && (argv[0][0] <= '9'))
-                {
-                    arg_channel = atoi(argv[0]);
-                }
-                else
-                {
-                    usage(progname, "Error: option 'c' requires a numeric argument\n", 1);
-                }
-	}
-	
-	if (set_exposure)
-		pdv_set_exposure(pdv_p, exposure);
-	*/
-	exposure = 5000;
 	pdv_set_exposure(pdv_p, exposure);
 	int height = pdv_get_height(pdv_p);
 	int width = pdv_get_width(pdv_p);
@@ -111,6 +86,13 @@ int main ( int argc, char *argv[] ) {
 	strncpy(cam_image->camname,str1,sizeof(cam_image->camname));
 	strncpy(cam_image->imgname,str2,sizeof(cam_image->imgname));
 	write_fits(cam_image);
-	int t = pdv_timeouts(pdv_p) ;
+	int t, last_timeouts = 0;
+	t = pdv_timeouts(pdv_p);
+	if (t > last_timeouts) {
+		printf("got timeout\n");
+    		// add recovery code here -- see simple_take.c for example
+    		// last_timeouts = t;
+        }
 	pdv_close(pdv_p) ;
+	return 0;
 }
