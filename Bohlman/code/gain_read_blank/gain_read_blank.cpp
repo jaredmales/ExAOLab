@@ -94,39 +94,39 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 )
 {
 	int exitCode = 0;
-	int expArray[c_countOfImagesToGrab];															// Sets up array of exposures (in this case, all lowest possible value)
+	int expArray[c_countOfImagesToGrab];																									// Sets up array of exposures (in this case, all lowest possible value)
 	for (int i = 0; i < c_countOfImagesToGrab; i++)
 		expArray[i] = 59;
-	PylonInitialize();  																			// Initializes pylon runtime before using any pylon methods
+	PylonInitialize();  																													// Initializes pylon runtime before using any pylon methods
 	try
 	{
-		CDeviceInfo info;																			// Set up attached Basler USB camera
+		CDeviceInfo info;																													// Set up attached Basler USB camera
 		info.SetDeviceClass(Camera_t::DeviceClass());
-		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice());   							// Creates an instant camera object with the camera device found first.
-		for (int j = 0; j < c_countOfImagesToGrab; ++j)												// At each exposure time
+		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice());   																	// Creates an instant camera object with the camera device found first.
+		for (int j = 0; j < c_countOfImagesToGrab; ++j)																						// For the desired amount of images
 		{
-			string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();
-			char* newstr = &file_name[0u];															// Get camera properties
+			string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();		// Gets camera name from model name and serial number
+			char* newstr = &file_name[0u];																									// Stores camera name into a char* for cfitsio
 			CGrabResultPtr ptrGrabResult;															
-			int exposure = expArray[j];  															// Gets the desired exposure time from function get_exposure() 
+			int exposure = expArray[j];  																									// Gets the desired exposure time from the exposure array 
 			
-			camera.Open();																			// Open camera to set up exposure time
+			camera.Open();																													// Opens camera parameters
 			camera.ExposureAuto.SetValue(ExposureAuto_Off);
 			camera.ExposureTime.SetValue(exposure);
 			
-			camera.StartGrabbing(1);  																// Starts the grabbing of a singular image.
-			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();	//Get camera temperature
-			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  			// Waits for an image and then retrieves it. A timeout of 5000 ms is used.
+			camera.StartGrabbing(1);  																										// Starts the grabbing of a singular image.
+			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();						//Gets camera temperature
+			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  													// Waits for an image and then retrieves it. A timeout of 5000 ms is used.
 			camera.Close();
-			if (ptrGrabResult->GrabSucceeded())  													// If image is grabbed successfully: 
+			if (ptrGrabResult->GrabSucceeded())  																							// If image is grabbed successfully: 
 			{
-				struct image *cam_image = new struct image; 										// Set up image struct
+				struct image *cam_image = new struct image; 																				// Set up image struct
 				cam_image->imgGrab = ptrGrabResult;
 				cam_image->exposure = exposure;
 				cam_image->temp = tempcam;
 				cam_image->camname = newstr;
 
-				char real_filename[25];																// Set up image file name
+				char real_filename[25];																										// Set up image file name with given strings, exposure time, and image number
 				strncpy(real_filename, "!", sizeof(real_filename));
 				strcat(real_filename, "fitsimg_exp");
 				char exp_str[6];
@@ -138,29 +138,29 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				strcat(real_filename, ".fits");
 				cam_image->imgname = real_filename;
 
-				if (write_basler_fits(cam_image) != 0)  											// If image building did not work
+				if (write_basler_fits(cam_image) != 0)  																					// If image building did not work
 				{
-					throw "Bad process in fits image writing!";
-					delete(cam_image);
+					throw "Bad process in fits image writing!";																				// Throw an error
+					delete(cam_image);																										// Free struct
 				}
-				else {																				// If image building did work
-					cout << "Image grab and write successful" << endl;
-					delete(cam_image);
+				else {																														// If image building did work
+					cout << "Image grab and write successful" << endl;																		// Print confirmation message
+					delete(cam_image);																										// Free struct
 				}
 			}
-			else  																					// If image is not grabbed successfully, throw an error
+			else  																															// If image is not grabbed successfully, throw an error
 			{
 				cerr << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl;
 			}
 		}
-		exitCode = find_median();																	// Find median of all images
+		exitCode = find_median();																											// Find median of all images through find_median()
 	}
-	catch (const GenericException &e)  																// Provides Pylon error handling.
+	catch (const GenericException &e)  																										// Provides Pylon error handling.
 	{
 		std::cerr << "An exception occurred." << endl
 			<< e.GetDescription() << endl;
 		exitCode = 1;
 	}
-	Pylon::PylonTerminate();   																		// Releases all pylon resources. 
+	Pylon::PylonTerminate();   																												// Releases all pylon resources. 
 	return exitCode;
 }

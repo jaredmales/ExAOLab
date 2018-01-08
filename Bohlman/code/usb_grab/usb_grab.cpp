@@ -13,10 +13,10 @@ int exitCode = 0;
 */
 int get_exposure() 
 {
-	int exposure;  										// Holds exposure time from stdin
-	cin >> exposure;
+	int exposure;  																													// Holds exposure time from stdin
+	cin >> exposure;																												// Input desired exposure time
 	std::cin.ignore(std::cin.rdbuf()->in_avail());
-	return exposure;  									// Returns exposure time
+	return exposure;  																												// Returns exposure time
 }
 
 //  Main function
@@ -28,28 +28,29 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	char* argv[] ///< [ch] the integer value of the count of the command line arguments
 )
 {
-	PylonInitialize();  									// Initializes pylon at runtime before using any pylon methods
+	PylonInitialize();  																											// Initializes pylon at runtime before using any pylon methods
 	try
 	{
-		int exposure = get_exposure();  						// Gets the desired exposure time from function get_exposure() 
+		int exposure = get_exposure();  																							// Gets the desired exposure time from function get_exposure() 
 
-		CDeviceInfo info;								// Set up attached Basler USB camera
-		info.SetDeviceClass(Camera_t::DeviceClass());
+		CDeviceInfo info;																											// Get attached Basler USB camera information
+		info.SetDeviceClass(Camera_t::DeviceClass());																				// Set up device class
 		CGrabResultPtr ptrGrabResult;
-		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice()); 		// Creates an instant camera object with the camera device found first.
-		camera.Open();  								// Opens camera parameters
-		camera.ExposureAuto.SetValue(ExposureAuto_Off);					// Sets up exposure time from given value
-		camera.ExposureTime.SetValue(exposure);
+		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice()); 															// Creates an instant camera object with the camera device found first.
+		camera.Open();  																											// Opens camera parameters
+		camera.ExposureAuto.SetValue(ExposureAuto_Off);																				// Turns off auto exposure
+		camera.ExposureTime.SetValue(exposure);																						// Sets up exposure time from given time
 
-		string file_name = (string) camera.GetDeviceInfo().GetModelName() + " "+ (string) camera.GetDeviceInfo().GetSerialNumber();
-		char* newstr = &file_name[0u];
-		camera.StartGrabbing(1);  							// Starts the grabbing of a singular image
-		int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();
-		camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  	// Waits for an image and then retrieves it. A timeout of 5000 ms is used
-		camera.Close();
-		if (ptrGrabResult->GrabSucceeded())  						// If image is grabbed successfully 
+		string file_name = (string) camera.GetDeviceInfo().GetModelName()+" "+(string) camera.GetDeviceInfo().GetSerialNumber();	// Gets camera name and serial number from Basler methods
+		char* newstr = &file_name[0u];																								// cast to a char* for cfitsio
+		camera.StartGrabbing(1);  																									// Starts the grabbing of a singular image
+		int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();					// Gets the current temperature of the camera and stores it
+		camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  												// Waits for an image and then retrieves it. A timeout of 5000 ms is used
+		camera.Close();																												// Close camera parameters
+
+		if (ptrGrabResult->GrabSucceeded())  																						// If image is grabbed successfully 
 		{
-			char real_filename[25];							// Construct file name from exposure time
+			char real_filename[25];																									// Construct file name given string, image number, and exposure time
 			strncpy(real_filename, "!", sizeof(real_filename));
 			strcat(real_filename, "fitsimg_exp");
 			char exp_str[6];
@@ -57,34 +58,34 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			strcat(real_filename, exp_str);
 			strcat(real_filename, ".fits");
 
-			struct image *cam_image = new struct image; 				// Construct image struct and set up parameters
+			struct image *cam_image = new struct image; 																			// Construct image struct and fills out elements
 			cam_image->imgGrab = ptrGrabResult;
 			cam_image->exposure = exposure;
 			cam_image->temp = tempcam;
 			cam_image->imgname = real_filename;
 			cam_image->camname = newstr;
 
-			if (write_basler_fits(cam_image) != 0)  				// If image building from struct did not work
+			if (write_basler_fits(cam_image) != 0)  																				// If fits image building from struct did not work
 			{
-				throw "Bad process in fits image writing!";
+				throw "Bad process in fits image writing!";																			// Throw error
 			}
-			else {									// If image building from struct did work
-				cout << "Image grab and write successful" << endl;
-				delete(cam_image);
+			else {																													// If fits image building from struct did work
+				cout << "Image grab and write successful" << endl;																	// Output confirmation message
+				delete(cam_image);																									// Free the struct
 			}
 		}
-		else  										// If image is not grabbed successfully, throw an error
+		else  																														// If image is not grabbed successfully, throw an error
 		{
 			cerr << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl;
 			exitCode = 1;
 		}
 	}
-	catch (const GenericException &e)  							// Provides Basler error handling.
+	catch (const GenericException &e)  																								// Basler error handling throws an error if any error occured in this process
 	{
 		cerr << "An exception occurred." << endl
 			<< e.GetDescription() << endl;
 		exitCode = 1;
 	}
-	PylonTerminate();   									// Releases all pylon resources. 
+	PylonTerminate();   																											// Releases all pylon resources. 
 	return exitCode;
 }

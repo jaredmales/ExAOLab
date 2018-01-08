@@ -11,49 +11,49 @@ Initializes the pylon resources, takes each photo and subtracts the median photo
 */
 int subtract_images(char* file_name){
 	int exitCode = 0;
-	const char* median_name = "median_lowexp_image.fits";
+	const char* median_name = "median_lowexp_image.fits";											// Name of the median image that is subtracted from each image
 	fitsfile *fptr1, *fptr2;
-	if (fits_open_file(&fptr1, file_name, READWRITE, &exitCode)) {
-		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+	if (fits_open_file(&fptr1, file_name, READWRITE, &exitCode)) {									// Open image file passed in function			
+		fits_report_error(stderr, exitCode);  														// if it does not exist, print out any fits error messages
 		return 1;
 	}
 
-	if (fits_open_file(&fptr2, median_name, READONLY, &exitCode)) {
-		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+	if (fits_open_file(&fptr2, median_name, READONLY, &exitCode)) {									// Open median image file
+		fits_report_error(stderr, exitCode);  														// If it does not exist, print out any fits error messages
 		return 1;
 	}
 
-	long fpixel[2] = { 1,1 };
+	long fpixel[2] = { 1,1 };																		// Instructs cfitsio to read a pixel at a time
 	double * pixel_arr1, * pixel_arr2, * new_arr;
-	pixel_arr1 = new double[640 * 480];
-	pixel_arr2 = new double[640 * 480];
-	new_arr = new double[640 * 480];
+	pixel_arr1 = new double[640 * 480];																// Array that holds first image data
+	pixel_arr2 = new double[640 * 480];																// Array that holds second image data
+	new_arr = new double[640 * 480];																// Array that holds final image data
 	int nelements = 640 * 480;
 
-	if (fits_read_pix(fptr1, TDOUBLE, fpixel, nelements, NULL, pixel_arr1, NULL, &exitCode)) {
-		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+	if (fits_read_pix(fptr1, TDOUBLE, fpixel, nelements, NULL, pixel_arr1, NULL, &exitCode)) {		// Store image data into array
+		fits_report_error(stderr, exitCode);  														// Prints out any fits error messages
 		return 1;
 	}
 
-	if (fits_read_pix(fptr2, TLONGLONG, fpixel, nelements, NULL, pixel_arr2, NULL, &exitCode)) {
-		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+	if (fits_read_pix(fptr2, TLONGLONG, fpixel, nelements, NULL, pixel_arr2, NULL, &exitCode)) {	// Store image data into array
+		fits_report_error(stderr, exitCode);  														// Prints out any fits error messages
 		return 1;
 	}
 
-	int j, k;
+	int j, k;																						// Subtract median image from passed file and store value into new array
 	int width = 640, height = 480;
-	for (k = 0; k < height; ++k) {   //Subract arrays to new array
+	for (k = 0; k < height; ++k) {
 		for (j = 0; j < width; ++j) {
 			new_arr[k*width + j] = pixel_arr1[k*width + j] - pixel_arr2[k*width + j];
 		}
 	}
 	long fpixel2[2] = { 1,1 };
-	if (fits_write_pix(fptr1, TDOUBLE, fpixel2, nelements, new_arr, &exitCode) != 0) {  // Writes pointer values to the image
-		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
+	if (fits_write_pix(fptr1, TDOUBLE, fpixel2, nelements, new_arr, &exitCode) != 0) {  			// Writes pointer values to the image
+		fits_report_error(stderr, exitCode);  														// Prints out any fits error messages
 		return 1;
 	}
 
-	fits_close_file(fptr1, &exitCode);
+	fits_close_file(fptr1, &exitCode);																// Close and free up everything
 	fits_close_file(fptr2, &exitCode);
 	delete(pixel_arr1);
 	delete(pixel_arr2);
@@ -71,42 +71,41 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 )
 {
 	int exitCode = 0;
-	int expArray[c_countOfImagesToGrab];
-	int i, exp = 500;
+	int expArray[c_countOfImagesToGrab];																								// Create an array of exposure values
+	int i, exp = 500;																													// 500, 900, 1300, 1800, 2200, 2600, 3000, 3400, 3800, 4200
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
 		if (i % 100 == 0 && i > 0)
 			exp = exp + 400;
 		expArray[i] = exp;
 	}
-	i = 0;
-	std::ios_base::sync_with_stdio(false);  	// Seperates std from stdio
-	PylonInitialize();  	// Initializes pylon runtime before using any pylon methods
+	i = 0;							
+	PylonInitialize();  																												// Initializes pylon runtime before using any pylon methods
 	try
 	{
-		CDeviceInfo info;
-		info.SetDeviceClass(Camera_t::DeviceClass());
-		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice());   // Creates an instant camera object with the camera device found first.
+		CDeviceInfo info;																												// Variable for camera info
+		info.SetDeviceClass(Camera_t::DeviceClass());																					// Get camera info
+		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice());   																// Creates an instant camera object with the camera device found first.
 		
-		for (int j = 0; j < c_countOfImagesToGrab; ++j)
+		for (int j = 0; j < c_countOfImagesToGrab; ++j)																					// For every image
 		{
-			string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();
-			char* newstr = &file_name[0u];
+			string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();	// Get camera name from model number and serial number
+			char* newstr = &file_name[0u];																								// Cast camera name to char* because of cfitsio
 			CGrabResultPtr ptrGrabResult;
-			int exposure = expArray[j];  // Gets the desired exposure time from function get_exposure() 
+			int exposure = expArray[j];  																								// Get desired exposure value from array 
 
-			camera.Open();
-			camera.ExposureAuto.SetValue(ExposureAuto_Off);
-			camera.ExposureTime.SetValue(exposure);
+			camera.Open();																												// Open camera parameters
+			camera.ExposureAuto.SetValue(ExposureAuto_Off);																				// Turn off auto exposure
+			camera.ExposureTime.SetValue(exposure);																						// Set exposure to desired value
 
-			camera.StartGrabbing(1);  		// Starts the grabbing of c_countOfImagesToGrab images.
-			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();
-			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  // Waits for an image and then retrieves it. A timeout of 5000 ms is used.
-			camera.Close();
-			if (ptrGrabResult->GrabSucceeded())  // If image is grabbed successfully: 
+			camera.StartGrabbing(1);  																									// Starts the grabbing of c_countOfImagesToGrab images.
+			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();					// Get camera temperature
+			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  												// Waits for an image and then retrieves it. A timeout of 5000 ms is used.
+			camera.Close();																												// Close camera parameters
+			if (ptrGrabResult->GrabSucceeded())  																						// If image is grabbed successfully: 
 			{		
-				struct image *cam_image = new struct image; //Setting up image struct
+				struct image *cam_image = new struct image; 																			// Set up image struct
 
-				char real_filename[30];
+				char real_filename[30];																									// Set up image file name from given strings, exposure value, and image number
 				strncpy(real_filename, "!", sizeof(real_filename));
 				strcat(real_filename, "fitsimg_exp");
 				char exp_str[10];
@@ -123,16 +122,16 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				cam_image->temp = tempcam;
 				cam_image->camname = newstr;
 
-				if (write_basler_fits(cam_image) != 0)  //if image building did not work
+				if (write_basler_fits(cam_image) != 0)  																				// if image building did not work
 				{
-					throw "Bad process in fits image writing!";
+					throw "Bad process in fits image writing!";																			// throw error
 					exitCode = 1;
-					delete(cam_image);
+					delete(cam_image);																									// free struct
 				}
-				else {									//if image building did work
+				else {																													// if image building did work
 					cout << "Image grab and write successful" << endl;
 /*
-					*(cam_image->imgname)++;
+					*(cam_image->imgname)++;																							// Subtract image
 					if (subtract_images(cam_image->imgname) == 0) {
 						cout << "Median image subtracted" << endl;
 					}
@@ -141,25 +140,22 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 						exitCode = 1;
 					}
 */
-					delete(cam_image);
+					delete(cam_image);																									// free struct
 				}
 			}
-			else  // If image is not grabbed successfully
+			else  																														// If image is not grabbed successfully
 			{
-				cout << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl; //Prints an error
+				cout << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl; 				//Prints an error
 			}
 			++i;
 		}
 	}
-	catch (const GenericException &e)  // Provides error handling.
+	catch (const GenericException &e)  																									// Provides error handling.
 	{
 		std::cerr << "An exception occurred." << endl
 			<< e.GetDescription() << endl;
 		exitCode = 1;
 	}
-
-	std::cerr << endl << "Press Enter to exit." << endl;
-	while (cin.get() != '\n');
-	Pylon::PylonTerminate();   // Releases all pylon resources. 
+	Pylon::PylonTerminate();   																											// Releases all pylon resources. 
 	return exitCode;
 }
