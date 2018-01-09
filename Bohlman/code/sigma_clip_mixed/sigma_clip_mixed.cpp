@@ -7,18 +7,18 @@
 #include <cmath>
 
 //  std_dev_calc function
-/** Takes in a vector structure and finds the standard deviation of the data elements
+/** Takes in a vector and finds the standard deviation of the data elements
 * \return an integer
 */
 double std_dev_calc(std::vector<double> v) {
-	double mean = std::accumulate(v.begin(), v.end(), 0.0) / v.size();
-	double std_dev = 0;
+	double mean = std::accumulate(v.begin(), v.end(), 0.0) / v.size();		// Find mean of all elements: sum/size
+	double std_dev = 0;														// Calculate the standard deviation of the elements
 	for (int i = 0; i < v.size(); ++i) {
 		//std::cout << v[i] << std::endl;
 		std_dev = std_dev + ((mean - v[i]) * (mean - v[i]));
 	}
 	std_dev = std_dev / v.size();
-	return std_dev;
+	return std_dev;															// Return the std deviation
 }
 
 
@@ -31,17 +31,16 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 )
 {
 	int exitCode = 0;
-	int expArray[c_countOfImagesToGrab];
+	int expArray[c_countOfImagesToGrab];																									// Creates array of exposure times from the images used
 	int i, exp = 500;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
 		if (i % 100 == 0 && i > 0)
 			exp = exp + 400;
 		expArray[i] = exp;
 	}
-	const char *names[c_countOfImagesToGrab];
-	for (i = 0; i < c_countOfImagesToGrab; ++i) {  //creates an array of names for each of the files previously made
+	const char *names[c_countOfImagesToGrab];																								// Creates an array of names for each of the images that will be used
+	for (i = 0; i < c_countOfImagesToGrab; ++i) {  																							
 		char filename[100];
-		//strncpy(filename, "fitsimg_exp", sizeof(filename));
 		strncpy(filename, "/home/cbohlman/Documents/caao_summer2017/ExAOLab/Bohlman/code/raw_data_110917/fitsimg_exp", sizeof(filename));
 		char exp_str[10];
 		sprintf(exp_str, "%d", expArray[i]);
@@ -52,7 +51,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		strcat(filename, ".fits");
 		names[i] = strdup(filename);
 	}
-	std::vector<fitsfile*> fpt_arr(c_countOfImagesToGrab);		//Array of fits pointers
+	std::vector<fitsfile*> fpt_arr(c_countOfImagesToGrab);																					// Creates array of fits pointers that are opened according to the image name previously generated
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
 		fitsfile* fptr;
 		fpt_arr.push_back(fptr);
@@ -63,13 +62,13 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	}
 	int width = 640, height = 480;
 	int j, k;
-	std::vector<double> array3D(width*height*c_countOfImagesToGrab);
+	std::vector<double> array3D(width*height*c_countOfImagesToGrab);																		// Creates array of new data for 100 images
 
 	long fpixel[2], lpixel[2], inc[2];
 	fpixel[0] = fpixel[1] = 1;
-    	lpixel[0] = height;
-    	lpixel[1] = width;  
-    	inc[0] = inc[1] = 1;
+    lpixel[0] = height;
+    lpixel[1] = width;  
+    inc[0] = inc[1] = 1;
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {
 		if (fits_read_pix(fpt_arr.at(i), TDOUBLE, fpixel, width*height, NULL, &array3D[height*width*i], NULL, &exitCode)) {
 			fits_report_error(stderr, exitCode);  // Prints out any fits error messages

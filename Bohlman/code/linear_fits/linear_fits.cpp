@@ -1,5 +1,5 @@
 /*! \file linear_fit.cpp
-\brief A documented file that uses y int and slope to correctly output coordinates at certain points
+\brief A documented file that uses y int and slope if a line to output sample coordinates of that line
 */
 
 #include <fstream>
@@ -8,7 +8,7 @@
 #include <vector>
 
 //  Main function
-/** Initializes pylon resources, takes pictures, closes all pylon resources.
+/** With given line values, print sample data
 * \return an integer: 0 upon exit success, 1 otherwise
 */
 int main(int argc, ///< [in] the integer value of the count of the command line arguments
@@ -16,9 +16,9 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 )
 {
 	int exitCode = 0;
-	double b = 5.29139, m = 36.3025;
-	std::vector <double> points(0);
-	points.push_back(22);
+	double b = 5.29139, m = 36.3025;												// Use these lines vallues (y int and slope, respecitively)
+	std::vector <double> points(0);													// Put some evenly spaced x coordinates in an array
+	points.push_back(22);															
 	points.push_back(44);
 	points.push_back(67);
 	points.push_back(89);
@@ -28,8 +28,8 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	points.push_back(180);
 	points.push_back(202);
 	points.push_back(223);
-	for (int i = 0; i < 10; i++) {
-		std::cout << points[i] << '\t' << (points[i]*(1/m)) + b/m << std::endl;
+	for (int i = 0; i < 10; i++) {													// For every value in the x coordinate array
+		std::cout << points[i] << '\t' << (points[i]*(1/m)) + b/m << std::endl;		// Print out sample data
 	}
 	return exitCode;
 }

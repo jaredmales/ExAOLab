@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 
+// Finds median of passed vector v
 double inPlaceMedian( std::vector<double> v)
 {
    std::vector<double> tmp = v;
@@ -15,7 +16,7 @@ double inPlaceMedian( std::vector<double> v)
 
 int main ( void ) {
 	std::ifstream inFile;
-	std::vector <double> mean1(0);
+	std::vector <double> mean1(0);						// Set up mean and variance arrays
 	std::vector <double> mean2(0);
 	std::vector <double> mean3(0);
 	std::vector <double> mean4(0);
@@ -37,12 +38,12 @@ int main ( void ) {
 	std::vector <double> variance10(0);
 	double n,m;
 	int i=0;
-	inFile.open("data.txt");
-	if (!inFile) {
-        	std::cerr << "Unable to open file";
+	inFile.open("data.txt");							// Open up file of data
+	if (!inFile) {										// If file can't be opened
+        	std::cerr << "Unable to open file";			// Print an error message
     	}
 	else {
-		while(inFile>>n>>m){
+		while(inFile>>n>>m){							// Else, push pack data into arrays
 			if (i == 0) {
 				mean1.push_back(n);
 				variance1.push_back(m);
@@ -86,7 +87,7 @@ int main ( void ) {
 			}
 			i++;
 		}
-		double variance_num, mean_num;
+		double variance_num, mean_num;									// Find median of all mean and variance arrays and print
 		mean_num = inPlaceMedian(mean1);
 		variance_num = inPlaceMedian(variance1);
 		std::cout << mean_num << '\t' << variance_num << std::endl;
