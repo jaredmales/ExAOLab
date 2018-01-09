@@ -1,3 +1,7 @@
+
+/*! \file grab_multiple_cameras.cpp
+\brief A file that repeatedly grabs images from 2 cameras connected to system
+*/
 // Grab_MultipleCameras.cpp
 /*
     Note: Before getting started, Basler recommends reading the Programmer's Guide topic
@@ -84,13 +88,13 @@ int main(int argc, char* argv[])
             // This value is attached to each grab result and can be used
             // to determine the camera that produced the grab result.
             //intptr_t cameraContextValue = ptrGrabResult1->GetCameraContext();
-        if (ptrGrabResult1->GrabSucceeded())  						// If image is grabbed successfully 
+        if (ptrGrabResult1->GrabSucceeded())  																									// If image from camera 1 is grabbed successfully 
 		{
-			string file_name = (string) cameras[0].GetDeviceInfo().GetModelName() + " "+ (string) cameras[0].GetDeviceInfo().GetSerialNumber();
-			char* newstr = &file_name[0u];
-			int tempcam = (int)cameras[0].DeviceTemperature.GetValue();
-			int exposure = (int)cameras[0].ExposureTime.GetValue();
-			char real_filename[30];							// Construct file name from exposure time
+			string file_name = (string) cameras[0].GetDeviceInfo().GetModelName() + " "+ (string) cameras[0].GetDeviceInfo().GetSerialNumber();	// Get device name from model name and serial number for first camera
+			char* newstr = &file_name[0u];																										// Convert device name to char* for cfitsio
+			int tempcam = (int)cameras[0].DeviceTemperature.GetValue();																			// Store device temperature
+			int exposure = (int)cameras[0].ExposureTime.GetValue();																				// Store image exposure time
+			char real_filename[30];																												// Construct file name from given strings, exposure time, and image number
 			strncpy(real_filename, "!", sizeof(real_filename));
 			strcat(real_filename, "fitsimg_cam0_");
 			char exp_str[6];
@@ -102,34 +106,35 @@ int main(int argc, char* argv[])
 			strcat(real_filename, num_str);
 			strcat(real_filename, ".fits");
 
-			struct image *cam_image = new struct image; 				// Construct image struct and set up parameters
+			struct image *cam_image = new struct image; 																						// Construct image struct and set up parameters
 			cam_image->imgGrab = ptrGrabResult1;
 			cam_image->exposure = exposure;
 			cam_image->temp = tempcam;
 			cam_image->imgname = real_filename;
 			cam_image->camname = newstr;
 
-			if (write_basler_fits(cam_image) != 0)  				// If image building from struct did not work
+			if (write_basler_fits(cam_image) != 0)  																							// If image building from struct did not work
 			{
-				throw "Bad process in fits image writing!";
+				throw "Bad process in fits image writing!";																						// Throw an error
 			}
-			else {									// If image building from struct did work
-				cout << "Image grab and write successful" << endl;
-				delete(cam_image);
+			else {																																// If image building from struct did work
+				cout << "Image grab and write successful" << endl;																				// Print confirmation message
+				delete(cam_image);																												// Free struct
 			}
 		}
-		else  										// If image is not grabbed successfully, throw an error
+		else  																																	// If image is not grabbed successfully, throw an error
 		{
 			cerr << "Error: " << ptrGrabResult1->GetErrorCode() << " " << ptrGrabResult1->GetErrorDescription() << endl;
 			exitCode = 1;
 		}
-        if (ptrGrabResult2->GrabSucceeded())  						// If image is grabbed successfully 
+        if (ptrGrabResult2->GrabSucceeded())  																									// If image from camera 2 is grabbed successfully 
 		{
-			string file_name = (string) cameras[1].GetDeviceInfo().GetModelName() + " "+ (string) cameras[0].GetDeviceInfo().GetSerialNumber();
-			char* newstr = &file_name[0u];
-			int tempcam = (int)cameras[1].DeviceTemperature.GetValue();
-			int exposure = (int)cameras[1].ExposureTime.GetValue();
-			char real_filename[30];							// Construct file name from exposure time
+			string file_name = (string) cameras[1].GetDeviceInfo().GetModelName() + " "+ (string) cameras[0].GetDeviceInfo().GetSerialNumber();	// Get device name from model name and serial number for first camera
+			char* newstr = &file_name[0u];																										// Convert device name to char* for cfitsio
+			int tempcam = (int)cameras[1].DeviceTemperature.GetValue();																			// Store device temperature
+			int exposure = (int)cameras[1].ExposureTime.GetValue();																				// Store image exposure time
+			char real_filename[30];																												// Construct file name from given strings, exposure time, and image number
+			strncpy(real_filename, "!", sizeof(real_filename));
 			strncpy(real_filename, "!", sizeof(real_filename));
 			strcat(real_filename, "fitsimg_cam1_");
 			char exp_str[6];
@@ -141,39 +146,37 @@ int main(int argc, char* argv[])
 			strcat(real_filename, num_str);
 			strcat(real_filename, ".fits");
 
-			struct image *cam_image = new struct image; 				// Construct image struct and set up parameters
+			struct image *cam_image = new struct image; 																						// Construct image struct and set up parameters
 			cam_image->imgGrab = ptrGrabResult2;
 			cam_image->exposure = exposure;
 			cam_image->temp = tempcam;
 			cam_image->imgname = real_filename;
 			cam_image->camname = newstr;
 
-			if (write_basler_fits(cam_image) != 0)  				// If image building from struct did not work
+			if (write_basler_fits(cam_image) != 0)  																							// If image building from struct did not work
 			{
-				throw "Bad process in fits image writing!";
+				throw "Bad process in fits image writing!";																						// Throw an error
 			}
-			else {									// If image building from struct did work
-				cout << "Image grab and write successful" << endl;
-				delete(cam_image);
+			else {																																// If image building from struct did work
+				cout << "Image grab and write successful" << endl;																				// Print confirmation message
+				delete(cam_image);																												// Free struct
 			}
 		}
-		else  										// If image is not grabbed successfully, throw an error
+		else  																																	// If image is not grabbed successfully, throw an error
 		{
 			cerr << "Error: " << ptrGrabResult2->GetErrorCode() << " " << ptrGrabResult2->GetErrorDescription() << endl;
 			exitCode = 1;
 		}
-	++i;
+		++i;																																	// Increment image #
         }
     }
-    catch (const GenericException &e)
+    catch (const GenericException &e)																											// Error handling
     {
-        // Error handling
         cerr << "An exception occurred." << endl
         << e.GetDescription() << endl;
         exitCode = 1;
     }
-    // Releases all pylon resources. 
-    PylonTerminate(); 
+    PylonTerminate(); 																															// Releases all pylon resources. 
     return exitCode;
 }
 
