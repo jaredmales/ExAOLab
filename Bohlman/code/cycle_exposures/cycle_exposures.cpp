@@ -33,7 +33,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			camera.ExposureTime.SetValue(exposure);																							// Sets up exposure time from above value
 
 			camera.StartGrabbing(1);  																										// Starts the grabbing of a singular image
-			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();						// Gets and stores temperature of camera
+			int tempcam = (int)camera.DeviceTemperature.GetValue();																			// Gets and stores temperature of camera
 			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  													// Waits for an image and then retrieves it. A timeout of 5000 ms is used
 			camera.Close();																													// Closes camera parameters
 			if (ptrGrabResult->GrabSucceeded())  																							// If image is grabbed successfully 
@@ -58,12 +58,12 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				if (write_basler_fits(cam_image) != 0)  																					// If image building from struct did not work
 				{
 					throw "Bad process in fits image writing!";																				// Throws error
-					delete(cam_image);																										// Free struct
 				}
-				else {																														// If image building from struct did work
-					cout << "Image grab and write successful" << endl;																		// print confirmation message
-					delete(cam_image);																										// Free struct
+				else 																														// If image building from struct did work
+				{																															
+					cout << "Image grab and write successful" << endl;																		// print confirmation message																				
 				}
+				delete(cam_image);																											// Free struct
 			}
 			else  																															// If image is not grabbed successfully, throw an error
 			{

@@ -13,7 +13,8 @@ int find_median()
 	int exitCode = 0;
 	const char *names[c_countOfImagesToGrab];														// Creates an array of filenames to read
 	int kk = 0;
-	for (kk; kk < c_countOfImagesToGrab; ++kk) {  													
+	for (kk; kk < c_countOfImagesToGrab; ++kk) 
+	{  													
 		char base_filename[30];
 		strncpy(base_filename, "fitsimg_exp59_", sizeof(base_filename));
 		char num[3];
@@ -25,7 +26,8 @@ int find_median()
 
 	std::vector<fitsfile*> fpt_arr(c_countOfImagesToGrab);											// Creates array of fits pointers from file names and opens all of them
 	int cc;
-	for (cc = 0; cc < c_countOfImagesToGrab; ++cc) {
+	for (cc = 0; cc < c_countOfImagesToGrab; ++cc) 
+	{
 		fitsfile* fptr;
 		fpt_arr.push_back(fptr);
 		fits_open_file(&(fpt_arr.at(cc)), names[cc], READONLY, &exitCode);
@@ -34,8 +36,10 @@ int find_median()
 	int width = 640, height = 480;
 	double *image_arr = (double*)calloc(width * height, sizeof(double)); 							// Creates array of individual pixel values for final image
 	int j, k;
-	for (k = 1; k <= height; ++k) {  																// Looks through each pixel sequentially
-		for (j = 1; j <= width; ++j) {
+	for (k = 1; k <= height; ++k) 
+	{  																// Looks through each pixel sequentially
+		for (j = 1; j <= width; ++j) 
+		{
 			int ii;
 			double pixel_arr[c_countOfImagesToGrab];
 			for (ii = 0; ii < c_countOfImagesToGrab; ++ii) { 										// Look at the pixel location for each image
