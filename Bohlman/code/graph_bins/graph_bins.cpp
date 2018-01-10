@@ -14,9 +14,10 @@ double inPlaceMedian( std::vector<double> v)
    return tmp[tmp.size()/2];
 }
 
-int main ( void ) {
+int main ( void ) 
+{
 	std::ifstream inFile;
-	std::vector <double> mean1(0);						// Set up mean and variance arrays
+	std::vector <double> mean1(0);							// Set up mean and variance arrays
 	std::vector <double> mean2(0);
 	std::vector <double> mean3(0);
 	std::vector <double> mean4(0);
@@ -38,49 +39,62 @@ int main ( void ) {
 	std::vector <double> variance10(0);
 	double n,m;
 	int i=0;
-	inFile.open("data.txt");							// Open up file of data
-	if (!inFile) {										// If file can't be opened
-        	std::cerr << "Unable to open file";			// Print an error message
-    	}
-	else {
-		while(inFile>>n>>m){							// Else, push pack data into arrays
-			if (i == 0) {
+	inFile.open("data.txt");											// Open up file of data
+	if (!inFile) 														// If file can't be opened
+	{														
+        std::cerr << "Unable to open file";								// Print an error message
+    }
+	else 
+	{
+		while(inFile>>n>>m)												// If file's line looks like "int int", push data into arrays
+		{							
+			if (i == 0) 
+			{
 				mean1.push_back(n);
 				variance1.push_back(m);
 			}
-			else if (i == 1) {
+			else if (i == 1) 
+			{
 				mean2.push_back(n);
 				variance2.push_back(m);
 			}
-			else if (i == 2) {
+			else if (i == 2) 
+			{
 				mean3.push_back(n);
 				variance3.push_back(m);
 			}
-			else if (i == 3) {
+			else if (i == 3) 
+			{
 				mean4.push_back(n);
 				variance4.push_back(m);
 			}
-			else if (i == 4) {
+			else if (i == 4) 
+			{
 				mean5.push_back(n);
 				variance5.push_back(m);
 			}
-			else if (i == 5) {
+			else if (i == 5) 
+			{
 				mean6.push_back(n);
 				variance6.push_back(m);
 			}
-			else if (i == 6) {
+			else if (i == 6) 
+			{
 				mean7.push_back(n);
 				variance7.push_back(m);
 			}
-			else if (i == 7) {
+			else if (i == 7) 
+			{
 				mean8.push_back(n);
 				variance8.push_back(m);
 			}
-			else if (i == 8) {
+			else if (i == 8) 
+			{
 				mean9.push_back(n);
 				variance9.push_back(m);
 			}
-			else if (i == 9) {
+			else if (i == 9) 
+			{
 				mean10.push_back(n);
 				variance10.push_back(m);
 				i = -1;
