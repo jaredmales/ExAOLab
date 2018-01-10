@@ -67,7 +67,8 @@ int write_fits(struct image *cam_image  ///< [st] the struct of the image
 	return 0;
 }
 
-int main ( int argc, char *argv[] ) {
+int main ( int argc, char *argv[] ) 
+{
 	PdvDev *pdv_p = pdv_open_channel(NULL, 0, 2);
 	int	exposure = 5000;
 	struct image *cam_image = (struct image*) malloc(sizeof(struct image));;
@@ -88,11 +89,12 @@ int main ( int argc, char *argv[] ) {
 	write_fits(cam_image);
 	int t, last_timeouts = 0;
 	t = pdv_timeouts(pdv_p);
-	if (t > last_timeouts) {
+	if (t > last_timeouts) 
+	{
 		printf("got timeout\n");
     		// add recovery code here -- see simple_take.c for example
     		// last_timeouts = t;
-        }
+    }
 	pdv_close(pdv_p) ;
 	return 0;
 }

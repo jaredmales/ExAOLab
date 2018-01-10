@@ -2,35 +2,11 @@
 /*! \file grab_multiple_cameras.cpp
 \brief A file that repeatedly grabs images from 2 cameras connected to system
 */
-// Grab_MultipleCameras.cpp
-/*
-    Note: Before getting started, Basler recommends reading the Programmer's Guide topic
-    in the pylon C++ API documentation that gets installed with pylon.
-    If you are upgrading to a higher major version of pylon, Basler also
-    strongly recommends reading the Migration topic in the pylon C++ API documentation.
-    This sample illustrates how to grab and process images from multiple cameras
-    using the CInstantCameraArray class. The CInstantCameraArray class represents
-    an array of instant camera objects. It provides almost the same interface
-    as the instant camera for grabbing.
-    The main purpose of the CInstantCameraArray is to simplify waiting for images and
-    camera events of multiple cameras in one thread. This is done by providing a single
-    RetrieveResult method for all cameras in the array.
-    Alternatively, the grabbing can be started using the internal grab loop threads
-    of all cameras in the CInstantCameraArray. The grabbed images can then be processed by one or more
-    image event handlers. Please note that this is not shown in this example.
-*/
+
 // Include files to use the PYLON API.
 #include "write_basler_fits.h"
 #include <pylon/usb/BaslerUsbInstantCameraArray.h>
-// Limits the amount of cameras used for grabbing.
-// It is important to manage the available bandwidth when grabbing with multiple cameras.
-// This applies, for instance, if two GigE cameras are connected to the same network adapter via a switch.
-// To manage the bandwidth, the GevSCPD interpacket delay parameter and the GevSCFTD transmission delay
-// parameter can be set for each GigE camera device.
-// The "Controlling Packet Transmission Timing with the Interpacket and Frame Transmission Delays on Basler GigE Vision Cameras"
-// Application Notes (AW000649xx000)
-// provide more information about this topic.
-// The bandwidth used by a FireWire camera device can be limited by adjusting the packet size.
+
 static const size_t c_maxCamerasToUse = 2;
 int main(int argc, char* argv[])
 {
@@ -117,7 +93,8 @@ int main(int argc, char* argv[])
 			{
 				throw "Bad process in fits image writing!";																						// Throw an error
 			}
-			else {																																// If image building from struct did work
+			else 																																// If image building from struct did work
+			{																																
 				cout << "Image grab and write successful" << endl;																				// Print confirmation message
 				delete(cam_image);																												// Free struct
 			}
@@ -157,7 +134,8 @@ int main(int argc, char* argv[])
 			{
 				throw "Bad process in fits image writing!";																						// Throw an error
 			}
-			else {																																// If image building from struct did work
+			else 																																// If image building from struct did work
+			{																																
 				cout << "Image grab and write successful" << endl;																				// Print confirmation message
 				delete(cam_image);																												// Free struct
 			}

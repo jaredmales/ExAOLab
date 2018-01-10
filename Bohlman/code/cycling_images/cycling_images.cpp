@@ -1,5 +1,5 @@
 /*! \file cycling_images.cpp
-\brief A documented file that takes and writes 10 images indefinitely for a single exposure. Terminated with SIGINT (ctrl+c)
+\brief A documented file that takes and writes 10 images indefinitely for a single exposure time. Terminated with SIGINT (ctrl+c)
 */
 
 #include "write_basler_fits.h"
@@ -46,9 +46,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		camera.ExposureTime.SetValue(exposure);																							// Sets exposure to above time
 		camera.Close();
 		camera.StartGrabbing();  																										// Start grabbing photos
-		while (1) {																														// Infinite loop
+		while (1) 																														// Infinite loop
+		{																														
 			if (i == 10) i = 0;																											// For a cycle of 10 images
-			int tempcam = (int)camera.Basler_UsbCameraParams::CUsbCameraParams_Params::DeviceTemperature.GetValue();					// Stores temperature of camera
+			int tempcam = (int)camera.DeviceTemperature.GetValue();																		// Stores temperature of camera
 			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  												// Waits for an image and then retrieves it. A timeout of 5000 ms is used
 			nanosleep(&tim , &tim2);																									// Rest for a second
 			if (ptrGrabResult->GrabSucceeded())  																						// If image is grabbed successfully 
@@ -71,12 +72,12 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				if (write_basler_fits(cam_image) != 0)  																				// if image building from struct did not work
 				{
 					throw "Bad process in fits image writing!";																			// throw error
-					delete(cam_image);																									// Free struct
 				}
-				else {																													// if image building from struct did work
+				else 																													// if image building from struct did work
+				{
 					cout << "Image grab and write successful" << endl;																	// Print confirmatio message
-					delete(cam_image);																									// Free struct
 				}
+				delete(cam_image);																										// Free struct
 				i++;																													// Increment counter
 			}
 			else  																														// If image is not grabbed successfully, throw an error
