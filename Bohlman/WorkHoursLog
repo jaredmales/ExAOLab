@@ -456,14 +456,20 @@ Today, I tried to look more at the reviosu programs I have made and the current 
 Updated OS/files on computer. Changed around certain directories and such. Finalized and commented the vlink frame grabber code and transfered it to the GitHub.
 Next year, I want to start categorizing a new camera, as I think this board is finished. Woo.
 
-1/8/2017: 4.5 hours
+1/8/2018: 4.5 hours
 Started going through my code and redocumenting it. Emailed Jared about future projects. Hopefully, with the redocumented code, doxygen (which I tried to install today) will work.
 
-1/9/2017: 8 hours
+1/9/2018: 8 hours
 Continued going through code: updating comments and tigtening bad code up. After I'm done, I'll probably switch to compiling and testing to make sure I didn't majorly mess up the code.
 
-1/10/2017: 3.5 hours
+1/10/2018: 3.5 hours
 Finished going through code, next week I will test my code.
+
+(Surplus) 1/12/2018: 1.5 hours
+Spoke with Jared about future projects. Going to be looking at the optical table and trying to engineer it so that we can find the quantum efficiency of the camera. In order to do that, we'll need some parts and pieces for the board. I will need to find a way to convert a box from analog to digital output so we can plot it.
+
+1/17/2018: 6.5 hours
+Today, I looked at the box.
 
 
 
