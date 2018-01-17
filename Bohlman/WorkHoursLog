@@ -469,7 +469,11 @@ Finished going through code, next week I will test my code.
 Spoke with Jared about future projects. Going to be looking at the optical table and trying to engineer it so that we can find the quantum efficiency of the camera. In order to do that, we'll need some parts and pieces for the board. I will need to find a way to convert a box from analog to digital output so we can plot it.
 
 1/17/2018: 6.5 hours
-Today, I looked at the box.
+Today, I looked at the box. 
+The analog output "ANALOG OUT" (R1) at the rear panel delivers a DC voltage proportional to the display reading of photodiode current IPD
+The output voltage is
+0 ...+10 V for a display reading of 0 ... 10000 (photodiode cathode grounded) or
+0 ... -10 V for a display reading of 0 ... -10000 (photodiode anode grounded).
 
 
 
