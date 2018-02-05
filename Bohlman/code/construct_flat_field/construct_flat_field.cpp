@@ -1,4 +1,4 @@
-/*! \file gain_read_blank.cpp
+/*! \file construct_flat_field.cpp
 \brief A documented file that initializes the pylon resources, takes a number of images at the lowest exposure, and finds/writes median image in rder to make an averaged flat image
 */
 
@@ -37,7 +37,7 @@ int find_median()
 	double *image_arr = (double*)calloc(width * height, sizeof(double)); 							// Creates array of individual pixel values for final image
 	int j, k;
 	for (k = 1; k <= height; ++k) 
-	{  																// Looks through each pixel sequentially
+	{  																								// Looks through each pixel sequentially
 		for (j = 1; j <= width; ++j) 
 		{
 			int ii;
@@ -47,7 +47,7 @@ int find_median()
 				double pixels;
 				fits_read_pix(fpt_arr.at(ii), TDOUBLE, fpixel, 1, NULL, &pixels, NULL, &exitCode);	// Read a singular pixel value at location
 				pixel_arr[ii] = pixels;																
-			}1
+			}
 			std::vector<double> v(pixel_arr, pixel_arr + c_countOfImagesToGrab);  					// Find median of all pixel values at specific location and add to final image array at that location
 			std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
 			image_arr[(k - 1)*width + (j - 1)] = v[v.size() / 2];

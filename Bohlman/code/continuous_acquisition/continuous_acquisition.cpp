@@ -1,4 +1,4 @@
-/*! \file cycling_images.cpp
+/*! \file continuous_acquisition.cpp
 \brief A documented file that takes and writes 10 images indefinitely for a single exposure time. Terminated with SIGINT (ctrl+c)
 */
 

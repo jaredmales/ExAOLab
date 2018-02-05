@@ -2,7 +2,7 @@
 .PHONY: all clean
 
 # The program to build
-NAME       := gain_read_mixed_exp
+NAME       := continuous_acquisition
 
 # Installation directories for pylon
 PYLON_ROOT ?= /opt/pylon5

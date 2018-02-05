@@ -2,7 +2,7 @@
 .PHONY: all clean
 
 # The program to build
-NAME       := cycle_exposures
+NAME       := read_mixed_exp
 
 # Installation directories for pylon
 PYLON_ROOT ?= /opt/pylon5

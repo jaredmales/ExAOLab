@@ -2,7 +2,7 @@
 .PHONY: all clean
 
 # The program to build
-NAME       := cycling_images
+NAME       := construct_flat_field
 
 # Installation directories for pylon
 PYLON_ROOT ?= /opt/pylon5

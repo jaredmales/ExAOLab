@@ -2,7 +2,7 @@
 .PHONY: all clean
 
 # The program to build
-NAME       := gain_read_blank
+NAME       := cycle_through_exposures
 
 # Installation directories for pylon
 PYLON_ROOT ?= /opt/pylon5
