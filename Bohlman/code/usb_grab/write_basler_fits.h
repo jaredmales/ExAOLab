@@ -27,8 +27,7 @@ using namespace Basler_UsbCameraParams;
 
 using namespace Pylon;
 using namespace std;
-static const uint32_t c_countOfImagesToGrab = 100;
-static const uint32_t a_countOfImagesToGrab = 100;
+static const uint32_t c_countOfImagesToGrab = 10;
 
 /*! \struct image
 //struct that is passed to write_basler_fits() that has data for the image
