@@ -456,15 +456,51 @@ Today, I tried to look more at the reviosu programs I have made and the current 
 Updated OS/files on computer. Changed around certain directories and such. Finalized and commented the vlink frame grabber code and transfered it to the GitHub.
 Next year, I want to start categorizing a new camera, as I think this board is finished. Woo.
 
-1/8/2017: 4.5 hours
+1/8/2018: 4.5 hours
 Started going through my code and redocumenting it. Emailed Jared about future projects. Hopefully, with the redocumented code, doxygen (which I tried to install today) will work.
 
-1/9/2017: 8 hours
+1/9/2018: 8 hours
 Continued going through code: updating comments and tigtening bad code up. After I'm done, I'll probably switch to compiling and testing to make sure I didn't majorly mess up the code.
 
-1/10/2017: 3.5 hours
+1/10/2018: 3.5 hours
 Finished going through code, next week I will test my code.
 
+(Surplus) 1/12/2018: 1.5 hours
+Spoke with Jared about future projects. Going to be looking at the optical table and trying to engineer it so that we can find the quantum efficiency of the camera. In order to do that, we'll need some parts and pieces for the board. I will need to find a way to convert a box from analog to digital output so we can plot it. Also I went to my first weekly meeting.
 
+1/17/2018: 6.5 hours
+Today, I looked at the box. 
+The analog output "ANALOG OUT" (R1) at the rear panel delivers a DC voltage proportional to the display reading of photodiode current IPD
+The output voltage is
+0 ...+10 V for a display reading of 0 ... 10000 (photodiode cathode grounded) or
+0 ... -10 V for a display reading of 0 ... -10000 (photodiode anode grounded).
+I also loked at the optical table and tried to figure out what I need. The mirror flipping thing would help us a lot, but I don't know exactly what to search for. So I should email Jared in the near future.
+I also started working on my abstract for SPIE. 
 
+1/19/2018: 4 hours
+Worked on my abstract. Had a meeting. 
 
+1/22/2018: 4 hours
+Applied for SPIE with account. Worked a little bit more with hardware for the board (multimeter, etc).
+
+1/24/2018: 8 hours
+Mainly looked at N408 today in order to try and see if we can set it up for 5 desks. Diagrammed and took inventory. Talked to Kim about the room and the supplies from N409.
+
+1/26/2018: 3 hours
+Worked on the board setup and ordering some dongles off of Amazon for the multimeter. It's called a Fluke Banana adapter, and I need it to plug into the photodiode amplifer direcctly into the multimeter to read readings. Then I had a meeting.
+
+1/29/2018: 4 hours
+Sort of finished board set up. Got the adapter and set up PA to light source to multimeter. Took notes on the readings from the PA/Multimeter, and what I wanted to do with the hardware set up in general.
+
+1/31/2018: 8 hours
+Finished taking preliminary notes on the PA set up. Helped Kelsey with her quest to help fix up the Baslers. Started planning for N408 clean up.
+
+2/2/2018: 5 hours
+Investigated the board a bit more. Put in orders for products that will help as get the measurements on the board; will await their delivery confirmation. Did my slide and went to the weekly meeting.
+
+2/5/2018: 4 hours
+Struggled with git today, but made myself a repository for work code and school code.
+
+2/7/2018: 8 hours
+
+2/9/2018: 3 hours
