@@ -40,11 +40,12 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		camera.ExposureTime.SetValue(exposure);																						// Sets up exposure time from given time
 		string file_name = (string) camera.GetDeviceInfo().GetModelName()+" "+(string) camera.GetDeviceInfo().GetSerialNumber();	// Gets camera name and serial number from Basler methods
 		char* newstr = &file_name[0u];																								// cast to a char* for cfitsio
-		camera.StartGrabbing(1);  																									// Starts the grabbing of a singular image
+		camera.StartGrabbing(c_countOfImagesToGrab);  																									// Starts the grabbing of a singular image
 		int tempcam = (int)camera.DeviceTemperature.GetValue();																		// Gets the current temperature of the camera and stores it
 		camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  												// Waits for an image and then retrieves it. A timeout of 5000 ms is used
-		camera.Close();																												// Close camera parameters
-
+		camera.Close();	
+		int j = 0;																											// Close camera parameters
+		while (camera.isGrabbing()) {
 		if (ptrGrabResult->GrabSucceeded())  																						// If image is grabbed successfully 
 		{
 			char real_filename[25];																									// Construct file name given string, image number, and exposure time
@@ -53,6 +54,9 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			char exp_str[6];
 			sprintf(exp_str, "%d", exposure);
 			strcat(real_filename, exp_str);
+			char num_str[6];
+			sprintf(num_str, "_%d", j);
+			strcat(real_filename, num_str);
 			strcat(real_filename, ".fits");
 			struct image *cam_image = new struct image; 																			// Construct image struct and fills out elements
 			cam_image->imgGrab = ptrGrabResult;
@@ -63,7 +67,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 
 			if (write_basler_fits(cam_image) != 0)  																				// If fits image building from struct did not work
 			{
-				cerror << "Bad process in fits image writing!" << endl;																			// Throw error
+				cerr << "Bad process in fits image writing!" << endl;																// Throw error
 			}
 			else 																													// If fits image building from struct did work
 			{																													
@@ -76,6 +80,8 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			cerr << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl;
 			exitCode = 1;
 		}
+		j++;
+	}
 	}
 	catch (const GenericException &e)  																								// Basler error handling throws an error if any error occured in this process
 	{
