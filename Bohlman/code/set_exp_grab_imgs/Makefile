@@ -28,4 +28,4 @@ write_basler_fits.o: write_basler_fits.cpp
 
 
 clean:
-	$(RM) $(NAME).o $(NAME)
+	$(RM) *.o $(NAME) *.fits

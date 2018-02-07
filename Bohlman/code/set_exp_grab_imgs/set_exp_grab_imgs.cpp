@@ -1,5 +1,5 @@
 /*! \file cycle_exposures.cpp
-\brief A documented file that takes and writes an image for 10 different exposures
+\brief A documented file that takes command line arguments for exposure and number of images to grab and outputs fits files
 Initializes the pylon resources, takes the photos, and passes a struct to write_basler_fits() function with image data in it
 */
 
@@ -9,21 +9,21 @@ Initializes the pylon resources, takes the photos, and passes a struct to write_
 /** Initializes pylon resources, takes pictures, closes all pylon resources.
 * \return an integer: 0 upon exit success, 1 otherwise
 */
-
-int get_exposure() 
-{
-	int exposure;  																													// Holds exposure time from stdin
-	cin >> exposure;																												// Input desired exposure time
-	//std::cin.ignore(std::cin.rdbuf()->in_avail());
-	return exposure;  																												// Returns exposure time
-}
-
 int main(int argc, ///< [in] the integer value of the count of the command line arguments
 	char* argv[] ///< [ch.ar] the integer value of the count of the command line arguments
 )
 {
+	int c_countOfImagesToGrab;
 	int exitCode = 0;
-	int exp = get_exposure(); 																												// Define exposure here					
+	int exposure = 0;
+	if (argc >= 3) {																															// if there are more than 2 command line arguments
+		exposure = atoi(argv[1]);																														// exposure is first argument																														
+		c_countOfImagesToGrab = atoi(argv[2]);																									// number of images to grab is second argument
+	}
+	else {																																	// if there are less than 2 command line arguments
+		exposure = 59;																															// default value of exp: 5000 us
+		c_countOfImagesToGrab = 10;																											// default number of images to grab: 10
+	}			
 	PylonInitialize();  																													// Initializes pylon runtime before using any pylon methods
 	try
 	{
@@ -35,7 +35,6 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			CGrabResultPtr ptrGrabResult;
 			string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();		// Gets camera model name and serial number
 			char* newstr = &file_name[0u];																									// Casts string as char* for cfitsio
-			int exposure = exp;  																									// Gets the desired exposure time from farray 
 
 			camera.Open();																													// Opens camera parameters
 			camera.ExposureAuto.SetValue(ExposureAuto_Off);																					// Turns off auto exposure
