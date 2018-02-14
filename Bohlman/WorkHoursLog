@@ -508,4 +508,7 @@ Fixed some code for Kelsey's usage. Started combing through code today and start
 Crunched the code for quickly getting gain/read nosie. Ended up getting the same values for all of the data, which was expected. Looked at abstract and starting figureing out how to improve it.
 
 2/12/2018: 4 hours
-Put in a request for key for N408. Worked on abstract. Met with Jared regarding the lens for the setup.
+Put in a request for key for N408. Worked on abstract. Met with Jared regarding the lens for the setup. Looks like I will have to use thinlens equation to determine what kind of lens I will need for this.
+
+2/14/2018: 5 hours
+Worked on lens finding for the board. Drew up a list of questions to ask relating to lens.
