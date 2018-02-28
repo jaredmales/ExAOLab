@@ -1,5 +1,5 @@
-/*! \file construct_flat_field.cpp
-\brief A documented file that initializes the pylon resources, takes a number of images at the lowest exposure, and finds/writes median image in rder to make an averaged flat image
+/*! \file coadding_median.cpp
+\brief A documented file that initializes the pylon resources, takes a given number of images at a given exposure, coadds images in memory, finds median image, and writes median to fits file.
 */
 
 #include "write_basler_fits.h"
@@ -12,30 +12,36 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	char* argv[] ///< [ch.ar] the integer value of the count of the command line arguments
 )
 {
+	int exitCode = 0;
 	int exposure;
 	uint32_t countOfImagesToGrab;
 	if (argc == 3) {																															// if there are more than 2 command line arguments
-		exposure = atoi(argv[1]);																														// exposure is first argument																														
-		countOfImagesToGrab = atoi(argv[2]);																									// number of images to grab is second argument
-	}
-	else {																																	// if there are less than 2 command line arguments
+		exposure = atoi(argv[1]);
+		if (exposure == 0) 
+		{
+			fprintf(stderr, "ERROR: Invalid exposure value.\n");
+			exit(1);
+		}																														// exposure is first argument																														
+		countOfImagesToGrab = atoi(argv[2]);
+		if (countOfImagesToGrab == 0) 
+		{
+			fprintf(stderr, "ERROR: Invalid number of images value.\n");
+			exit(1);
+		}																									// number of images to grab is second argument
+	} else {																																	// if there are less than 2 command line arguments
 		exposure = 1000;																															// default value of exp: 5000 us
-		countOfImagesToGrab = 10000;																											// default number of images to grab: 10
-	}	
-	int exitCode = 0;
+		countOfImagesToGrab = 1000;																											// default number of images to grab: 10
+	}
+	
 	PylonInitialize(); 
 	int width = 640, height = 480; 																													// Initializes pylon runtime before using any pylon methods
 	
-	
 	unsigned long *camera_array;
-	camera_array = (unsigned long*) calloc(640*480, sizeof(unsigned long));
-	
+	camera_array = (unsigned long*) calloc(width*height, sizeof(unsigned long));
 
-	//long *camera_array;
-	//camera_array = (long*) calloc(640*480, sizeof(long));
-
-	if (camera_array == NULL) {
-		fprintf(stderr, "ERROR: Memory did not allocate correctly.\n");
+	if (camera_array == NULL) 
+	{
+		fprintf(stderr, "ERROR: Memory for median image did not allocate correctly.\n");
 		exit(1);
 	}
 
@@ -61,24 +67,24 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			{
 				uint8_t *pImageBuffer = (uint8_t *)ptrGrabResult->GetBuffer();
 
-				for (k = 1; k <= 480; k = k+1) {   //Looks through each pixel in a picture
-					for (j = 1; j <= 640; j = j+1) {
+				for (k = 1; k <= height; k = k+1) {   //Looks through each pixel in a picture
+					for (j = 1; j <= width; j = j+1) {
 						//printf("%d\n", pImageBuffer[((k-1)*width + (j-1))]);
 						camera_array[((k-1)*width + (j-1))] = camera_array[((k-1)*width + (j-1))] + pImageBuffer[((k-1)*width + (j-1))];
 					}
 				}
-			}
-			else  																															// If image is not grabbed successfully, throw an error
+			} else  																															// If image is not grabbed successfully, throw an error
 			{
 				cerr << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl;
 			}
 		}
-		for (k = 1; k <= 480; k = k+1) {   //Looks through each pixel in a picture
-				for (j = 1; j <= 640; j = j+1) {
+		for (k = 1; k <= height; k = k+1) {   //Looks through each pixel in a picture
+				for (j = 1; j <= width; j = j+1) {
 					camera_array[((k-1)*width + (j-1))] = camera_array[((k-1)*width + (j-1))]/countOfImagesToGrab;
 					//printf("%d\n", camera_array[((k-1)*width + (j-1))]);
 				}
 		}
+
 		fitsfile *fptr;																											// Create a fits file for the median image, check for errors throughout creation process
 		long naxes[2] = { width, height };
 		long naxis = 2, fpixel = 1;

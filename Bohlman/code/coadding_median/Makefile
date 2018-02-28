@@ -2,7 +2,7 @@
 .PHONY: all clean
 
 # The program to build
-NAME       := repeated_image_acquisition
+NAME       := coadding_median
 
 # Installation directories for pylon
 PYLON_ROOT ?= /opt/pylon5
