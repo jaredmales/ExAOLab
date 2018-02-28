@@ -1,4 +1,4 @@
-CAAO Internship Log: 2017
+MagAOX Internship Log
 
 5/17/2017: 7 hours
 Today, I got introduced to what I will be doing and who I’ll be working with. I also got introduced to my work space and some of the equipment I will be working with. I also had timesheet difficulties, so I spent a fair amount of time today trying to figure out how I can put in my hours online (looking for future correspondence concerning online timesheet). I also picked up some equipment: monitor from Kim, keyboard and mouse from dude on 3rd floor. The first two tasks I was given was to download the software for the Basler acA640 -750 µmcamera and figure out how to use it, and to read the book “Handbook of CCD Astronomy” cover to cover. I downloaded the software for the camera and took a few videos/pictures with it. I also went through the first 3 chapters of the handbook and took notes on it. Tomorrow, I want to take notes on the next two chapters of the handbook (4 and 5), and play around with the software for the camera more and start working on a write up for that. I also want to resolve my timesheet difficulties.
@@ -505,3 +505,21 @@ Struggled with git today, but made myself a repository for work code and school 
 Fixed some code for Kelsey's usage. Started combing through code today and started renaming/recoding. I want to crunch the numbers for sigma clipping and condense it all into one program.
 
 2/9/2018: 3 hours
+Crunched the code for quickly getting gain/read nosie. Ended up getting the same values for all of the data, which was expected. Looked at abstract and starting figureing out how to improve it.
+
+2/12/2018: 4 hours
+Put in a request for key for N408. Worked on abstract. Met with Jared regarding the lens for the setup. Looks like I will have to use thinlens equation to determine what kind of lens I will need for this.
+
+2/14/2018: 5 hours
+Worked on lens finding for the board. Drew up a list of questions to ask relating to lens. Got answers to those questions, and tried to initially measure the theta of the lens
+
+2/16/2018: 6 hours
+Worked on and presented slide for group meeting. Continued my calculations of optimal lens. Organized workspace in N408.
+
+2/19/2018: 4 hours
+Organized/salvaged for my workspace in N408.Calculated the optimal lens focal length and emailed Jared about it.
+
+2/21/2018: 8 hours
+
+2/23/2018: 3 hours
+
