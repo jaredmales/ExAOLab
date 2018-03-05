@@ -13,37 +13,35 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	char* argv[] ///< [ch.ar] the integer value of the count of the command line arguments
 )
 {
-	int c_countOfImagesToGrab;
+	int c_countOfImagesToGrab, j = 0;
+	uint32_t countOfImagesToGrab;
 	int exitCode = 0;
 	int exposure = 0;
-	if (argc >= 3) {																															// if there are more than 2 command line arguments
+	if (argc == 3) {																															// if there are more than 2 command line arguments
 		exposure = atoi(argv[1]);																														// exposure is first argument																														
-		c_countOfImagesToGrab = atoi(argv[2]);																									// number of images to grab is second argument
+		countOfImagesToGrab = atoi(argv[2]);																									// number of images to grab is second argument
 	}
 	else {																																	// if there are less than 2 command line arguments
-		exposure = 59;																															// default value of exp: 5000 us
-		c_countOfImagesToGrab = 10;																											// default number of images to grab: 10
+		exposure = 1000;																															// default value of exp: 5000 us
+		countOfImagesToGrab = 100;																											// default number of images to grab: 10
 	}			
 	PylonInitialize();  																													// Initializes pylon runtime before using any pylon methods
 	try
 	{
 		CDeviceInfo info;																													// Set up attached Basler USB camera
-		info.SetDeviceClass(Camera_t::DeviceClass());																						// Provides information about camera
-		Camera_t camera(CTlFactory::GetInstance().CreateFirstDevice());   																	// Creates an instant camera object with the camera device found first
-		for (int j = 0; j < c_countOfImagesToGrab; ++j)																										// Iterate through each exposure time
-		{
+		info.SetDeviceClass(Camera_t::DeviceClass());
+		CBaslerUsbInstantCamera camera( CTlFactory::GetInstance().CreateFirstDevice());
+		string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();		// Gets camera model name and serial number
+		char* newstr = &file_name[0u];																									// Casts string as char* for cfitsio
+		camera.Open();																														// Opens camera parameters to grab images and set exposure time
+		camera.ExposureAuto.SetValue(ExposureAuto_Off);																						// Set exposure
+		camera.ExposureTime.SetValue(exposure);
+			
+		camera.StartGrabbing(countOfImagesToGrab);																							// Start grabbing a provided amount of images
+		while (camera.IsGrabbing()) {	
 			CGrabResultPtr ptrGrabResult;
-			string file_name = (string)camera.GetDeviceInfo().GetModelName() + " " + (string)camera.GetDeviceInfo().GetSerialNumber();		// Gets camera model name and serial number
-			char* newstr = &file_name[0u];																									// Casts string as char* for cfitsio
-
-			camera.Open();																													// Opens camera parameters
-			camera.ExposureAuto.SetValue(ExposureAuto_Off);																					// Turns off auto exposure
-			camera.ExposureTime.SetValue(exposure);																							// Sets up exposure time from above value
-
-			camera.StartGrabbing(1);  																										// Starts the grabbing of a singular image
 			int tempcam = (int)camera.DeviceTemperature.GetValue();																			// Gets and stores temperature of camera
 			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  													// Waits for an image and then retrieves it. A timeout of 5000 ms is used
-			camera.Close();																													// Closes camera parameters
 			if (ptrGrabResult->GrabSucceeded())  																							// If image is grabbed successfully 
 			{
 				struct image *cam_image = new struct image; 																				// Setting up image struct
@@ -72,6 +70,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 					cout << "Image grab and write successful" << endl;																		// print confirmation message																				
 				}
 				delete(cam_image);																											// Free struct
+				j++;
 			}
 			else  																															// If image is not grabbed successfully, throw an error
 			{
@@ -79,6 +78,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				exitCode = 1;
 			}
 		}
+		camera.Close();	
 	}
 	catch (const GenericException &e)  																										// Provides Basler error handling.
 	{
