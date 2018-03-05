@@ -2,7 +2,7 @@
 .PHONY: all clean
 
 # The program to build
-NAME       := coadding_median
+NAME       := coadding_mean
 
 # Installation directories for pylon
 PYLON_ROOT ?= /opt/pylon5
