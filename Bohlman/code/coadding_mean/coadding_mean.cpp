@@ -22,7 +22,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			exit(1);
 		}																														
 		countOfImagesToGrab = atoi(argv[2]);																// Set given number of images, if it's invalid, report error and exit
-		if (exposure == 0) 
+		//if (exposure == 0) 
 		if (countOfImagesToGrab == 0) 
 		{
 			fprintf(stderr, "ERROR: Invalid number of images value.\n");

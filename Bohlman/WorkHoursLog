@@ -534,10 +534,10 @@ Developed software for Kelsey. After initial testing and submission, I optimized
 
 3/02/2018: 4 hours
 Worked more with the test bench. Mounted rotation and tried to more or less collimate beam. Found certain problems with the bench that will need to be addressed in the future:
--
--
--
+-Height problems of certain components because of rotation mounts
+-Rotatining mirror not positioned securely on mount due to shape of mirror's mount
+-What do I do with the aperture.
 Also, the lab jack is being a piece of shit and not installing software correctly. If I can't find a repair fast, I will need to contact LabJack support.
 
 3/05/2018: 8 hours
-Updated abstract again. Worked more with the test bench today. 
+Updated abstract again. Tried to submit, but submission link would not work, so I am awaiting an email from the support team. Fixed software installation for LabJack. Sample programs have run, but I have yet to collect data from it. Worked more with the test bench today. Emailed Jared about concerns. Edited existing software for Kyle and gave it to him.
