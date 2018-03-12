@@ -4,6 +4,71 @@ Initializes the pylon resources, takes the photos, and passes a struct to write_
 */
 
 #include "write_basler_fits.h"
+//  Subtracts a median image from the given file name
+/** Gets the name of the file, opens it, opens the median file, subtracts the median file from the given file name, writes the new file.
+*  \return an integer: 0 upon exit success, 1 otherwise
+*/
+
+int subtract_images(char* file_name)
+{
+	int exitCode = 0;
+	const char* median_name = "median_lowexp_image.fits";											// Name of the median image that is subtracted from each image
+	fitsfile *fptr1, *fptr2;
+	if (fits_open_file(&fptr1, file_name, READWRITE, &exitCode)) 									// Open image file passed in function
+	{
+		fits_report_error(stderr, exitCode);  														// if it does not exist, print out any fits error messages
+		return 1;
+	}
+
+	if (fits_open_file(&fptr2, median_name, READONLY, &exitCode)) 									// Open median image file
+	{
+		fits_report_error(stderr, exitCode);  														// If it does not exist, print out any fits error messages
+		return 1;
+	}
+
+	long fpixel[2] = { 1,1 };																		// Instructs cfitsio to read a pixel at a time
+	double * pixel_arr1, * pixel_arr2, * new_arr;
+	pixel_arr1 = new double[640 * 480];																// Array that holds first image data
+	pixel_arr2 = new double[640 * 480];																// Array that holds second image data
+	new_arr = new double[640 * 480];																// Array that holds final image data
+	int nelements = 640 * 480;
+
+	if (fits_read_pix(fptr1, TDOUBLE, fpixel, nelements, NULL, pixel_arr1, NULL, &exitCode)) 
+	{		// Store image data into array
+		fits_report_error(stderr, exitCode);  														// Prints out any fits error messages
+		return 1;
+	}
+
+	if (fits_read_pix(fptr2, TLONGLONG, fpixel, nelements, NULL, pixel_arr2, NULL, &exitCode)) 		// Store image data into array
+	{	
+		fits_report_error(stderr, exitCode);  														// Prints out any fits error messages
+		return 1;
+	}
+
+	int j, k;																						// Subtract median image from passed file and store value into new array
+	int width = 640, height = 480;
+	for (k = 0; k < height; ++k) 
+	{
+		for (j = 0; j < width; ++j) 
+		{
+			new_arr[k*width + j] = pixel_arr1[k*width + j] - pixel_arr2[k*width + j];
+		}
+	}
+	long fpixel2[2] = { 1,1 };
+	if (fits_write_pix(fptr1, TDOUBLE, fpixel2, nelements, new_arr, &exitCode) != 0) 				// Writes pointer values to the image
+	{  			
+		fits_report_error(stderr, exitCode);  														// Prints out any fits error messages
+		return 1;
+	}
+
+	fits_close_file(fptr1, &exitCode);																// Close and free up everything
+	fits_close_file(fptr2, &exitCode);
+	delete(pixel_arr1);
+	delete(pixel_arr2);
+	delete(new_arr);
+
+	return exitCode;
+}
 
 //  Main function
 /** Initializes pylon resources, takes pictures, closes all pylon resources.

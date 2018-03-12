@@ -112,6 +112,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		}
 	}
 	
+	// Get mean and variance of each image set, and put them into vectors
 	
 	for (k = 1; k <= height; k = k+10) {   //Looks through each pixel in a picture
 		for (j = 1; j <= width; j = j+10) {
@@ -229,6 +230,9 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			variance10.push_back(std_dev_num);
 		}
 	}
+
+	//Get median of all mean and variance sets, and put them into a vector
+
 	std::vector <double> mean_all(0);
 	std::vector <double> variance_all(0);
 		
@@ -262,7 +266,9 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	mean_all.push_back(inPlaceMedian(mean10));
 	variance_all.push_back(inPlaceMedian(variance10));
 
-	double c0 = 0, c1 = 0, cov00 = 0, cov01 = 0, cov11 = 0, sumsq = 0;							// Calculate gain and read noise from a linear fit to the data
+	// Use median mean and variance vectors to calculate the total gain and read noise
+
+	double c0 = 0, c1 = 0, cov00 = 0, cov01 = 0, cov11 = 0, sumsq = 0;													// Calculate gain and read noise from a linear fit to the data
   	gsl_fit_linear(&mean_all[0], 1, &variance_all[0], 1, mean_all.size(), &c0, &c1, &cov00, &cov01, &cov11, &sumsq);
 	std::cout << "M (Gain): " << 1/c1 << '\n' << "B (Read Noise): " << c0/c1 << std::endl;
 
