@@ -551,3 +551,23 @@ Updated some c++ files and my file structures today. For example, I wanted to ge
 3/12/2018: 3 hours
 Finished going through old files and looking at image grabbing process to see how it's streamlined. Next large work project is testbench, and I will need help with that, so I emailed Jared again.
 
+3/14/2018: 8 hours
+Worked with labjack and emailed Jared
+
+3/16/2018: 4 hours
+Ran some more tests on labjack. Made presentation and presented at meeting.
+
+3/19/2018: 4 hours
+Here's what I have left to do:
+Get labjack to collect data
+Mount basler
+Adjust test bench
+Collect data for QE
+Tried to understand lab jack sample code so I could write a program.
+
+3/21/2018: 8 hours
+Wrote some code for labjack. Tested.
+Compile: 
+sudo cc -Wall -g   -c -o u3Read.o u3Read.c
+sudo cc -o u3Read u3Read.o u3.o  -lm -llabjackusb
+
