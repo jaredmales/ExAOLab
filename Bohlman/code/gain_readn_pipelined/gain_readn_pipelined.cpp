@@ -16,11 +16,14 @@
 * \return an integer
 */
 double std_dev_calc(std::vector<double> v) {
+	//for (std::vector<double>::const_iterator i = v.begin(); i != v.end(); ++i)
+    //cout << *i << ',';
+	//cout << endl;
 	double mean = std::accumulate(v.begin(), v.end(), 0.0) / v.size();		// Find mean of all elements: sum/size
 	double std_dev = 0;														// Calculate the standard deviation of the elements
 	for (int i = 0; i < v.size(); ++i) {
-		//std::cout << v[i] << std::endl;
 		std_dev = std_dev + ((mean - v[i]) * (mean - v[i]));
+		//cout << std_dev << endl;
 	}
 	std_dev = std_dev / v.size();
 	return std_dev;															// Return the std deviation
@@ -30,6 +33,7 @@ double inPlaceMedian( std::vector<double> v)
 {
    std::vector<double> tmp = v;
    std::nth_element(tmp.begin(), tmp.begin() + tmp.size()/2, tmp.end());
+   //cout << tmp[tmp.size()/2] << endl;
    return tmp[tmp.size()/2];
 }
 
@@ -44,22 +48,29 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 {
 	int exitCode = 0;
 	int expArray[c_countOfImagesToGrab];																									// Creates array of exposure times from the images used
-	int i, exp = 500;
+	int i, exp = 1500, h = 0;
 	for (i = 0; i < c_countOfImagesToGrab; i++) {
 		if (i % 100 == 0 && i > 0)
-			exp = exp + 400;
+			exp = exp + 500;
 		expArray[i] = exp;
 	}
 	const char *names[c_countOfImagesToGrab];																								// Creates an array of names for each of the images that will be used
 	for (i = 0; i < c_countOfImagesToGrab; ++i) {  																							
 		char filename[100];
-		strncpy(filename, "/home/cbohlman/Documents/caao_summer2017/ExAOLab/Bohlman/code/raw_data_110917/fitsimg_exp", sizeof(filename));
+		strncpy(filename, "/home/cbohlman/Documents/caao_summer2017/ExAOLab/Bohlman/code/raw_data_040118600nm/fitsimg_exp", sizeof(filename));
 		char exp_str[10];
 		sprintf(exp_str, "%d", expArray[i]);
 		strcat(filename, exp_str);
+
+		if (h > 9) {
+			h = 0;
+		}
 		char num_str[10];
-		sprintf(num_str, "_%d", i);
+		sprintf(num_str, "_%d", h);
 		strcat(filename, num_str);
+		h++;
+
+
 		strcat(filename, ".fits");
 		names[i] = strdup(filename);
 	}
@@ -114,19 +125,22 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 	
 	// Get mean and variance of each image set, and put them into vectors
 	
-	for (k = 1; k <= height; k = k+10) {   //Looks through each pixel in a picture
+	for (k = 150; k <= height; k = k+10) {   //Looks through each pixel in a picture
 		for (j = 1; j <= width; j = j+10) {
 			double pixel_arr[100];
 			
 			int z = 0;
 			for (i = 0; i < 100; ++i) {
 				pixel_arr[z] = array3D[((k-1)*width + (j-1))+(i*width*height)];
+				//cout << array3D[((k-1)*width + (j-1))+(i*width*height)] << endl;
 				z++;
 			}
 			std::vector<double> v01(pixel_arr, pixel_arr + 100);
 			double std_dev_num = std_dev_calc(v01);
 			double mean_num = std::accumulate(v01.begin(), v01.end(), 0.0) / v01.size();
+			//cout << mean_num << ',';
 			mean1.push_back(mean_num);
+			//cout << inPlaceMedian(mean1) << endl;
 			variance1.push_back(std_dev_num);
 			
 			z = 0;
@@ -137,8 +151,10 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			std::vector<double> v02(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v02);
 			mean_num = std::accumulate(v02.begin(), v02.end(), 0.0) / v02.size();
+			//cout << mean_num << '\t' << std_dev_num << endl;
 			//cout << mean_num <<  '\t' << std_dev_num << endl;
 			mean2.push_back(mean_num);
+			//cout << mean_num << '\t' << std_dev_num << endl;
 			variance2.push_back(std_dev_num);
 			
 			z = 0;
@@ -149,6 +165,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 			std::vector<double> v03(pixel_arr, pixel_arr + 100);
 			std_dev_num = std_dev_calc(v03);
 			mean_num = std::accumulate(v03.begin(), v03.end(), 0.0) / v03.size();
+			//cout << mean_num << '\t' << std_dev_num << endl;
 			mean3.push_back(mean_num);
 			variance3.push_back(std_dev_num);
 			
@@ -235,7 +252,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 
 	std::vector <double> mean_all(0);
 	std::vector <double> variance_all(0);
-		
+	//cout << inPlaceMedian(mean1) << endl;
 	mean_all.push_back(inPlaceMedian(mean1));
 	variance_all.push_back(inPlaceMedian(variance1));
 
@@ -265,6 +282,12 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 
 	mean_all.push_back(inPlaceMedian(mean10));
 	variance_all.push_back(inPlaceMedian(variance10));
+
+	for (std::vector<double>::const_iterator i = mean_all.begin(); i != mean_all.end(); ++i)
+    cout << *i << ' ';
+
+	for (std::vector<double>::const_iterator i = variance_all.begin(); i != variance_all.end(); ++i)
+	   cout << *i << ' ';
 
 	// Use median mean and variance vectors to calculate the total gain and read noise
 
