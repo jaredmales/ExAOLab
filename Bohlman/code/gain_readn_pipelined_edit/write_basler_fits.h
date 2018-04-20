@@ -27,7 +27,7 @@ using namespace Basler_UsbCameraParams;
 
 using namespace Pylon;
 using namespace std;
-static const uint32_t c_countOfImagesToGrab = 90;
+static const uint32_t c_countOfImagesToGrab = 1000;
 static const uint32_t a_countOfImagesToGrab = 100;
 
 /*! \struct image
