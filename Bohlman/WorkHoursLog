@@ -571,4 +571,5 @@ Compile:
 sudo cc -Wall -g   -c -o u3Read.o u3Read.c
 sudo cc -o u3Read u3Read.o u3.o  -lm -llabjackusb
 
-
+3/21/2018 - 4/20/2018
+Tried to get the test bench to work. Wanted to extract quantum efficiency of camera. The first major loophole was finding the right set up for the bench. The second was the light itself. It flickered at 120 Hz probably, so it couldn't be used for finding the QE. It gave too high of a variance number. In addition, I tried to use the led light and collimate that. However, since the five sources in the light wanted to resolve, I could only use one. I did find the correct gain and read noise from this setup, but only from the white light. When a single wavelength was extracted, the light coming to the detector was so dim that the Basler did not resolve it. Therefore, I'm really stuck now for what do to.
