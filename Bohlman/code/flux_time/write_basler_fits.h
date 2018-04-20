@@ -17,6 +17,7 @@ contains prototype so other cpp files can use write_basler_fits() function
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <numeric>
 #include <algorithm>
 #include <functional>
 #include "fitsio.h"
@@ -27,8 +28,6 @@ using namespace Basler_UsbCameraParams;
 
 using namespace Pylon;
 using namespace std;
-static const uint32_t c_countOfImagesToGrab = 1000;
-static const uint32_t a_countOfImagesToGrab = 100;
 
 /*! \struct image
 //struct that is passed to write_basler_fits() that has data for the image
@@ -37,7 +36,7 @@ static const uint32_t a_countOfImagesToGrab = 100;
 struct image {
 	int exposure;
 	int temp;
-	CGrabResultPtr imgGrab;
+	unsigned int* imgGrab;
 	char* camname;
 	char* imgname;
 };
