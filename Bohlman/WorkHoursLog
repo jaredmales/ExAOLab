@@ -551,12 +551,11 @@ Updated some c++ files and my file structures today. For example, I wanted to ge
 3/12/2018: 3 hours
 Finished going through old files and looking at image grabbing process to see how it's streamlined. Next large work project is testbench, and I will need help with that, so I emailed Jared again.
 
-<<<<<<< HEAD
-3/14/2018: 8 hours
-Worked with labjack and emailed Jared
+3/14/2018: 7 hours
+Came up with tasks and timetables in order to achieve test bench functionality. Stripped wires for labjack and tested labjack.
 
-3/16/2018: 4 hours
-Ran some more tests on labjack. Made presentation and presented at meeting.
+3/16/2018: 5 hours
+Looked at phantom voltages with labjack but found nothing. Investigated phantom voltages with multimeter, but also found nothing. Made slide and presented. Next week, decided to finish the putting together of the test bench. 
 
 3/19/2018: 4 hours
 Here's what I have left to do:
@@ -571,11 +570,5 @@ Wrote some code for labjack. Tested.
 Compile: 
 sudo cc -Wall -g   -c -o u3Read.o u3Read.c
 sudo cc -o u3Read u3Read.o u3.o  -lm -llabjackusb
-=======
-3/14/2018: 7 hours
-Came up with tasks and timetables in order to achieve test bench functionality. Stripped wires for labjack and tested labjack.
 
-3/16/2018: 5 hours
-Looked at phantom voltages with labjack but found nothing. Investigated phantom voltages with multimeter, but also found nothing. Made slide and presented. Next week, decided to finish the putting together of the test bench. 
->>>>>>> d37d1b4ac3f4118efa89135aa008e617ebc6f1e4
 
