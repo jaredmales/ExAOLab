@@ -4,28 +4,36 @@
 # The program to build
 NAME       := set_exp_grab_imgs
 
-# Installation directories for pylon
-PYLON_ROOT ?= /opt/pylon5
+UNAME ?= $(shell uname)
+ifeq ($(UNAME),Darwin)
+	CFLAGS += -D_BSD_SOURCE
+	CXXFLAGS += -D_BSD_SOURCE -I /Library/Frameworks/pylon.framework/Headers/GenICam
+	LDLIBS += -framework pylon
+else
+	# Installation directories for pylon
+	PYLON_ROOT ?= /opt/pylon5
+	CFLAGS     += -D_XOPEN_SOURCE=700
+	CXXFLAGS   += -D_XOPEN_SOURCE=700
+	CPPFLAGS   := $(shell $(PYLON_ROOT)/bin/pylon-config --cflags)
+	CXXFLAGS   := #e.g., CXXFLAGS=-g -O0 for debugging
+	LDFLAGS    := $(shell $(PYLON_ROOT)/bin/pylon-config --libs-rpath)
+	LDLIBS     := $(shell $(PYLON_ROOT)/bin/pylon-config --libs) -L/opt/cfitsio
+endif
 
 # Build tools and flags
 LD         := $(CXX)
-CPPFLAGS   := $(shell $(PYLON_ROOT)/bin/pylon-config --cflags)
-CXXFLAGS   := #e.g., CXXFLAGS=-g -O0 for debugging
-LDFLAGS    := $(shell $(PYLON_ROOT)/bin/pylon-config --libs-rpath)
-LDLIBS     := $(shell $(PYLON_ROOT)/bin/pylon-config --libs)
 
 # Rules for building
 all: $(NAME)
 
 $(NAME): $(NAME).o write_basler_fits.o
-	$(LD) $(LDFLAGS) -o $@ $^ $(LDLIBS) -L/opt/cfitsio -lcfitsio -lm
+	$(LD) $(LDFLAGS) -o $@ $^ $(LDLIBS) -lcfitsio -lm
 
 $(NAME).o: $(NAME).cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $< 
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
 
 write_basler_fits.o: write_basler_fits.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $< 
-
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
 
 clean:
 	$(RM) *.o $(NAME) *.fits
