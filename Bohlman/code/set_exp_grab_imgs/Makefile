@@ -8,7 +8,7 @@ UNAME ?= $(shell uname)
 ifeq ($(UNAME),Darwin)
 	CFLAGS += -D_BSD_SOURCE
 	CXXFLAGS += -D_BSD_SOURCE -I /Library/Frameworks/pylon.framework/Headers/GenICam
-	LDLIBS += -framework pylon
+	LDLIBS += -framework pylon -rpath /Library/Frameworks -rpath /System/Library/Frameworks
 else
 	# Installation directories for pylon
 	PYLON_ROOT ?= /opt/pylon5
