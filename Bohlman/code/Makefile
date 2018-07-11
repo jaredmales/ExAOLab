@@ -20,7 +20,7 @@ endif
 # Build tools and flags
 LD         := $(CXX)
 
-APPS := set_exp_grab_imgs set_exp_grab_imgs_adding coadding_mean
+APPS := set_exp_grab_imgs
 
 # Rules for building
 all: $(APPS)
