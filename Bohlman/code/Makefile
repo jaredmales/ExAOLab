@@ -28,8 +28,5 @@ all: $(APPS)
 $(APPS): %: %.o write_basler_fits.o
 	$(LD) $(LDFLAGS) -o build/$@ $^ $(LDLIBS) -lcfitsio -lm
 
-$(NAME).o: $(NAME).cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
-
 clean:
 	$(RM) *.o $(NAME) *.fits
