@@ -21,12 +21,16 @@ endif
 LD         := $(CXX)
 
 APPS := set_exp_grab_imgs
+GSL_APPS := gain_readn_pipelined_edit
 
 # Rules for building
-all: $(APPS)
+all: $(APPS) $(GSL_APPS)
 
 $(APPS): %: %.o write_basler_fits.o
 	$(LD) $(LDFLAGS) -o build/$@ $^ $(LDLIBS) -lcfitsio -lm
+
+$(GSL_APPS): %: %.o write_basler_fits.o
+	$(LD) $(LDFLAGS) -o build/$@ $^ $(LDLIBS) -lcfitsio -lm -lgsl -lgslcblas
 
 clean:
 	$(RM) *.o $(NAME) *.fits
