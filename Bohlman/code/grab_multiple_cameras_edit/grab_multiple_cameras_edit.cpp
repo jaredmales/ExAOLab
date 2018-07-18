@@ -10,16 +10,18 @@
 static const size_t c_maxCamerasToUse = 2;
 int main(int argc, char* argv[])
 {
-    int exitCode = 0, exposure, width = 640, height = 480;
+    int exitCode = 0, width = 640, height = 480;
+    int exposure[2];
 	uint32_t countOfImagesToGrab;
-	if (argc == 3) {																						// If there are 2 command line arguments
-		exposure = atoi(argv[1]);																			// Set given exposure, if it's invalid, report error and exit
-		if (exposure == 0) 
+	if (argc == 4) {																							// If there are 2 command line arguments
+		exposure[0] = atoi(argv[1]);																			// Set given exposure, if it's invalid, report error and exit
+		exposure[1] = atoi(argv[2]);																			// Set given exposure, if it's invalid, report error and exit
+		if (exposure[0] == 0 || exposure[1] == 0) 
 		{
 			fprintf(stderr, "ERROR: Invalid exposure value.\n");
 			exit(1);
-		}																														
-		countOfImagesToGrab = atoi(argv[2]);																// Set given number of images, if it's invalid, report error and exit
+		}																																
+		countOfImagesToGrab = atoi(argv[3]);																// Set given number of images, if it's invalid, report error and exit
 		//if (exposure == 0) 
 		if (countOfImagesToGrab == 0) 
 		{
@@ -27,28 +29,12 @@ int main(int argc, char* argv[])
 			exit(1);
 		}
 	} else {																								// If there are not 3 command line arguments
-		exposure = 1000;																					// Default value of exp: 1000 us
+		exposure[0] = 1000;																					// Default value of exp: 1000 us
+		exposure[1] = 1000;																					// Default value of exp: 1000 us		
 		countOfImagesToGrab = 10000;																		// Default number of images to grab: 1000
 	}
 
-    if (argc == 3) {																						// If there are 2 command line arguments
-		exposure = atoi(argv[1]);																			// Set given exposure, if it's invalid, report error and exit
-		if (exposure == 0) 
-		{
-			fprintf(stderr, "ERROR: Invalid exposure value.\n");
-			exit(1);
-		}																														
-		countOfImagesToGrab = atoi(argv[2]);																// Set given number of images, if it's invalid, report error and exit
-		//if (exposure == 0) 
-		if (countOfImagesToGrab == 0) 
-		{
-			fprintf(stderr, "ERROR: Invalid number of images value.\n");
-			exit(1);
-		}
-	} else {																								// If there are not 3 command line arguments
-		exposure = 1000;																					// Default value of exp: 1000 us
-		countOfImagesToGrab = 10000;																		// Default number of images to grab: 1000
-	}
+
     // Before using any pylon methods, the pylon runtime must be initialized. 
     PylonInitialize();
 
@@ -90,12 +76,13 @@ int main(int argc, char* argv[])
         // However, a hardware trigger setup can be used to cause all cameras to grab images synchronously.
         // According to their default configuration, the cameras are
         // set up for free-running continuous acquisition.
-        int expos = exposure;											//SET EXPOSURE HERE
+        int expos1 = exposure[0];											//SET EXPOSURE HERE
+        int expos2 = exposure[1];											//SET EXPOSURE HERE
         cameras.Open();
 		cameras[0].ExposureAuto.SetValue(ExposureAuto_Off);
-		cameras[0].ExposureTime.SetValue(expos);
+		cameras[0].ExposureTime.SetValue(expos1);
 		cameras[1].ExposureAuto.SetValue(ExposureAuto_Off);
-		cameras[1].ExposureTime.SetValue(expos);
+		cameras[1].ExposureTime.SetValue(expos2);
         // This smart pointer will receive the grab result data.
         CGrabResultPtr ptrGrabResult1;
 		CGrabResultPtr ptrGrabResult2;
