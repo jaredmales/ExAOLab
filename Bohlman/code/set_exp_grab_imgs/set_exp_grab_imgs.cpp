@@ -101,10 +101,12 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 		camera.Open();																														// Opens camera parameters to grab images and set exposure time
 		camera.ExposureAuto.SetValue(ExposureAuto_Off);																						// Set exposure
 		camera.ExposureTime.SetValue(exposure);
+		camera.PixelFormat.SetValue(PixelFormat_Mono10);
 			
 		camera.StartGrabbing(countOfImagesToGrab);																							// Start grabbing a provided amount of images
 		while (camera.IsGrabbing()) {	
 			CGrabResultPtr ptrGrabResult;
+			
 			int tempcam = (int)camera.DeviceTemperature.GetValue();																			// Gets and stores temperature of camera
 			camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  													// Waits for an image and then retrieves it. A timeout of 5000 ms is used
 			if (ptrGrabResult->GrabSucceeded())  																							// If image is grabbed successfully 
