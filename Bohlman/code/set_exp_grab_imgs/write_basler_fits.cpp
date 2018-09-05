@@ -13,7 +13,7 @@ Takes the struct and creates the fits file and updates the keys that provide ima
 int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image
 )
 {
-	uint8_t *pImageBuffer = (uint8_t *)cam_image->imgGrab->GetBuffer();  // Gets image buffer from pointer to image data
+	uint16_t *pImageBuffer = (uint16_t *)cam_image->imgGrab->GetBuffer();  // Gets image buffer from pointer to image data
 	int exitCode = 0;
 	fitsfile *fptr;       //Creates pointer to the FITS file; defined in fitsio.h   
 	int width = (int)cam_image->imgGrab->GetWidth();
@@ -26,7 +26,7 @@ int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 		return 1;
 	}
-	if (fits_create_img(fptr, BYTE_IMG, naxis, naxes, &exitCode) != 0)  //Creates the primary array image
+	if (fits_create_img(fptr, SHORT_IMG, naxis, naxes, &exitCode) != 0)  //Creates the primary array image
 	{
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 		return 1;
@@ -52,7 +52,7 @@ int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image
 		return 1;
 	}
 
-	if (fits_write_img(fptr, TBYTE, fpixel, width*height, pImageBuffer, &exitCode) != 0)  // Writes pointer values to the image
+	if (fits_write_img(fptr, TSHORT, fpixel, width*height, pImageBuffer, &exitCode) != 0)  // Writes pointer values to the image
 	{
 		fits_report_error(stderr, exitCode);  // Prints out any fits error messages
 		return 1;

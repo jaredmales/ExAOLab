@@ -81,8 +81,10 @@ int main(int argc, char* argv[])
         cameras.Open();
 		cameras[0].ExposureAuto.SetValue(ExposureAuto_Off);
 		cameras[0].ExposureTime.SetValue(expos1);
+		cameras[0].PixelFormat.SetValue(PixelFormat_Mono10);
 		cameras[1].ExposureAuto.SetValue(ExposureAuto_Off);
 		cameras[1].ExposureTime.SetValue(expos2);
+		cameras[1].PixelFormat.SetValue(PixelFormat_Mono10);
         // This smart pointer will receive the grab result data.
         CGrabResultPtr ptrGrabResult1;
 		CGrabResultPtr ptrGrabResult2;
@@ -104,7 +106,7 @@ int main(int argc, char* argv[])
             //intptr_t cameraContextValue = ptrGrabResult1->GetCameraContext();
         if (ptrGrabResult1->GrabSucceeded())  																									// If image from camera 1 is grabbed successfully 
 		{
-			uint8_t *pImageBuffer1 = (uint8_t *)ptrGrabResult1->GetBuffer();								// Retrieve image buffer
+			uint16_t *pImageBuffer1 = (uint16_t *)ptrGrabResult1->GetBuffer();								// Retrieve image buffer
 
 			for (k = 1; k <= height; k = k+1) {   														// Looks through each pixel in an image and adds to mean image array in position
 				for (j = 1; j <= width; j = j+1) {
@@ -119,7 +121,7 @@ int main(int argc, char* argv[])
 		}
         if (ptrGrabResult2->GrabSucceeded())  																									// If image from camera 2 is grabbed successfully 
 		{
-			uint8_t *pImageBuffer2 = (uint8_t *)ptrGrabResult2->GetBuffer();								// Retrieve image buffer
+			uint16_t *pImageBuffer2 = (uint16_t *)ptrGrabResult2->GetBuffer();								// Retrieve image buffer
 
 			for (k = 1; k <= height; k = k+1) {   														// Looks through each pixel in an image and adds to mean image array in position
 				for (j = 1; j <= width; j = j+1) {
@@ -151,12 +153,12 @@ int main(int argc, char* argv[])
 			fits_report_error(stderr, exitCode);
 		}  														
 
-		if (fits_create_img(fptr1, LONG_IMG, naxis, naxes, &exitCode) != 0) { 			
+		if (fits_create_img(fptr1, SHORT_IMG, naxis, naxes, &exitCode) != 0) { 			
 			exitCode = 1;			
 			fits_report_error(stderr, exitCode);  														
 		}
 
-		if (fits_write_img(fptr1, TLONG, fpixel, width*height, camera_array1, &exitCode) != 0) { 	
+		if (fits_write_img(fptr1, TSHORT, fpixel, width*height, camera_array1, &exitCode) != 0) { 	
 			exitCode = 1;		
 			fits_report_error(stderr, exitCode);  	
 		}													
@@ -174,12 +176,12 @@ int main(int argc, char* argv[])
 			fits_report_error(stderr, exitCode);
 		}  														
 
-		if (fits_create_img(fptr2, LONG_IMG, naxis, naxes, &exitCode) != 0) { 			
+		if (fits_create_img(fptr2, SHORT_IMG, naxis, naxes, &exitCode) != 0) { 			
 			exitCode = 1;			
 			fits_report_error(stderr, exitCode);  														
 		}
 
-		if (fits_write_img(fptr2, TLONG, fpixel, width*height, camera_array2, &exitCode) != 0) { 	
+		if (fits_write_img(fptr2, TSHORT, fpixel, width*height, camera_array2, &exitCode) != 0) { 	
 			exitCode = 1;		
 			fits_report_error(stderr, exitCode);  	
 		}													

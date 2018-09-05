@@ -13,11 +13,11 @@ Takes the struct and creates the fits file and updates the keys that provide ima
 int write_basler_fits(struct image *cam_image  ///< [st] the struct of the image
 )
 {
-	uint16_t *pImageBuffer = (uint16_t *)cam_image->imgGrab->GetBuffer();  // Gets image buffer from pointer to image data
+	unsigned int *pImageBuffer = cam_image->imgGrab;  // Gets image buffer from pointer to image data
 	int exitCode = 0;
 	fitsfile *fptr;       //Creates pointer to the FITS file; defined in fitsio.h   
-	int width = (int)cam_image->imgGrab->GetWidth();
-	int height = (int)cam_image->imgGrab->GetHeight();
+	int width = 640;
+	int height = 480;
 	long  fpixel = 1, naxis = 2;
 	long naxes[2] = { width, height };
 
