@@ -11,6 +11,7 @@ static const size_t c_maxCamerasToUse = 2;
 int main(int argc, char* argv[])
 {
     int exitCode = 0, width = 640, height = 480;
+    int imageCounter1 = 0, imageCounter2 = 0;
     int exposure[2];
 	uint32_t countOfImagesToGrab;
 	if (argc == 4) {																							// If there are 2 command line arguments
@@ -106,6 +107,7 @@ int main(int argc, char* argv[])
             //intptr_t cameraContextValue = ptrGrabResult1->GetCameraContext();
         if (ptrGrabResult1->GrabSucceeded())  																									// If image from camera 1 is grabbed successfully 
 		{
+			imageCounter1++;
 			uint16_t *pImageBuffer1 = (uint16_t *)ptrGrabResult1->GetBuffer();								// Retrieve image buffer
 
 			for (k = 1; k <= height; k = k+1) {   														// Looks through each pixel in an image and adds to mean image array in position
@@ -121,6 +123,7 @@ int main(int argc, char* argv[])
 		}
         if (ptrGrabResult2->GrabSucceeded())  																									// If image from camera 2 is grabbed successfully 
 		{
+			imageCounter2++;
 			uint16_t *pImageBuffer2 = (uint16_t *)ptrGrabResult2->GetBuffer();								// Retrieve image buffer
 
 			for (k = 1; k <= height; k = k+1) {   														// Looks through each pixel in an image and adds to mean image array in position
@@ -139,8 +142,8 @@ int main(int argc, char* argv[])
 
         for (k = 1; k <= height; k = k+1) {   																// Looks through each pixel in the image array and divides by amount of images taken to find mean
 				for (j = 1; j <= width; j = j+1) {
-					camera_array1[((k-1)*width + (j-1))] = camera_array1[((k-1)*width + (j-1))]/countOfImagesToGrab;
-					camera_array2[((k-1)*width + (j-1))] = camera_array2[((k-1)*width + (j-1))]/countOfImagesToGrab;
+					camera_array1[((k-1)*width + (j-1))] = camera_array1[((k-1)*width + (j-1))]/imageCounter1;
+					camera_array2[((k-1)*width + (j-1))] = camera_array2[((k-1)*width + (j-1))]/imageCounter2;
 				}
 		}
 
