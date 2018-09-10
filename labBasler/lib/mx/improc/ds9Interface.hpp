@@ -60,7 +60,7 @@ namespace improc
   * \ingroup image_processing
   * \ingroup plotting
   */
-#define DS9INTERFACE_SPAWN_TIMEOUT (2000)
+#define DS9INTERFACE_SPAWN_TIMEOUT (20000)
 #endif
 
 #ifndef DS9INTERFACE_CMD_MAX_LENGTH
