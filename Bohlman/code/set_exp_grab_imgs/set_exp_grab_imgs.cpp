@@ -134,7 +134,7 @@ int main(int argc, ///< [in] the integer value of the count of the command line 
 				}
 				else 																														// If image building from struct did work
 				{																															
-					cout << "Image grab and write successful" << endl;																		// print confirmation message																				
+					//cout << "Image grab and write successful" << endl;																		// print confirmation message																				
 				}
 				delete(cam_image);																											// Free struct
 				j++;
