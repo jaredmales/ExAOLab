@@ -64,13 +64,17 @@ int main( int argc, ///< [in] the integer value of the count of the command line
       mx::improc::ds9Interface ds9(file_name);
       ds9.connect();
       
+<<<<<<< HEAD
       camera.RegisterConfiguration( new CAcquireContinuousConfiguration , RegistrationMode_ReplaceAll, Cleanup_Delete);
       
+=======
+>>>>>>> cd0d986f3ec6ea1407f25b7009e7276e7bea894a
       camera.Open(); // Opens camera parameters to grab images and set exposure time
       camera.ExposureAuto.SetValue(ExposureAuto_Off); // Set exposure
       camera.ExposureTime.SetValue(exposure);
       camera.PixelFormat.SetValue(PixelFormat_Mono10);
       
+<<<<<<< HEAD
       camera.StartGrabbing(GrabStrategy_LatestImageOnly ); // Start grabbing a provided amount of images
    
       CGrabResultPtr ptrGrabResult;
@@ -78,6 +82,14 @@ int main( int argc, ///< [in] the integer value of the count of the command line
       while (camera.IsGrabbing()) 
       {
          
+=======
+      camera.StartGrabbing(); // Start grabbing a provided amount of images
+   
+      while (camera.IsGrabbing()) 
+      {
+         CGrabResultPtr ptrGrabResult;
+      
+>>>>>>> cd0d986f3ec6ea1407f25b7009e7276e7bea894a
          int tempcam = (int)camera.DeviceTemperature.GetValue(); // Gets and stores temperature of camera
          camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  // Waits for an image and then retrieves it. A timeout of 5000 ms is used
          
