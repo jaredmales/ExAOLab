@@ -64,42 +64,24 @@ int main( int argc, ///< [in] the integer value of the count of the command line
       mx::improc::ds9Interface ds9(file_name);
       ds9.connect();
       
-<<<<<<< HEAD
-<<<<<<< HEAD
       camera.RegisterConfiguration( new CAcquireContinuousConfiguration , RegistrationMode_ReplaceAll, Cleanup_Delete);
       
-=======
->>>>>>> cd0d986f3ec6ea1407f25b7009e7276e7bea894a
-=======
->>>>>>> 052ebff972ac921fd52b3f5c34b0f646ae32716b
       camera.Open(); // Opens camera parameters to grab images and set exposure time
       camera.ExposureAuto.SetValue(ExposureAuto_Off); // Set exposure
       camera.ExposureTime.SetValue(exposure);
       camera.PixelFormat.SetValue(PixelFormat_Mono10);
       
-<<<<<<< HEAD
-<<<<<<< HEAD
       camera.StartGrabbing(GrabStrategy_LatestImageOnly ); // Start grabbing a provided amount of images
    
       CGrabResultPtr ptrGrabResult;
       
-      while (camera.IsGrabbing()) 
-      {
-         
-=======
-=======
->>>>>>> 052ebff972ac921fd52b3f5c34b0f646ae32716b
-      camera.StartGrabbing(); // Start grabbing a provided amount of images
+     
    
       while (camera.IsGrabbing()) 
       {
          CGrabResultPtr ptrGrabResult;
       
-<<<<<<< HEAD
->>>>>>> cd0d986f3ec6ea1407f25b7009e7276e7bea894a
-=======
->>>>>>> 052ebff972ac921fd52b3f5c34b0f646ae32716b
-         int tempcam = (int)camera.DeviceTemperature.GetValue(); // Gets and stores temperature of camera
+         //int tempcam = (int)camera.DeviceTemperature.GetValue(); // Gets and stores temperature of camera
          camera.RetrieveResult(5000, ptrGrabResult, TimeoutHandling_ThrowException);  // Waits for an image and then retrieves it. A timeout of 5000 ms is used
          
          if (ptrGrabResult->GrabSucceeded()) // If image is grabbed successfully 
@@ -115,7 +97,7 @@ int main( int argc, ///< [in] the integer value of the count of the command line
             exitCode = 1;
          }
       }
-      camera.Close();	
+      camera.Close();
    }
    catch (const GenericException &e) // Provides Basler error handling.
    {
