@@ -41,10 +41,17 @@ int main( int argc, ///< [in] the integer value of the count of the command line
    
    int exitCode = 0;
    int exposure = 0;
-    
+   
+   std::string sernum;
+   
    if (argc == 2) 
    {                                // if there are more than 2 command line arguments
       exposure = atoi(argv[1]);     // exposure is first argument
+   }   
+   else if (argc == 3) 
+   {                                
+      sernum = argv[1]; 
+      exposure = atoi(argv[2]);
    }
    else 
    {  // if there are less than 2 command line arguments set default
@@ -57,7 +64,9 @@ int main( int argc, ///< [in] the integer value of the count of the command line
    {
       CDeviceInfo info; // Set up attached Basler USB camera
       info.SetDeviceClass(Camera_t::DeviceClass());
-      CBaslerUsbInstantCamera camera( CTlFactory::GetInstance().CreateFirstDevice());
+      
+      if(sernum != "") info.SetSerialNumber(sernum.c_str());
+      CBaslerUsbInstantCamera camera( CTlFactory::GetInstance().CreateFirstDevice(info));
       string file_name = (string)camera.GetDeviceInfo().GetModelName() + "_" + (string)camera.GetDeviceInfo().GetSerialNumber(); // Gets camera model name and serial number
       std::cerr << file_name << std::endl;
       
