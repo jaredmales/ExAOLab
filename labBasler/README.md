@@ -58,3 +58,39 @@ If 3 arguments are give, the first is the serial number, the second is exposure 
 ```
 $ ./view1Basler  22411493 10000 cam1
 ```
+
+# writeBasler
+## Build
+ Once the above installs are done,
+```
+$ cd writeBasler
+$ make
+```
+
+## Running write1Basler
+
+The `write1Basler` program takes 1 to 4 arguments.  The first argument is always the number of images to write.
+
+If just 1 argument is given, it is the number of images to write.
+```
+$ ./write1Basler 10
+```
+will write 10 images.
+
+If 2 arguments are given, the first is the number of images to write, the second is the expsoure time in micro-seconds.
+```
+$ ./write1Basler 10 10000
+```
+will write 10 images with an exposure time of 10,000 micro-seconds.
+
+If 3 arguments are given, the first is the number of images to write, the second will be treated as the serial number of the camera to connect to, the third as exposure time in micro-seconds.
+```
+$ ./write1Basler 10 22411493 10000
+```
+will write 10 images from camera 22411493 with an exposure time of 10,000 micro-seconds.
+
+If 4 arguments are give, the first is the number of images to write, the second will be treated as the serial number of the camera to connect to, the third as exposure time in micro-seconds, and the fourth is the name of the camera.
+```
+$ ./write1Basler 10 22411493 10000 cam1
+```
+will write 10 images from camera 22411493 with an exposure time of 10,000 micro-seconds, using `cam1` as the camera name.
